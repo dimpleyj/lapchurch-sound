@@ -106,6 +106,25 @@
       color: #ffffff !important;
     }
 
+    /* 저장 전용 고대비 진한 초록색 버튼 스타일 */
+    .btn-save-deep {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      transition: all 0.15s ease-in-out;
+    }
+
+    .btn-save-deep:hover {
+      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+      box-shadow: 0 8px 24px rgba(4, 120, 87, 0.45);
+    }
+
+    .btn-save-deep:active {
+      transform: scale(0.95);
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
+    }
+
     .checkbox-pill.checked {
       background: linear-gradient(135deg, rgba(225, 245, 240, 0.8), rgba(200, 235, 225, 0.8));
       border-color: rgba(130, 200, 180, 0.6);
@@ -339,8 +358,8 @@
         </div>
       </section>
 
-      <!-- 저장 버튼 -->
-      <button type="button" id="btnSaveRecord" onclick="saveRecord()" class="glass-btn glass-btn-active py-4 px-6 rounded-2xl font-bold txt-body flex items-center justify-center gap-2 mt-1 active:scale-[0.98] transition-all">
+      <!-- 저장 버튼 (진한 초록색 및 모션 효과 적용) -->
+      <button type="button" id="btnSaveRecord" onclick="saveRecord()" class="btn-save-deep py-4 px-6 rounded-2xl font-bold txt-body flex items-center justify-center gap-2 mt-1 cursor-pointer">
         <i class="fa-solid fa-floppy-disk text-base pointer-events-none"></i> <span id="btnSaveLabel" class="pointer-events-none">기록 저장하기</span>
       </button>
 
