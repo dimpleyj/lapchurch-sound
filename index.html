@@ -43,26 +43,30 @@
     .txt-body { font-size: 0.9em; }
     .txt-caption { font-size: 0.75em; }
 
-    /* Glassmorphic Cards & Panels */
+    /* Glassmorphic Cards & Panels - 유리 질감 및 부유(Floating) 입체감 강화 */
     .glass-card {
-      background: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.45);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      border-right: 1px solid rgba(255, 255, 255, 0.4);
       box-shadow: 
-        0 8px 32px 0 rgba(175, 185, 193, 0.15),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+        0 20px 40px -10px rgba(100, 115, 130, 0.22),
+        0 8px 16px -6px rgba(0, 0, 0, 0.08),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
       border-radius: 28px;
     }
 
     .glass-pill {
-      background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.03),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        0 10px 20px -5px rgba(0, 0, 0, 0.08),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
       border-radius: 20px;
     }
 
