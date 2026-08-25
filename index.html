@@ -36,59 +36,59 @@
       transition: background 0.3s ease, color 0.3s ease, font-size 0.2s ease;
     }
 
-    /* Dark Mode Theme (흑백 어두운 톤) */
+    /* 안정적인 흑백 다크모드 테마 */
     body.dark-mode {
       background: #121212 !important;
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(60, 60, 60, 0.4) 0%, transparent 45%),
-        radial-gradient(circle at 85% 75%, rgba(40, 40, 40, 0.4) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.9) 0%, transparent 70%) !important;
+        radial-gradient(circle at 15% 15%, rgba(50, 50, 50, 0.3) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(35, 35, 35, 0.3) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(15, 15, 15, 0.95) 0%, transparent 70%) !important;
       color: #e5e5e5 !important;
     }
 
     body.dark-mode .glass-card {
-      background: rgba(30, 30, 30, 0.65) !important;
-      border: 1px solid rgba(70, 70, 70, 0.6) !important;
-      border-bottom: 1px solid rgba(50, 50, 50, 0.4) !important;
-      border-right: 1px solid rgba(50, 50, 50, 0.4) !important;
+      background: rgba(30, 30, 30, 0.7) !important;
+      border: 1px solid rgba(70, 70, 70, 0.5) !important;
+      border-bottom: 1px solid rgba(45, 45, 45, 0.4) !important;
+      border-right: 1px solid rgba(45, 45, 45, 0.4) !important;
       box-shadow: 
-        0 20px 40px -10px rgba(0, 0, 0, 0.5),
-        0 8px 16px -6px rgba(0, 0, 0, 0.3),
+        0 20px 40px -10px rgba(0, 0, 0, 0.6),
+        0 8px 16px -6px rgba(0, 0, 0, 0.4),
         inset 0 1px 2px 0 rgba(255, 255, 255, 0.08) !important;
       color: #f3f3f3 !important;
     }
 
     body.dark-mode .glass-pill {
-      background: rgba(40, 40, 40, 0.6) !important;
-      border: 1px solid rgba(80, 80, 80, 0.5) !important;
+      background: rgba(40, 40, 40, 0.65) !important;
+      border: 1px solid rgba(70, 70, 70, 0.4) !important;
       box-shadow: 
         0 10px 20px -5px rgba(0, 0, 0, 0.4),
         inset 0 1px 1px 0 rgba(255, 255, 255, 0.05) !important;
     }
 
     body.dark-mode .glass-input {
-      background: rgba(45, 45, 45, 0.7) !important;
+      background: rgba(45, 45, 45, 0.8) !important;
       border: 1px solid rgba(80, 80, 80, 0.6) !important;
       color: #ffffff !important;
     }
 
     body.dark-mode .glass-input:focus {
-      background: rgba(60, 60, 60, 0.9) !important;
-      border-color: rgba(160, 160, 160, 0.8) !important;
-      box-shadow: 0 0 12px rgba(200, 200, 200, 0.2) !important;
+      background: rgba(60, 60, 60, 0.95) !important;
+      border-color: rgba(180, 180, 180, 0.8) !important;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.15) !important;
     }
 
     body.dark-mode .glass-btn {
-      background: rgba(45, 45, 45, 0.7) !important;
+      background: rgba(45, 45, 45, 0.75) !important;
       border: 1px solid rgba(75, 75, 75, 0.7) !important;
       color: #e5e5e5 !important;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     }
 
     body.dark-mode .glass-btn-active {
-      background: linear-gradient(135deg, rgba(80, 80, 80, 0.9), rgba(50, 50, 50, 0.95)) !important;
+      background: linear-gradient(135deg, rgba(85, 85, 85, 0.95), rgba(55, 55, 55, 0.95)) !important;
       color: #ffffff !important;
-      border: 1px solid rgba(120, 120, 120, 0.9) !important;
+      border: 1px solid rgba(130, 130, 130, 0.9) !important;
       box-shadow: 
         0 6px 16px rgba(0, 0, 0, 0.5),
         inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
@@ -99,49 +99,38 @@
     }
 
     body.dark-mode .btn-save-deep {
-      background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%) !important;
+      background: linear-gradient(135deg, #374151 0%, #111827 100%) !important;
       color: #ffffff !important;
       border: 1px solid rgba(100, 100, 100, 0.4) !important;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
     }
 
     body.dark-mode .btn-save-deep:hover {
-      background: linear-gradient(135deg, #374151 0%, #111827 100%) !important;
+      background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%) !important;
     }
 
     body.dark-mode .checkbox-pill.checked {
-      background: linear-gradient(135deg, rgba(60, 60, 60, 0.8), rgba(45, 45, 45, 0.8)) !important;
-      border-color: rgba(100, 100, 100, 0.6) !important;
+      background: linear-gradient(135deg, rgba(65, 65, 65, 0.8), rgba(45, 45, 45, 0.8)) !important;
+      border-color: rgba(110, 110, 110, 0.6) !important;
+    }
+
+    /* 다크모드일 때 장비 상태 점검 리스트 및 기록일지 문구 폰트 색상을 화이트/밝은 그레이로 지정 */
+    body.dark-mode #checklistContainer span,
+    body.dark-mode #historyListContainer span,
+    body.dark-mode #historyListContainer div,
+    body.dark-mode #historyListContainer p,
+    body.dark-mode .text-stone-700,
+    body.dark-mode .text-stone-600,
+    body.dark-mode .text-stone-800 {
+      color: #f3f4f6 !important;
     }
 
     body.dark-mode .completed-item {
-      color: #6b7280 !important;
-    }
-
-    body.dark-mode text, body.dark-mode span, body.dark-mode h1, body.dark-mode h2, body.dark-mode label {
-      color: #e5e5e5;
-    }
-
-    body.dark-mode .text-stone-800, body.dark-mode .text-stone-700, body.dark-mode .text-stone-600 {
-      color: #d1d5db !important;
-    }
-
-    body.dark-mode .text-stone-500, body.dark-mode .text-stone-400 {
       color: #9ca3af !important;
     }
 
-    body.dark-mode .bg-teal-100, body.dark-mode .bg-teal-200 {
-      background-color: rgba(55, 65, 81, 0.8) !important;
-      color: #e5e5e5 !important;
-      border-color: rgba(75, 85, 99, 0.6) !important;
-    }
-
-    body.dark-mode .text-teal-700, body.dark-mode .text-teal-800, body.dark-mode .text-teal-900, body.dark-mode .text-teal-600 {
-      color: #e5e5e5 !important;
-    }
-
     body.dark-mode select, body.dark-mode option {
-      background-color: #262626 !important;
+      background-color: #222222 !important;
       color: #e5e5e5 !important;
     }
 
@@ -272,13 +261,13 @@
           <span class="txt-badge font-bold tracking-widest text-teal-700 uppercase bg-teal-100/70 px-3 py-1 rounded-full border border-teal-200/50">
             사랑과 평안의 교회 [음향실]
           </span>
-          <h1 class="txt-title font-extrabold text-stone-800 mt-2 flex items-center gap-2 tracking-tight">
+          <h1 class="txt-title font-extrabold text-stone-800 dark:text-stone-100 mt-2 flex items-center gap-2 tracking-tight">
             사운드 체크리스트
           </h1>
         </div>
         
         <div class="flex items-center gap-1.5">
-          <!-- 다크모드 토글 버튼 추가 -->
+          <!-- 다크모드 토글 버튼 -->
           <button onclick="toggleDarkMode()" id="darkModeBtn" class="glass-btn w-10 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-stone-900 transition-colors shadow-sm" title="다크모드 토글">
             <i id="darkModeIcon" class="fa-solid fa-moon text-xs"></i>
           </button>
@@ -465,7 +454,7 @@
         </div>
       </section>
 
-      <!-- 4. 메모 (세로 넓이를 많이 넓히고 줄바꿈 적용 지원) -->
+      <!-- 4. 메모 -->
       <section class="glass-card p-5">
         <label class="block txt-caption font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
           <i class="fa-solid fa-note-sticky text-teal-600"></i> 📝 특이사항
@@ -484,7 +473,7 @@
         </div>
       </section>
 
-      <!-- 저장 버튼 (연한 녹색 -> 진한 녹색 그라데이션) -->
+      <!-- 저장 버튼 -->
       <button type="button" id="btnSaveRecord" onclick="saveRecord()" class="btn-save-deep py-4 px-6 rounded-2xl font-bold txt-body flex items-center justify-center gap-2 mt-1 cursor-pointer">
         <i class="fa-solid fa-floppy-disk text-base pointer-events-none"></i> <span id="btnSaveLabel" class="pointer-events-none">기록 저장하기</span>
       </button>
@@ -500,14 +489,12 @@
         <span id="totalRecordCount" class="txt-badge font-bold bg-white/60 text-stone-600 px-3 py-1 rounded-full border border-white">총 0건</span>
       </div>
 
-      <!-- 정렬 및 연도/월/메모 필터 아코디언 컨테이너 (기본 접힘) -->
+      <!-- 정렬 및 연도/월/메모 필터 아코디언 컨테이너 -->
       <div class="glass-card overflow-hidden transition-all duration-300">
-        <!-- 접힘/펼침 토글 버튼 헤더 -->
         <button type="button" onclick="toggleFilterPanel()" class="w-full p-3.5 flex items-center justify-between text-left hover:bg-white/30 transition-colors">
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-filter text-teal-600 text-sm"></i>
             <span class="txt-sub font-bold text-stone-700">기록 검색 & 정렬</span>
-            <!-- 현재 적용중인 요약 태그 -->
             <span id="filterSummaryBadge" class="txt-badge bg-teal-100/80 text-teal-800 font-bold px-2 py-0.5 rounded-full border border-teal-200">
               최신순
             </span>
@@ -515,18 +502,16 @@
           <i id="filterChevronIcon" class="fa-solid fa-chevron-down text-stone-400 text-xs transition-transform duration-200"></i>
         </button>
 
-        <!-- 실제 필터 입력 패널 (기본: hidden) -->
         <div id="filterContentPanel" class="hidden p-3.5 border-t border-white/60 flex flex-col gap-3 bg-white/20">
           <div class="flex items-center justify-between gap-2">
             <span class="txt-caption font-bold text-stone-500">정렬 기준</span>
-            <!-- 정렬 순서 선택 (기본: 최신 날짜순) -->
             <select id="sortOrderSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
               <option value="desc">📅 최신 날짜순</option>
               <option value="asc">⏳ 오래된 날짜순</option>
             </select>
           </div>
 
-          <!-- 메모 필터 (이슈 및 원인&해결 선택 가능) -->
+          <!-- 메모 필터 -->
           <div class="flex items-center justify-between gap-2 border-t border-white/40 pt-2.5">
             <span class="txt-caption font-bold text-stone-500">메모 필터</span>
             <select id="memoFilterSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
@@ -537,14 +522,12 @@
           </div>
 
           <div class="grid grid-cols-2 gap-2 border-t border-white/40 pt-2.5">
-            <!-- 연도 필터 -->
             <div>
               <label class="block txt-badge font-bold text-stone-400 mb-1">연도 선택</label>
               <select id="yearFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
                 <option value="all">전체 연도</option>
               </select>
             </div>
-            <!-- 월 필터 -->
             <div>
               <label class="block txt-badge font-bold text-stone-400 mb-1">월 선택</label>
               <select id="monthFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
@@ -605,15 +588,12 @@
       const today = new Date().toISOString().split('T')[0];
       document.getElementById('checkDate').value = today;
 
-      // 저장된 다크모드 설정 불러오기
       loadDarkModeSetting();
-
       loadRecordsFromStorage();
       updateProgress();
       onCheckDateChange();
     };
 
-    /* 다크모드 토글 함수 */
     function toggleDarkMode() {
       const body = document.getElementById('appBody');
       const icon = document.getElementById('darkModeIcon');
@@ -631,7 +611,6 @@
       }
     }
 
-    /* 저장된 다크모드 설정 적용 */
     function loadDarkModeSetting() {
       const savedMode = localStorage.getItem('sound_checklist_darkmode');
       const body = document.getElementById('appBody');
@@ -646,7 +625,6 @@
       }
     }
 
-    /* 특정 날짜가 해당 월의 몇째주 일요일인지 (혹은 몇째주에 속하는지) 계산하는 함수 */
     function getSundayWeekOfMonth(dateStr) {
       if (!dateStr) return '';
       const parts = dateStr.split('-');
@@ -659,22 +637,18 @@
       const currentDate = new Date(year, month - 1, day);
       if (isNaN(currentDate.getTime())) return '';
 
-      // 해당 날짜가 속한 주차의 일요일 날짜 구하기 (0: 일요일, 1: 월요일 ... 6: 토요일)
       const dayOfWeek = currentDate.getDay(); 
       const distanceToSunday = (dayOfWeek === 0) ? 0 : (7 - dayOfWeek);
       
-      // 일요일 기준 날짜
       const sundayDate = new Date(year, month - 1, day + distanceToSunday);
       const sundayMonth = sundayDate.getMonth() + 1;
       const sundayDay = sundayDate.getDate();
 
-      // 해당 일요일이 달의 몇 번째 일요일인지 계산
       const weekNum = Math.ceil(sundayDay / 7);
 
       return `${sundayMonth}월 ${weekNum}주차`;
     }
 
-    /* 날짜 변경 시 호출되는 이벤트 핸들러 */
     function onCheckDateChange() {
       const dateVal = document.getElementById('checkDate').value;
       const weekText = getSundayWeekOfMonth(dateVal);
@@ -748,7 +722,6 @@
       }
     }
 
-    /* 필터 박스 접힘/펼침 토글 */
     function toggleFilterPanel() {
       const content = document.getElementById('filterContentPanel');
       const chevron = document.getElementById('filterChevronIcon');
@@ -766,7 +739,6 @@
       renderHistory();
     }
 
-    /* 상단 요약 태그 업데이트 */
     function updateFilterBadgeText() {
       const sortVal = document.getElementById('sortOrderSelect').value;
       const memoVal = document.getElementById('memoFilterSelect').value;
@@ -836,7 +808,7 @@
       const problemText = document.getElementById('issueProblem').value;
       const solutionText = document.getElementById('issueSolution').value;
       const nowTime = getCurrentFormattedTime();
-      const sundayWeek = getSundayWeekOfMonth(dateVal); // 몇째주 일요일인지 계산
+      const sundayWeek = getSundayWeekOfMonth(dateVal);
 
       if (editingRecordId !== null) {
         const index = records.findIndex(r => r.id === editingRecordId);
@@ -948,7 +920,6 @@
       document.getElementById('tabWriteLabel').innerText = '점검 작성';
     }
 
-    // 연도 필터 옵션을 동적으로 업데이트하는 함수
     function updateFilterOptions() {
       const yearSelect = document.getElementById('yearFilterSelect');
       const currentSelectedYear = yearSelect.value;
@@ -970,7 +941,6 @@
 
       yearSelect.innerHTML = optionsHtml;
       
-      // 기존에 선택해둔 연도가 유효하면 유지
       if (sortedYears.includes(currentSelectedYear)) {
         yearSelect.value = currentSelectedYear;
       } else {
@@ -978,19 +948,16 @@
       }
     }
 
-    // 필터링 및 정렬이 반영된 레코드 목록 반환 함수
     function getFilteredAndSortedRecords() {
       const sortOrder = document.getElementById('sortOrderSelect').value;
       const memoFilter = document.getElementById('memoFilterSelect').value;
       const selectedYear = document.getElementById('yearFilterSelect').value;
       const selectedMonth = document.getElementById('monthFilterSelect').value;
 
-      // 1. 필터링 (메모 필터, 연도, 월)
       let filtered = records.filter(r => {
         if (!r.date) return false;
         const [yyyy, mm] = r.date.split('-');
 
-        // 메모 필터 검사 (이슈 또는 원인&해결)
         if (memoFilter === 'only_issues') {
           const hasIssue = r.problem && r.problem.trim() !== '' && r.problem !== '특이사항 없음';
           if (!hasIssue) return false;
@@ -1005,15 +972,14 @@
         return true;
       });
 
-      // 2. 정렬 (최신순 / 오래된순)
       filtered.sort((a, b) => {
         const timeA = new Date(a.date).getTime() || 0;
         const timeB = new Date(b.date).getTime() || 0;
 
         if (sortOrder === 'asc') {
-          return timeA - timeB || a.id - b.id; // 오래된 날짜순
+          return timeA - timeB || a.id - b.id;
         } else {
-          return timeB - timeA || b.id - a.id; // 최신 날짜순 (기본값)
+          return timeB - timeA || b.id - a.id;
         }
       });
 
@@ -1090,7 +1056,7 @@
               </div>
             </div>
 
-            <!-- Issues Section (줄바꿈 원본 그대로 적용) -->
+            <!-- Issues Section -->
             <div class="glass-pill p-3.5 txt-sub flex flex-col gap-2.5 mt-1">
               <div>
                 <span class="font-bold text-rose-500 block mb-0.5">🚨 문제:</span>
@@ -1187,7 +1153,7 @@
     }
 
     function escapeHtml(text) {
-      if (!text) return ‘’;
+      if (!text) return '';
       return text
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
