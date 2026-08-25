@@ -378,6 +378,49 @@
         <span id="totalRecordCount" class="txt-badge font-bold bg-white/60 text-stone-600 px-3 py-1 rounded-full border border-white">총 0건</span>
       </div>
 
+      <!-- 정렬 및 연도/월 필터 옵션 영역 -->
+      <div id="historyFilterBar" class="glass-card p-3.5 flex flex-col gap-2.5">
+        <div class="flex items-center justify-between gap-2">
+          <span class="txt-caption font-bold text-stone-500 flex items-center gap-1">
+            <i class="fa-solid fa-filter text-teal-600"></i> 기록 검색/정렬
+          </span>
+          <!-- 정렬 순서 선택 (기본: 최신 날짜순) -->
+          <select id="sortOrderSelect" onchange="renderHistory()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
+            <option value="desc">📅 최신 날짜순</option>
+            <option value="asc">⏳ 오래된 날짜순</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 border-t border-white/60 pt-2.5">
+          <!-- 연도 필터 -->
+          <div>
+            <label class="block txt-badge font-bold text-stone-400 mb-1">연도 선택</label>
+            <select id="yearFilterSelect" onchange="renderHistory()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
+              <option value="all">전체 연도</option>
+            </select>
+          </div>
+          <!-- 월 필터 -->
+          <div>
+            <label class="block txt-badge font-bold text-stone-400 mb-1">월 선택</label>
+            <select id="monthFilterSelect" onchange="renderHistory()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
+              <option value="all">전체 월</option>
+              <option value="01">1월</option>
+              <option value="02">2월</option>
+              <option value="03">3월</option>
+              <option value="04">4월</option>
+              <option value="05">5월</option>
+              <option value="06">6월</option>
+              <option value="07">7월</option>
+              <option value="08">8월</option>
+              <option value="09">9월</option>
+              <option value="10">10월</option>
+              <option value="11">11월</option>
+              <option value="12">12월</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       <div id="historyListContainer" class="flex flex-col gap-4">
         <!-- Records populated by JS -->
       </div>
@@ -474,6 +517,7 @@
         tabHistory.className = 'glass-btn glass-btn-active py-2.5 px-4 rounded-xl font-bold txt-sub flex items-center justify-center gap-2';
         tabWrite.className = 'glass-btn py-2.5 px-4 rounded-xl font-bold txt-sub text-stone-500 flex items-center justify-center gap-2';
 
+        updateFilterOptions();
         renderHistory();
       }
     }
@@ -638,21 +682,85 @@
       document.getElementById('tabWriteLabel').innerText = '점검 작성';
     }
 
+    // 연도 필터 옵션을 동적으로 업데이트하는 함수
+    function updateFilterOptions() {
+      const yearSelect = document.getElementById('yearFilterSelect');
+      const currentSelectedYear = yearSelect.value;
+
+      const years = new Set();
+      records.forEach(r => {
+        if (r.date) {
+          const yyyy = r.date.split('-')[0];
+          if (yyyy) years.add(yyyy);
+        }
+      });
+
+      const sortedYears = Array.from(years).sort((a, b) => b - a);
+
+      let optionsHtml = '<option value="all">전체 연도</option>';
+      sortedYears.forEach(y => {
+        optionsHtml += `<option value="${y}">${y}년</option>`;
+      });
+
+      yearSelect.innerHTML = optionsHtml;
+      
+      // 기존에 선택해둔 연도가 유효하면 유지
+      if (sortedYears.includes(currentSelectedYear)) {
+        yearSelect.value = currentSelectedYear;
+      } else {
+        yearSelect.value = 'all';
+      }
+    }
+
+    // 필터링 및 정렬이 반영된 레코드 목록 반환 함수
+    function getFilteredAndSortedRecords() {
+      const sortOrder = document.getElementById('sortOrderSelect').value;
+      const selectedYear = document.getElementById('yearFilterSelect').value;
+      const selectedMonth = document.getElementById('monthFilterSelect').value;
+
+      // 1. 필터링 (연도, 월)
+      let filtered = records.filter(r => {
+        if (!r.date) return false;
+        const [yyyy, mm] = r.date.split('-');
+
+        if (selectedYear !== 'all' && yyyy !== selectedYear) return false;
+        if (selectedMonth !== 'all' && mm !== selectedMonth) return false;
+
+        return true;
+      });
+
+      // 2. 정렬 (최신순 / 오래된순)
+      filtered.sort((a, b) => {
+        const timeA = new Date(a.date).getTime() || 0;
+        const timeB = new Date(b.date).getTime() || 0;
+
+        if (sortOrder === 'asc') {
+          return timeA - timeB || a.id - b.id; // 오래된 날짜순
+        } else {
+          return timeB - timeA || b.id - a.id; // 최신 날짜순 (기본값)
+        }
+      });
+
+      return filtered;
+    }
+
     function renderHistory() {
       const container = document.getElementById('historyListContainer');
-      document.getElementById('totalRecordCount').innerText = `총 ${records.length}건`;
+      const displayRecords = getFilteredAndSortedRecords();
+      
+      document.getElementById('totalRecordCount').innerText = `총 ${records.length}건 (조회: ${displayRecords.length}건)`;
 
-      if (records.length === 0) {
+      if (displayRecords.length === 0) {
         container.innerHTML = `
           <div class="glass-card p-8 text-center flex flex-col items-center justify-center gap-3 text-stone-400">
             <i class="fa-solid fa-box-open text-3xl"></i>
-            <p class="font-bold txt-sub">저장된 점검 기록이 없어!</p>
+            <p class="font-bold txt-sub">조건에 맞는 점검 기록이 없습니다.</p>
           </div>
         `;
         return;
       }
 
-      container.innerHTML = records.map(rec => {
+      container.innerHTML = displayRecords.map(rec => {
         const checkedCount = Object.values(rec.items).filter(Boolean).length;
         const initialInspectorStr = rec.firstInspector || rec.inspectors.join(', ');
         
@@ -756,6 +864,7 @@
       if (confirm('이 점검 기록을 삭제할까요?')) {
         records = records.filter(r => r.id !== id);
         saveRecordsToStorage();
+        updateFilterOptions();
         renderHistory();
         showToast('삭제완료!');
       }
