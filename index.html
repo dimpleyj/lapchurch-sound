@@ -15,9 +15,9 @@
 
   <style>
     /* Font Size Rules */
-    body.size-sm { font-size: 14px !important; }
-    body.size-md { font-size: 16px !important; }
-    body.size-lg { font-size: 23px !important; }
+    body.size-sm { font-size: 16px !important; }
+    body.size-md { font-size: 19px !important; }
+    body.size-lg { font-size: 25px !important; }
 
     /* Font Family Rules */
     body.font-noto { font-family: 'Noto Sans KR', sans-serif !important; }
@@ -106,18 +106,18 @@
       color: #ffffff !important;
     }
 
-    /* 저장 전용 고대비 진한 초록색 버튼 스타일 */
+    /* 기록 저장 버튼 전용 [연한 녹색 -> 진한 녹색] 그라데이션 스타일 */
     .btn-save-deep {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      background: linear-gradient(135deg, #10b981 0%, #047857 100%);
       color: #ffffff !important;
       border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
       transition: all 0.15s ease-in-out;
     }
 
     .btn-save-deep:hover {
-      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
-      box-shadow: 0 8px 24px rgba(4, 120, 87, 0.45);
+      background: linear-gradient(135deg, #059669 0%, #065f46 100%);
+      box-shadow: 0 8px 24px rgba(5, 150, 105, 0.45);
     }
 
     .btn-save-deep:active {
@@ -358,7 +358,7 @@
         </div>
       </section>
 
-      <!-- 저장 버튼 (진한 초록색 및 모션 효과 적용) -->
+      <!-- 저장 버튼 (연한 녹색 -> 진한 녹색 그라데이션) -->
       <button type="button" id="btnSaveRecord" onclick="saveRecord()" class="btn-save-deep py-4 px-6 rounded-2xl font-bold txt-body flex items-center justify-center gap-2 mt-1 cursor-pointer">
         <i class="fa-solid fa-floppy-disk text-base pointer-events-none"></i> <span id="btnSaveLabel" class="pointer-events-none">기록 저장하기</span>
       </button>
