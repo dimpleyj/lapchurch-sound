@@ -33,7 +33,116 @@
       background-attachment: fixed;
       color: #333a42;
       -webkit-tap-highlight-color: transparent;
-      transition: font-size 0.2s ease;
+      transition: background 0.3s ease, color 0.3s ease, font-size 0.2s ease;
+    }
+
+    /* Dark Mode Theme (흑백 어두운 톤) */
+    body.dark-mode {
+      background: #121212 !important;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(60, 60, 60, 0.4) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(40, 40, 40, 0.4) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.9) 0%, transparent 70%) !important;
+      color: #e5e5e5 !important;
+    }
+
+    body.dark-mode .glass-card {
+      background: rgba(30, 30, 30, 0.65) !important;
+      border: 1px solid rgba(70, 70, 70, 0.6) !important;
+      border-bottom: 1px solid rgba(50, 50, 50, 0.4) !important;
+      border-right: 1px solid rgba(50, 50, 50, 0.4) !important;
+      box-shadow: 
+        0 20px 40px -10px rgba(0, 0, 0, 0.5),
+        0 8px 16px -6px rgba(0, 0, 0, 0.3),
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.08) !important;
+      color: #f3f3f3 !important;
+    }
+
+    body.dark-mode .glass-pill {
+      background: rgba(40, 40, 40, 0.6) !important;
+      border: 1px solid rgba(80, 80, 80, 0.5) !important;
+      box-shadow: 
+        0 10px 20px -5px rgba(0, 0, 0, 0.4),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.05) !important;
+    }
+
+    body.dark-mode .glass-input {
+      background: rgba(45, 45, 45, 0.7) !important;
+      border: 1px solid rgba(80, 80, 80, 0.6) !important;
+      color: #ffffff !important;
+    }
+
+    body.dark-mode .glass-input:focus {
+      background: rgba(60, 60, 60, 0.9) !important;
+      border-color: rgba(160, 160, 160, 0.8) !important;
+      box-shadow: 0 0 12px rgba(200, 200, 200, 0.2) !important;
+    }
+
+    body.dark-mode .glass-btn {
+      background: rgba(45, 45, 45, 0.7) !important;
+      border: 1px solid rgba(75, 75, 75, 0.7) !important;
+      color: #e5e5e5 !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    body.dark-mode .glass-btn-active {
+      background: linear-gradient(135deg, rgba(80, 80, 80, 0.9), rgba(50, 50, 50, 0.95)) !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(120, 120, 120, 0.9) !important;
+      box-shadow: 
+        0 6px 16px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+    }
+
+    body.dark-mode .glass-btn-active i {
+      color: #ffffff !important;
+    }
+
+    body.dark-mode .btn-save-deep {
+      background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%) !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(100, 100, 100, 0.4) !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+    }
+
+    body.dark-mode .btn-save-deep:hover {
+      background: linear-gradient(135deg, #374151 0%, #111827 100%) !important;
+    }
+
+    body.dark-mode .checkbox-pill.checked {
+      background: linear-gradient(135deg, rgba(60, 60, 60, 0.8), rgba(45, 45, 45, 0.8)) !important;
+      border-color: rgba(100, 100, 100, 0.6) !important;
+    }
+
+    body.dark-mode .completed-item {
+      color: #6b7280 !important;
+    }
+
+    body.dark-mode text, body.dark-mode span, body.dark-mode h1, body.dark-mode h2, body.dark-mode label {
+      color: #e5e5e5;
+    }
+
+    body.dark-mode .text-stone-800, body.dark-mode .text-stone-700, body.dark-mode .text-stone-600 {
+      color: #d1d5db !important;
+    }
+
+    body.dark-mode .text-stone-500, body.dark-mode .text-stone-400 {
+      color: #9ca3af !important;
+    }
+
+    body.dark-mode .bg-teal-100, body.dark-mode .bg-teal-200 {
+      background-color: rgba(55, 65, 81, 0.8) !important;
+      color: #e5e5e5 !important;
+      border-color: rgba(75, 85, 99, 0.6) !important;
+    }
+
+    body.dark-mode .text-teal-700, body.dark-mode .text-teal-800, body.dark-mode .text-teal-900, body.dark-mode .text-teal-600 {
+      color: #e5e5e5 !important;
+    }
+
+    body.dark-mode select, body.dark-mode option {
+      background-color: #262626 !important;
+      color: #e5e5e5 !important;
     }
 
     /* Relative text sizes inside scaling container */
@@ -168,10 +277,17 @@
           </h1>
         </div>
         
-        <button onclick="toggleFontSettings()" class="glass-btn px-3 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-bold txt-caption transition-colors shadow-sm gap-1" title="글꼴 및 크기 설정">
-          <i class="fa-solid fa-gear text-xs text-stone-400"></i>
-          <span>폰트</span>
-        </button>
+        <div class="flex items-center gap-1.5">
+          <!-- 다크모드 토글 버튼 추가 -->
+          <button onclick="toggleDarkMode()" id="darkModeBtn" class="glass-btn w-10 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-stone-900 transition-colors shadow-sm" title="다크모드 토글">
+            <i id="darkModeIcon" class="fa-solid fa-moon text-xs"></i>
+          </button>
+          
+          <button onclick="toggleFontSettings()" class="glass-btn px-3 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-bold txt-caption transition-colors shadow-sm gap-1" title="글꼴 및 크기 설정">
+            <i class="fa-solid fa-gear text-xs text-stone-400"></i>
+            <span>폰트</span>
+          </button>
+        </div>
       </div>
 
       <!-- Font & Size Control Panel -->
@@ -384,7 +500,7 @@
         <span id="totalRecordCount" class="txt-badge font-bold bg-white/60 text-stone-600 px-3 py-1 rounded-full border border-white">총 0건</span>
       </div>
 
-      <!-- 정렬 및 연도/월 필터 아코디언 컨테이너 (기본 접힘) -->
+      <!-- 정렬 및 연도/월/메모 필터 아코디언 컨테이너 (기본 접힘) -->
       <div class="glass-card overflow-hidden transition-all duration-300">
         <!-- 접힘/펼침 토글 버튼 헤더 -->
         <button type="button" onclick="toggleFilterPanel()" class="w-full p-3.5 flex items-center justify-between text-left hover:bg-white/30 transition-colors">
@@ -407,6 +523,16 @@
             <select id="sortOrderSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
               <option value="desc">📅 최신 날짜순</option>
               <option value="asc">⏳ 오래된 날짜순</option>
+            </select>
+          </div>
+
+          <!-- 메모 필터 (이슈 및 원인&해결 선택 가능) -->
+          <div class="flex items-center justify-between gap-2 border-t border-white/40 pt-2.5">
+            <span class="txt-caption font-bold text-stone-500">메모 필터</span>
+            <select id="memoFilterSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
+              <option value="all">전체 기록 보기</option>
+              <option value="only_issues">🚨 이슈 기록만 보기</option>
+              <option value="only_solutions">🛠 원인&해결 기록만 보기</option>
             </select>
           </div>
 
@@ -479,10 +605,46 @@
       const today = new Date().toISOString().split('T')[0];
       document.getElementById('checkDate').value = today;
 
+      // 저장된 다크모드 설정 불러오기
+      loadDarkModeSetting();
+
       loadRecordsFromStorage();
       updateProgress();
       onCheckDateChange();
     };
+
+    /* 다크모드 토글 함수 */
+    function toggleDarkMode() {
+      const body = document.getElementById('appBody');
+      const icon = document.getElementById('darkModeIcon');
+      body.classList.toggle('dark-mode');
+
+      const isDark = body.classList.contains('dark-mode');
+      if (isDark) {
+        icon.className = 'fa-solid fa-sun text-xs text-amber-300';
+        localStorage.setItem('sound_checklist_darkmode', 'true');
+        showToast('다크모드가 켜졌습니다.');
+      } else {
+        icon.className = 'fa-solid fa-moon text-xs';
+        localStorage.setItem('sound_checklist_darkmode', 'false');
+        showToast('라이트모드가 켜졌습니다.');
+      }
+    }
+
+    /* 저장된 다크모드 설정 적용 */
+    function loadDarkModeSetting() {
+      const savedMode = localStorage.getItem('sound_checklist_darkmode');
+      const body = document.getElementById('appBody');
+      const icon = document.getElementById('darkModeIcon');
+
+      if (savedMode === 'true') {
+        body.classList.add('dark-mode');
+        icon.className = 'fa-solid fa-sun text-xs text-amber-300';
+      } else {
+        body.classList.remove('dark-mode');
+        icon.className = 'fa-solid fa-moon text-xs';
+      }
+    }
 
     /* 특정 날짜가 해당 월의 몇째주 일요일인지 (혹은 몇째주에 속하는지) 계산하는 함수 */
     function getSundayWeekOfMonth(dateStr) {
@@ -607,10 +769,13 @@
     /* 상단 요약 태그 업데이트 */
     function updateFilterBadgeText() {
       const sortVal = document.getElementById('sortOrderSelect').value;
+      const memoVal = document.getElementById('memoFilterSelect').value;
       const yearVal = document.getElementById('yearFilterSelect').value;
       const monthVal = document.getElementById('monthFilterSelect').value;
 
       const labels = [];
+      if (memoVal === 'only_issues') labels.push('🚨 이슈만');
+      if (memoVal === 'only_solutions') labels.push('🛠 원인&해결만');
       if (yearVal !== 'all') labels.push(`${yearVal}년`);
       if (monthVal !== 'all') labels.push(`${parseInt(monthVal, 10)}월`);
       labels.push(sortVal === 'asc' ? '오래된순' : '최신순');
@@ -816,13 +981,23 @@
     // 필터링 및 정렬이 반영된 레코드 목록 반환 함수
     function getFilteredAndSortedRecords() {
       const sortOrder = document.getElementById('sortOrderSelect').value;
+      const memoFilter = document.getElementById('memoFilterSelect').value;
       const selectedYear = document.getElementById('yearFilterSelect').value;
       const selectedMonth = document.getElementById('monthFilterSelect').value;
 
-      // 1. 필터링 (연도, 월)
+      // 1. 필터링 (메모 필터, 연도, 월)
       let filtered = records.filter(r => {
         if (!r.date) return false;
         const [yyyy, mm] = r.date.split('-');
+
+        // 메모 필터 검사 (이슈 또는 원인&해결)
+        if (memoFilter === 'only_issues') {
+          const hasIssue = r.problem && r.problem.trim() !== '' && r.problem !== '특이사항 없음';
+          if (!hasIssue) return false;
+        } else if (memoFilter === 'only_solutions') {
+          const hasSolution = r.solution && r.solution.trim() !== '' && r.solution !== '특이사항 없음';
+          if (!hasSolution) return false;
+        }
 
         if (selectedYear !== 'all' && yyyy !== selectedYear) return false;
         if (selectedMonth !== 'all' && mm !== selectedMonth) return false;
@@ -952,7 +1127,7 @@
       setTimeout(() => {
         html2canvas(cardEl, {
           scale: 2,
-          backgroundColor: '#f5f2eb',
+          backgroundColor: document.body.classList.contains('dark-mode') ? '#1a1a1a' : '#f5f2eb',
           useCORS: true,
           logging: false
         }).then(canvas => {
@@ -1012,13 +1187,13 @@
     }
 
     function escapeHtml(text) {
-      if (!text) return '';
+      if (!text) return ‘’;
       return text
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(/[']/g, "&#039;");
     }
   </script>
 </body>
