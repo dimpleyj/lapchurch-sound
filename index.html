@@ -138,7 +138,7 @@
       <div class="flex justify-between items-start">
         <div>
           <span class="txt-badge font-bold tracking-widest text-teal-700 uppercase bg-teal-100/70 px-3 py-1 rounded-full border border-teal-200/50">
-            사랑과 평안의 교회 / 음향실
+            사랑과 평안의 교회 [음향실]
           </span>
           <h1 class="txt-title font-extrabold text-stone-800 mt-2 flex items-center gap-2 tracking-tight">
             사운드 체크리스트
@@ -320,15 +320,15 @@
         </div>
       </section>
 
-      <!-- 4. 예배 특이사항 -->
+      <!-- 4. 메모 -->
       <section class="glass-card p-5">
         <label class="block txt-caption font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-          <i class="fa-solid fa-note-sticky text-teal-600"></i> 📝 예배 특이사항
+          <i class="fa-solid fa-note-sticky text-teal-600"></i> 📝 특이사항
         </label>
         
         <div class="flex flex-col gap-3">
           <div>
-            <span class="txt-sub font-bold text-stone-600 mb-1 block">이슈사항</span>
+            <span class="txt-sub font-bold text-stone-600 mb-1 block">이슈</span>
             <textarea id="issueProblem" rows="2" placeholder="예: 보컬 마이크 노이즈, 스피커 출력 이상 등..." class="glass-input w-full p-3 rounded-2xl txt-body font-medium text-stone-700 resize-none"></textarea>
           </div>
 
@@ -579,17 +579,17 @@
       document.getElementById('issueSolution').value = target.solution === '특이사항 없음' ? '' : target.solution;
 
       document.getElementById('editNoticeBanner').classList.remove('hidden');
-      document.getElementById('editNoticeText').innerText = `${target.date} 기록을 수정하는 중이야`;
+      document.getElementById('editNoticeText').innerText = `${target.date} 기록을 수정하는 중`;
       document.getElementById('btnSaveLabel').innerText = '기록 수정 완료';
       document.getElementById('tabWriteLabel').innerText = '점검 수정';
 
       switchTab('write');
-      showToast('기록 정보를 불러왔어!');
+      showToast('기록 정보를 불러옴');
     }
 
     function cancelEditMode() {
       resetForm();
-      showToast('수정이 취소되었어.');
+      showToast('수정 취소.');
     }
 
     function resetForm() {
