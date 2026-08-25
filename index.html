@@ -24,25 +24,28 @@
     body.font-gowun { font-family: 'Gowun Dodum', sans-serif !important; }
     body.font-myeongjo { font-family: 'Nanum Myeongjo', serif !important; }
 
+    /* 라이트모드 부드러운 다중 감성 그라데이션 바탕 */
     body {
-      background: #fbf9f6;
+      background: #f4f0eb;
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(162, 222, 208, 0.35) 0%, transparent 45%),
-        radial-gradient(circle at 85% 75%, rgba(248, 196, 206, 0.35) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+        radial-gradient(circle at 10% 10%, rgba(140, 215, 198, 0.45) 0%, transparent 50%),
+        radial-gradient(circle at 90% 85%, rgba(245, 180, 195, 0.45) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, transparent 80%),
+        linear-gradient(135deg, #f7f4ee 0%, #efeae1 100%);
       background-attachment: fixed;
       color: #333a42;
       -webkit-tap-highlight-color: transparent;
       transition: background 0.3s ease, color 0.3s ease, font-size 0.2s ease;
     }
 
-    /* 안정적인 흑백 다크모드 테마 */
+    /* 다크모드 깊이감 있는 흑백 그라데이션 바탕 */
     body.dark-mode {
-      background: #121212 !important;
+      background: #0d0d0d !important;
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(50, 50, 50, 0.3) 0%, transparent 45%),
-        radial-gradient(circle at 85% 75%, rgba(35, 35, 35, 0.3) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(15, 15, 15, 0.95) 0%, transparent 70%) !important;
+        radial-gradient(circle at 10% 10%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 90% 85%, rgba(40, 40, 40, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.95) 0%, transparent 80%),
+        linear-gradient(135deg, #161616 0%, #0a0a0a 100%) !important;
       color: #e5e5e5 !important;
     }
 
@@ -114,7 +117,6 @@
       border-color: rgba(110, 110, 110, 0.6) !important;
     }
 
-    /* 다크모드일 때 장비 상태 점검 리스트 및 기록일지 문구 폰트 색상을 화이트/밝은 그레이로 지정 */
     body.dark-mode #checklistContainer span,
     body.dark-mode #historyListContainer span,
     body.dark-mode #historyListContainer div,
@@ -141,7 +143,7 @@
     .txt-body { font-size: 0.9em; }
     .txt-caption { font-size: 0.75em; }
 
-    /* Glassmorphic Cards & Panels - 유리 질감 및 부유(Floating) 입체감 강화 */
+    /* Glassmorphic Cards & Panels */
     .glass-card {
       background: rgba(255, 255, 255, 0.45);
       backdrop-filter: blur(16px);
@@ -208,7 +210,6 @@
       color: #ffffff !important;
     }
 
-    /* 기록 저장 버튼 전용 [연한 녹색 -> 진한 녹색] 그라데이션 스타일 */
     .btn-save-deep {
       background: linear-gradient(135deg, #10b981 0%, #047857 100%);
       color: #ffffff !important;
@@ -261,7 +262,7 @@
           <span class="txt-badge font-bold tracking-widest text-teal-700 uppercase bg-teal-100/70 px-3 py-1 rounded-full border border-teal-200/50">
             사랑과 평안의 교회 [음향실]
           </span>
-          <h1 class="txt-title font-extrabold text-stone-800 dark:text-stone-100 mt-2 flex items-center gap-2 tracking-tight">
+          <h1 class="txt-title font-extrabold text-stone-800 mt-2 flex items-center gap-2 tracking-tight">
             사운드 체크리스트
           </h1>
         </div>
@@ -350,7 +351,6 @@
           <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
             <i class="fa-regular fa-calendar-check text-teal-600"></i> 점검 날짜
           </label>
-          <!-- 몇째주 일요일인지 보여주는 자동 안내 태그 -->
           <span id="sundayWeekBadge" class="txt-badge font-bold bg-teal-100/90 text-teal-800 px-2.5 py-0.5 rounded-full border border-teal-200/60 shadow-sm">
             -
           </span>
@@ -457,7 +457,7 @@
       <!-- 4. 메모 -->
       <section class="glass-card p-5">
         <label class="block txt-caption font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-          <i class="fa-solid fa-note-sticky text-teal-600"></i> 📝 특이사항
+          <i class="fa-solid fa-note-sticky text-teal-600"></i> 📝 메모
         </label>
         
         <div class="flex flex-col gap-4">
@@ -511,13 +511,13 @@
             </select>
           </div>
 
-          <!-- 메모 필터 -->
+          <!-- 변경된 메모 필터 3가지 옵션 (전체보기, 메모 ⭕️, 메모 ❌️) -->
           <div class="flex items-center justify-between gap-2 border-t border-white/40 pt-2.5">
             <span class="txt-caption font-bold text-stone-500">메모 필터</span>
             <select id="memoFilterSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
-              <option value="all">전체 기록 보기</option>
-              <option value="only_issues">🚨 이슈 기록만 보기</option>
-              <option value="only_solutions">🛠 원인&해결 기록만 보기</option>
+              <option value="all">📋 전체 보기</option>
+              <option value="has_memo">메모 ⭕️ (작성됨)</option>
+              <option value="no_memo">메모 ❌️ (없음)</option>
             </select>
           </div>
 
@@ -603,11 +603,11 @@
       if (isDark) {
         icon.className = 'fa-solid fa-sun text-xs text-amber-300';
         localStorage.setItem('sound_checklist_darkmode', 'true');
-        showToast('다크모드가 켜졌습니다.');
+        showToast('다크모드 ON');
       } else {
         icon.className = 'fa-solid fa-moon text-xs';
         localStorage.setItem('sound_checklist_darkmode', 'false');
-        showToast('라이트모드가 켜졌습니다.');
+        showToast('라이트모드 ON');
       }
     }
 
@@ -746,8 +746,8 @@
       const monthVal = document.getElementById('monthFilterSelect').value;
 
       const labels = [];
-      if (memoVal === 'only_issues') labels.push('🚨 이슈만');
-      if (memoVal === 'only_solutions') labels.push('🛠 원인&해결만');
+      if (memoVal === 'has_memo') labels.push('메모 ⭕️');
+      if (memoVal === 'no_memo') labels.push('메모 ❌️');
       if (yearVal !== 'all') labels.push(`${yearVal}년`);
       if (monthVal !== 'all') labels.push(`${parseInt(monthVal, 10)}월`);
       labels.push(sortVal === 'asc' ? '오래된순' : '최신순');
@@ -958,12 +958,15 @@
         if (!r.date) return false;
         const [yyyy, mm] = r.date.split('-');
 
-        if (memoFilter === 'only_issues') {
-          const hasIssue = r.problem && r.problem.trim() !== '' && r.problem !== '특이사항 없음';
-          if (!hasIssue) return false;
-        } else if (memoFilter === 'only_solutions') {
-          const hasSolution = r.solution && r.solution.trim() !== '' && r.solution !== '특이사항 없음';
-          if (!hasSolution) return false;
+        // 메모 필터 판별 (문제 또는 해결 내용이 '특이사항 없음'이 아니거나 비어있지 않은 경우를 메모 작성됨으로 판단)
+        const hasProb = r.problem && r.problem.trim() !== '' && r.problem !== '특이사항 없음';
+        const hasSol = r.solution && r.solution.trim() !== '' && r.solution !== '특이사항 없음';
+        const isMemoWritten = hasProb || hasSol;
+
+        if (memoFilter === 'has_memo') {
+          if (!isMemoWritten) return false;
+        } else if (memoFilter === 'no_memo') {
+          if (isMemoWritten) return false;
         }
 
         if (selectedYear !== 'all' && yyyy !== selectedYear) return false;
