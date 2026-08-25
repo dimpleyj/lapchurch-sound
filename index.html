@@ -16,7 +16,7 @@
   <style>
     /* Font Size Rules */
     body.size-sm { font-size: 16px !important; }
-    body.size-md { font-size: 19px !important; }
+    body.size-md { font-size: 18px !important; }
     body.size-lg { font-size: 25px !important; }
 
     /* Font Family Rules */
@@ -241,10 +241,16 @@
 
       <!-- 1. 날짜 선택 -->
       <section class="glass-card p-5">
-        <label class="block txt-caption font-bold text-stone-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-          <i class="fa-regular fa-calendar-check text-teal-600"></i> 점검 날짜
-        </label>
-        <input type="date" id="checkDate" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-700 txt-body">
+        <div class="flex justify-between items-center mb-2">
+          <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-regular fa-calendar-check text-teal-600"></i> 점검 날짜
+          </label>
+          <!-- 몇째주 일요일인지 보여주는 자동 안내 태그 -->
+          <span id="sundayWeekBadge" class="txt-badge font-bold bg-teal-100/90 text-teal-800 px-2.5 py-0.5 rounded-full border border-teal-200/60 shadow-sm">
+            -
+          </span>
+        </div>
+        <input type="date" id="checkDate" onchange="onCheckDateChange()" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-700 txt-body">
       </section>
 
       <!-- 2. 체크리스트 항목 -->
@@ -370,7 +376,7 @@
     </main>
 
     <!-- TAB 2: 지난 기록 볼 수 있는 페이지 -->
-    <main id="viewHistory" class="view-section hidden flex flex-col gap-4">
+    <main id="viewHistory" class="view-section hidden flex flex-col gap-3">
       <div class="flex justify-between items-center px-1">
         <h2 class="txt-body font-extrabold text-stone-700 flex items-center gap-2">
           <i class="fa-solid fa-folder-open text-teal-600"></i> 지난 점검 기록
@@ -378,50 +384,64 @@
         <span id="totalRecordCount" class="txt-badge font-bold bg-white/60 text-stone-600 px-3 py-1 rounded-full border border-white">총 0건</span>
       </div>
 
-      <!-- 정렬 및 연도/월 필터 옵션 영역 -->
-      <div id="historyFilterBar" class="glass-card p-3.5 flex flex-col gap-2.5">
-        <div class="flex items-center justify-between gap-2">
-          <span class="txt-caption font-bold text-stone-500 flex items-center gap-1">
-            <i class="fa-solid fa-filter text-teal-600"></i> 기록 검색/정렬
-          </span>
-          <!-- 정렬 순서 선택 (기본: 최신 날짜순) -->
-          <select id="sortOrderSelect" onchange="renderHistory()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
-            <option value="desc">📅 최신 날짜순</option>
-            <option value="asc">⏳ 오래된 날짜순</option>
-          </select>
-        </div>
+      <!-- 정렬 및 연도/월 필터 아코디언 컨테이너 (기본 접힘) -->
+      <div class="glass-card overflow-hidden transition-all duration-300">
+        <!-- 접힘/펼침 토글 버튼 헤더 -->
+        <button type="button" onclick="toggleFilterPanel()" class="w-full p-3.5 flex items-center justify-between text-left hover:bg-white/30 transition-colors">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-filter text-teal-600 text-sm"></i>
+            <span class="txt-sub font-bold text-stone-700">기록 검색 & 정렬</span>
+            <!-- 현재 적용중인 요약 태그 -->
+            <span id="filterSummaryBadge" class="txt-badge bg-teal-100/80 text-teal-800 font-bold px-2 py-0.5 rounded-full border border-teal-200">
+              최신순
+            </span>
+          </div>
+          <i id="filterChevronIcon" class="fa-solid fa-chevron-down text-stone-400 text-xs transition-transform duration-200"></i>
+        </button>
 
-        <div class="grid grid-cols-2 gap-2 border-t border-white/60 pt-2.5">
-          <!-- 연도 필터 -->
-          <div>
-            <label class="block txt-badge font-bold text-stone-400 mb-1">연도 선택</label>
-            <select id="yearFilterSelect" onchange="renderHistory()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
-              <option value="all">전체 연도</option>
+        <!-- 실제 필터 입력 패널 (기본: hidden) -->
+        <div id="filterContentPanel" class="hidden p-3.5 border-t border-white/60 flex flex-col gap-3 bg-white/20">
+          <div class="flex items-center justify-between gap-2">
+            <span class="txt-caption font-bold text-stone-500">정렬 기준</span>
+            <!-- 정렬 순서 선택 (기본: 최신 날짜순) -->
+            <select id="sortOrderSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
+              <option value="desc">📅 최신 날짜순</option>
+              <option value="asc">⏳ 오래된 날짜순</option>
             </select>
           </div>
-          <!-- 월 필터 -->
-          <div>
-            <label class="block txt-badge font-bold text-stone-400 mb-1">월 선택</label>
-            <select id="monthFilterSelect" onchange="renderHistory()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
-              <option value="all">전체 월</option>
-              <option value="01">1월</option>
-              <option value="02">2월</option>
-              <option value="03">3월</option>
-              <option value="04">4월</option>
-              <option value="05">5월</option>
-              <option value="06">6월</option>
-              <option value="07">7월</option>
-              <option value="08">8월</option>
-              <option value="09">9월</option>
-              <option value="10">10월</option>
-              <option value="11">11월</option>
-              <option value="12">12월</option>
-            </select>
+
+          <div class="grid grid-cols-2 gap-2 border-t border-white/40 pt-2.5">
+            <!-- 연도 필터 -->
+            <div>
+              <label class="block txt-badge font-bold text-stone-400 mb-1">연도 선택</label>
+              <select id="yearFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
+                <option value="all">전체 연도</option>
+              </select>
+            </div>
+            <!-- 월 필터 -->
+            <div>
+              <label class="block txt-badge font-bold text-stone-400 mb-1">월 선택</label>
+              <select id="monthFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
+                <option value="all">전체 월</option>
+                <option value="01">1월</option>
+                <option value="02">2월</option>
+                <option value="03">3월</option>
+                <option value="04">4월</option>
+                <option value="05">5월</option>
+                <option value="06">6월</option>
+                <option value="07">7월</option>
+                <option value="08">8월</option>
+                <option value="09">9월</option>
+                <option value="10">10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
 
-      <div id="historyListContainer" class="flex flex-col gap-4">
+      <div id="historyListContainer" class="flex flex-col gap-4 mt-1">
         <!-- Records populated by JS -->
       </div>
     </main>
@@ -461,7 +481,50 @@
 
       loadRecordsFromStorage();
       updateProgress();
+      onCheckDateChange();
     };
+
+    /* 특정 날짜가 해당 월의 몇째주 일요일인지 (혹은 몇째주에 속하는지) 계산하는 함수 */
+    function getSundayWeekOfMonth(dateStr) {
+      if (!dateStr) return '';
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return '';
+
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10);
+      const day = parseInt(parts[2], 10);
+
+      const currentDate = new Date(year, month - 1, day);
+      if (isNaN(currentDate.getTime())) return '';
+
+      // 해당 날짜가 속한 주차의 일요일 날짜 구하기 (0: 일요일, 1: 월요일 ... 6: 토요일)
+      const dayOfWeek = currentDate.getDay(); 
+      const distanceToSunday = (dayOfWeek === 0) ? 0 : (7 - dayOfWeek);
+      
+      // 일요일 기준 날짜
+      const sundayDate = new Date(year, month - 1, day + distanceToSunday);
+      const sundayMonth = sundayDate.getMonth() + 1;
+      const sundayDay = sundayDate.getDate();
+
+      // 해당 일요일이 달의 몇 번째 일요일인지 계산
+      const weekNum = Math.ceil(sundayDay / 7);
+
+      return `${sundayMonth}월 ${weekNum}째주`;
+    }
+
+    /* 날짜 변경 시 호출되는 이벤트 핸들러 */
+    function onCheckDateChange() {
+      const dateVal = document.getElementById('checkDate').value;
+      const weekText = getSundayWeekOfMonth(dateVal);
+      const badge = document.getElementById('sundayWeekBadge');
+      
+      if (weekText) {
+        badge.innerText = `⛪ ${weekText}`;
+        badge.classList.remove('hidden');
+      } else {
+        badge.innerText = '-';
+      }
+    }
 
     function getCurrentFormattedTime() {
       const now = new Date();
@@ -518,8 +581,41 @@
         tabWrite.className = 'glass-btn py-2.5 px-4 rounded-xl font-bold txt-sub text-stone-500 flex items-center justify-center gap-2';
 
         updateFilterOptions();
+        updateFilterBadgeText();
         renderHistory();
       }
+    }
+
+    /* 필터 박스 접힘/펼침 토글 */
+    function toggleFilterPanel() {
+      const content = document.getElementById('filterContentPanel');
+      const chevron = document.getElementById('filterChevronIcon');
+
+      content.classList.toggle('hidden');
+      if (content.classList.contains('hidden')) {
+        chevron.style.transform = 'rotate(0deg)';
+      } else {
+        chevron.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    function onFilterChange() {
+      updateFilterBadgeText();
+      renderHistory();
+    }
+
+    /* 상단 요약 태그 업데이트 */
+    function updateFilterBadgeText() {
+      const sortVal = document.getElementById('sortOrderSelect').value;
+      const yearVal = document.getElementById('yearFilterSelect').value;
+      const monthVal = document.getElementById('monthFilterSelect').value;
+
+      const labels = [];
+      if (yearVal !== 'all') labels.push(`${yearVal}년`);
+      if (monthVal !== 'all') labels.push(`${parseInt(monthVal, 10)}월`);
+      labels.push(sortVal === 'asc' ? '오래된순' : '최신순');
+
+      document.getElementById('filterSummaryBadge').innerText = labels.join(' · ');
     }
 
     function toggleInspector(name) {
@@ -575,6 +671,7 @@
       const problemText = document.getElementById('issueProblem').value;
       const solutionText = document.getElementById('issueSolution').value;
       const nowTime = getCurrentFormattedTime();
+      const sundayWeek = getSundayWeekOfMonth(dateVal); // 몇째주 일요일인지 계산
 
       if (editingRecordId !== null) {
         const index = records.findIndex(r => r.id === editingRecordId);
@@ -582,6 +679,7 @@
           records[index] = {
             ...records[index],
             date: dateVal,
+            sundayWeek: sundayWeek,
             inspectors: inspectorsArr,
             items: { ...checkedItems },
             problem: problemText.trim() ? problemText : '특이사항 없음',
@@ -589,12 +687,13 @@
             updatedAt: nowTime,
             lastEditor: inspectorsArr.join(', ')
           };
-          showToast('기록이 수정완료!');
+          showToast('기록 수정 완료!');
         }
       } else {
         const newRecord = {
           id: Date.now(),
           date: dateVal,
+          sundayWeek: sundayWeek,
           inspectors: inspectorsArr,
           items: { ...checkedItems },
           problem: problemText.trim() ? problemText : '특이사항 없음',
@@ -623,6 +722,7 @@
       editingRecordId = id;
 
       document.getElementById('checkDate').value = target.date;
+      onCheckDateChange();
 
       selectedInspectors.clear();
       ['김광수', '이승수', '유진'].forEach(name => {
@@ -676,6 +776,7 @@
 
       const today = new Date().toISOString().split('T')[0];
       document.getElementById('checkDate').value = today;
+      onCheckDateChange();
 
       document.getElementById('editNoticeBanner').classList.add('hidden');
       document.getElementById('btnSaveLabel').innerText = '기록 저장하기';
@@ -763,14 +864,22 @@
       container.innerHTML = displayRecords.map(rec => {
         const checkedCount = Object.values(rec.items).filter(Boolean).length;
         const initialInspectorStr = rec.firstInspector || rec.inspectors.join(', ');
+        const sundayWeekStr = rec.sundayWeek || getSundayWeekOfMonth(rec.date);
         
         return `
           <div id="card-${rec.id}" class="glass-card p-5 flex flex-col gap-3 relative">
             <div class="flex justify-between items-start border-b border-white/60 pb-3">
               <div>
-                <span class="txt-badge font-extrabold text-teal-800 bg-teal-100/70 px-2.5 py-0.5 rounded-full border border-teal-200/50 inline-block mb-1">
-                  📅 ${rec.date}
-                </span>
+                <div class="flex items-center gap-1.5 flex-wrap mb-1">
+                  <span class="txt-badge font-extrabold text-teal-800 bg-teal-100/70 px-2.5 py-0.5 rounded-full border border-teal-200/50 inline-block">
+                    📅 ${rec.date}
+                  </span>
+                  ${sundayWeekStr ? `
+                    <span class="txt-badge font-bold text-teal-900 bg-teal-200/60 px-2.5 py-0.5 rounded-full border border-teal-300/60 inline-block">
+                      ⛪ ${sundayWeekStr}
+                    </span>
+                  ` : ''}
+                </div>
                 <div class="flex items-center gap-1.5 txt-sub font-bold text-stone-600 mt-1">
                   <i class="fa-solid fa-users text-stone-400"></i> 점검자: ${rec.inspectors.join(', ')}
                 </div>
@@ -865,6 +974,7 @@
         records = records.filter(r => r.id !== id);
         saveRecordsToStorage();
         updateFilterOptions();
+        updateFilterBadgeText();
         renderHistory();
         showToast('삭제완료!');
       }
