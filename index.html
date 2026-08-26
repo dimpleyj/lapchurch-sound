@@ -1233,16 +1233,9 @@ function applyFormat(command, value = null) {
       }).join('');
     }
 
-    function exportCardToJpg(id, dateStr) {
+function exportCardToJpg(id, dateStr) {
       showToast('JPG 이미지를 생성하는 중...');
       const cardEl = document.getElementById(`card-${id}`);
-      if (!cardEl) return;
-
-      // 캡처 시 안 보여야 할 버튼 영역 가져오기
-      const actionBtns = cardEl.querySelector('.z-20');
-      
-      // 캡처 직전에 버튼 지우기 (잠시 숨김)
-      if (actionBtns) actionBtns.style.display = 'none';
 
       setTimeout(() => {
         html2canvas(cardEl, {
@@ -1260,12 +1253,10 @@ function applyFormat(command, value = null) {
         }).catch(err => {
           console.error(err);
           showToast('JPG 생성 실패 ㅠㅠ');
-        }).finally(() => {
-          // 캡처 끝나면 버튼 다시 원래대로 보이게 복구
-          if (actionBtns) actionBtns.style.display = 'flex';
         });
       }, 100);
     }
+    
     function openDeleteModal(id) {
       pendingDeleteId = id;
       const modal = document.getElementById('deleteModal');
