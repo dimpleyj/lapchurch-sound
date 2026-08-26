@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- 카카오톡 / 모바일 웹뷰 강제 다크모드 색상 반전 방지 메타 태그 -->
-  <meta name="color-scheme" content="light">
-  <meta name="supported-color-schemes" content="light">
+
+<!-- 카카오톡 인앱 브라우저 강제 색상 반전 방지 -->
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="only light">
   
   <title>사랑과 평안의 교회 음향실 - 사운드 체크리스트</title>
   <!-- Tailwind CSS CDN -->
@@ -24,11 +25,35 @@
 
   <style>
   /* 카카오톡 및 모바일 브라우저 강제 다크모드/색상 변형 방지 */
-  :root {
-    color-scheme: light;
-    forced-color-adjust: none;
-  }
+:root {
+  color-scheme: only light !important;
+  forced-color-adjust: none !important;
+  -webkit-forced-color-adjust: none !important;
+}
+
+body {
+  /* 카카오톡 강제 색상 반전(Inversion) 방지 */
+  -webkit-text-size-adjust: none;
+  forced-color-adjust: none;
+}
   
+
+/* 기본 텍스트 색상 강제 유지 */
+body, p, span, div, label, input, textarea {
+  color: #333a42 !important;
+}
+
+/* 다크모드 전환 기능 사용 시 예외 처리 */
+body.dark-mode, 
+body.dark-mode p, 
+body.dark-mode span, 
+body.dark-mode div, 
+body.dark-mode label, 
+body.dark-mode input, 
+body.dark-mode textarea {
+  color: #e5e5e5 !important;
+}
+
   /* 1. Base Reset & Font Rules */
   body.size-sm { font-size: 16px !important; }
   body.size-md { font-size: 18px !important; }
