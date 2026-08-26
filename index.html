@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>사랑과 평안의 교회 음향실 - 사운드 체크리스트</title>
+  <title>사운드 체크리스트</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -273,20 +273,12 @@
     <header class="glass-card p-5 mb-5 flex flex-col gap-4 relative">
       <div class="flex justify-between items-start">
         <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="txt-badge font-bold tracking-widest text-teal-700 uppercase bg-gradient-to-r from-[#FFDFDF] to-[#DCF7EA] px-3 py-1 rounded-full border border-white shadow-sm">
-              사랑과 평안의 교회 🎚 음향실
-            </span>
-          </div>
-          <h1 class="txt-title font-extrabold text-stone-800 mt-1 flex items-center gap-2 tracking-tight">
+          <span class="txt-badge font-bold tracking-widest text-teal-700 uppercase bg-gradient-to-r from-[#FFDFDF] to-[#DCF7EA] px-3 py-1 rounded-full border border-white shadow-sm">
+            사랑과 평안의 교회 🎚 음향실
+          </span>
+          <h1 class="txt-title font-extrabold text-stone-800 mt-2 flex items-center gap-2 tracking-tight">
             사운드 체크리스트
           </h1>
-          <!-- Realtime Sync Badge -->
-          <div class="mt-1.5 flex items-center">
-            <span id="syncStatusBadge" class="txt-badge font-bold bg-amber-100/80 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-200 shadow-xs flex items-center gap-1.5">
-              <i class="fa-solid fa-arrows-rotate animate-spin text-amber-600"></i> Firebase 연동 준비 중...
-            </span>
-          </div>
         </div>
         
         <div class="flex items-center gap-1.5">
@@ -568,7 +560,7 @@
 
       <!-- 저장 버튼 -->
       <button type="button" id="btnSaveRecord" onclick="saveRecord()" class="btn-save-deep py-4 px-6 rounded-2xl font-bold txt-body flex items-center justify-center gap-2 mt-1 cursor-pointer">
-        <i class="fa-solid fa-cloud-arrow-up text-base pointer-events-none"></i> <span id="btnSaveLabel" class="pointer-events-none">클라우드에 기록 저장하기</span>
+        <i class="fa-solid fa-floppy-disk text-base pointer-events-none"></i> <span id="btnSaveLabel" class="pointer-events-none">기록 저장하기</span>
       </button>
 
     </main>
@@ -656,7 +648,7 @@
         </div>
         <div>
           <h3 class="txt-body font-extrabold text-stone-800 dark:text-stone-100">점검 기록 삭제</h3>
-          <p class="txt-sub text-stone-500 dark:text-stone-300 mt-1">이 점검 기록을 정말 삭제하시겠습니까?<br><span class="text-xs text-rose-500">(클라우드에서 완전히 삭제됩니다)</span></p>
+          <p class="txt-sub text-stone-500 dark:text-stone-300 mt-1">이 점검 기록을 정말 삭제하시겠습니까?</p>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-2">
           <button type="button" onclick="closeDeleteModal()" class="glass-btn py-2.5 rounded-xl font-bold txt-sub text-stone-600 hover:bg-stone-200/50">
@@ -675,179 +667,6 @@
     </div>
 
   </div>
-
-  <!-- Firebase SDK Module Script -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    // 사용자 제공 실제 Firebase 프로젝트 키 적용 완료
-    const firebaseConfig = {
-      apiKey: "AIzaSyAWHXX5wtDxarZR57PSvqO7oHiSSDno2x0",
-      authDomain: "lapchurch-sound.firebaseapp.com",
-      databaseURL: "https://lapchurch-sound-default-rtdb.firebaseio.com",
-      projectId: "lapchurch-sound",
-      storageBucket: "lapchurch-sound.firebasestorage.app",
-      messagingSenderId: "573776602283",
-      appId: "1:573776602283:web:487d8bd1027b56e0c6c3ee",
-      measurementId: "G-9MSJN50T5W"
-    };
-
-    const appId = 'church-sound-checklist-app';
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    let unsubscribeRecords = null;
-    window.isLocalStorageMode = false;
-
-    window.loadLocalStorageRecords = function() {
-      try {
-        const saved = localStorage.getItem('sound_records_local');
-        window.records = saved ? JSON.parse(saved) : [];
-      } catch(e) {
-        window.records = [];
-      }
-      if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
-      if (typeof window.updateFilterBadgeText === 'function') window.updateFilterBadgeText();
-      if (typeof window.renderHistory === 'function') window.renderHistory();
-    };
-
-    window.saveLocalStorageRecord = function(recordData, recordId = null) {
-      try {
-        let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
-        if (recordId) {
-          const idx = localRecords.findIndex(r => String(r.id) === String(recordId));
-          if (idx !== -1) {
-            localRecords[idx] = { ...localRecords[idx], ...recordData, id: recordId };
-          } else {
-            localRecords.push({ ...recordData, id: recordId });
-          }
-        } else {
-          const newId = 'local_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
-          localRecords.push({ ...recordData, id: newId });
-        }
-        localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
-        window.loadLocalStorageRecords();
-        return true;
-      } catch(e) {
-        console.error("Local storage save error:", e);
-        return false;
-      }
-    };
-
-    window.deleteLocalStorageRecord = function(recordId) {
-      try {
-        let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
-        localRecords = localRecords.filter(r => String(r.id) !== String(recordId));
-        localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
-        window.loadLocalStorageRecords();
-        return true;
-      } catch(e) {
-        console.error("Local storage delete error:", e);
-        return false;
-      }
-    };
-
-    async function initFirebase() {
-      try {
-        await signInAnonymously(auth);
-        listenToFirestoreRecords();
-      } catch (err) {
-        console.error("Firebase Auth Error:", err);
-        enableLocalStorageMode(err.code === 'auth/configuration-not-found'
-          ? '익명 로그인 미활성화'
-          : '오프라인 모드');
-      }
-    }
-
-    function enableLocalStorageMode(reasonMsg) {
-      window.isLocalStorageMode = true;
-      const syncBadge = document.getElementById('syncStatusBadge');
-      if (syncBadge) {
-        syncBadge.className = "txt-badge font-bold bg-amber-100/90 text-amber-900 px-2.5 py-0.5 rounded-full border border-amber-300 shadow-xs flex items-center gap-1.5 cursor-pointer";
-        syncBadge.title = "Firebase 익명 로그인이 켜지지 않았습니다. Firebase 콘솔 > Authentication > Sign-in method에서 '익명'을 활성화하세요.";
-        syncBadge.innerHTML = `<i class="fa-solid fa-hard-drive text-amber-600"></i> 로컬 저장 모드 (${reasonMsg})`;
-      }
-      window.loadLocalStorageRecords();
-    }
-
-    function listenToFirestoreRecords() {
-      if (!auth.currentUser) return;
-
-      // Public shared collection path rule for church sound team
-      const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
-
-      unsubscribeRecords = onSnapshot(colRef, (snapshot) => {
-        const fetchedRecords = [];
-        snapshot.forEach((docSnap) => {
-          fetchedRecords.push({
-            id: docSnap.id,
-            ...docSnap.data()
-          });
-        });
-
-        // Update global records array
-        window.records = fetchedRecords;
-
-        // UI update triggers
-        if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
-        if (typeof window.updateFilterBadgeText === 'function') window.updateFilterBadgeText();
-        if (typeof window.renderHistory === 'function') window.renderHistory();
-
-        // Update Live Sync Badge
-        const syncBadge = document.getElementById('syncStatusBadge');
-        if (syncBadge) {
-          syncBadge.className = "txt-badge font-bold bg-emerald-100/90 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-200 shadow-xs flex items-center gap-1.5";
-          syncBadge.innerHTML = '<i class="fa-solid fa-wifi text-emerald-600"></i> 실시간 클라우드 연동됨';
-        }
-      }, (error) => {
-        console.error("Firestore Subscription Error:", error);
-        enableLocalStorageMode('클라우드 연동 오류');
-      });
-    }
-
-    // Expose Firestore operations globally
-    window.dbSaveRecord = async function(recordData, recordId = null) {
-      if (window.isLocalStorageMode || !auth.currentUser) {
-        return window.saveLocalStorageRecord(recordData, recordId);
-      }
-
-      const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
-
-      try {
-        if (recordId) {
-          const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'sound_records', String(recordId));
-          await setDoc(docRef, recordData, { merge: true });
-        } else {
-          await addDoc(colRef, recordData);
-        }
-        return true;
-      } catch (err) {
-        console.error("Firestore Save Error:", err);
-        return window.saveLocalStorageRecord(recordData, recordId);
-      }
-    };
-
-    window.dbDeleteRecord = async function(recordId) {
-      if (window.isLocalStorageMode || !auth.currentUser) {
-        return window.deleteLocalStorageRecord(recordId);
-      }
-
-      try {
-        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'sound_records', String(recordId));
-        await deleteDoc(docRef);
-        return true;
-      } catch (err) {
-        console.error("Firestore Delete Error:", err);
-        return window.deleteLocalStorageRecord(recordId);
-      }
-    };
-
-    // Initialize Firebase on script load
-    initFirebase();
-  </script>
 
   <script>
     // 영상 장비(youtube, recording) 및 음향 장비(vocal, pastor, piano, condenser, mainSpeaker)
@@ -873,7 +692,7 @@
     };
 
     let selectedInspectors = new Set();
-    window.records = []; // Synced from Firestore in real-time
+    let records = [];
     let editingRecordId = null;
     let pendingDeleteId = null;
 
@@ -882,6 +701,7 @@
       document.getElementById('checkDate').value = today;
 
       loadDarkModeSetting();
+      loadRecordsFromStorage();
       updateProgress();
       onCheckDateChange();
     };
@@ -1097,7 +917,7 @@
       document.getElementById('videoProgressBadge').innerText = `${videoCount} / ${videoKeys.length}`;
     }
 
-    async function saveRecord() {
+    function saveRecord() {
       const dateVal = document.getElementById('checkDate').value;
       if (!dateVal) {
         showToast('날짜를 선택하세요!');
@@ -1118,45 +938,53 @@
 
       const finalSolution = solutionText.trim() ? solutionHtml : '특이사항 없음';
 
-      let recordPayload = {
-        date: dateVal,
-        sundayWeek: sundayWeek,
-        inspectors: inspectorsArr,
-        items: { ...checkedItems },
-        problem: problemText.trim() ? problemText : '특이사항 없음',
-        solution: finalSolution,
-        updatedAt: editingRecordId ? nowTime : null,
-        lastEditor: editingRecordId ? inspectorsArr.join(', ') : null
-      };
-
-      if (!editingRecordId) {
-        recordPayload.createdAt = nowTime;
-        recordPayload.firstInspector = inspectorsArr.join(', ');
-      } else {
-        const existing = window.records.find(r => String(r.id) === String(editingRecordId));
-        if (existing) {
-          recordPayload.createdAt = existing.createdAt || nowTime;
-          recordPayload.firstInspector = existing.firstInspector || inspectorsArr.join(', ');
+      if (editingRecordId !== null) {
+        const index = records.findIndex(r => r.id === editingRecordId);
+        if (index !== -1) {
+          records[index] = {
+            ...records[index],
+            date: dateVal,
+            sundayWeek: sundayWeek,
+            inspectors: inspectorsArr,
+            items: { ...checkedItems },
+            problem: problemText.trim() ? problemText : '특이사항 없음',
+            solution: finalSolution,
+            updatedAt: nowTime,
+            lastEditor: inspectorsArr.join(', ')
+          };
+          showToast('기록 수정 완료!');
         }
+      } else {
+        const newRecord = {
+          id: Date.now(),
+          date: dateVal,
+          sundayWeek: sundayWeek,
+          inspectors: inspectorsArr,
+          items: { ...checkedItems },
+          problem: problemText.trim() ? problemText : '특이사항 없음',
+          solution: finalSolution,
+          createdAt: nowTime,
+          firstInspector: inspectorsArr.join(', '),
+          updatedAt: null,
+          lastEditor: null
+        };
+        records.unshift(newRecord);
+        showToast('저장 완료!');
       }
 
-      // Call global Firestore saver
-      const success = await window.dbSaveRecord(recordPayload, editingRecordId);
+      saveRecordsToStorage();
+      resetForm();
 
-      if (success) {
-        showToast(editingRecordId ? '클라우드에 수정 완료!' : '클라우드에 저장 완료!');
-        resetForm();
-        setTimeout(() => {
-          switchTab('history');
-        }, 400);
-      }
+      setTimeout(() => {
+        switchTab('history');
+      }, 400);
     }
 
     function editRecord(id) {
-      const target = window.records.find(r => String(r.id) === String(id));
+      const target = records.find(r => r.id === id);
       if (!target) return;
 
-      editingRecordId = target.id;
+      editingRecordId = id;
 
       document.getElementById('checkDate').value = target.date;
       onCheckDateChange();
@@ -1164,7 +992,7 @@
       selectedInspectors.clear();
       ['김광수', '이승수', '유진'].forEach(name => {
         const btn = document.getElementById(`inspector-${name}`);
-        if (target.inspectors && target.inspectors.includes(name)) {
+        if (target.inspectors.includes(name)) {
           selectedInspectors.add(name);
           btn.classList.add('glass-btn-active');
         } else {
@@ -1184,7 +1012,7 @@
 
       document.getElementById('editNoticeBanner').classList.remove('hidden');
       document.getElementById('editNoticeText').innerText = `${target.date} 기록을 수정하는 중`;
-      document.getElementById('btnSaveLabel').innerText = '클라우드에 수정 완료';
+      document.getElementById('btnSaveLabel').innerText = '기록 수정 완료';
       document.getElementById('tabWriteLabel').innerText = '점검 수정';
 
       switchTab('write');
@@ -1217,7 +1045,7 @@
       onCheckDateChange();
 
       document.getElementById('editNoticeBanner').classList.add('hidden');
-      document.getElementById('btnSaveLabel').innerText = '클라우드에 기록 저장하기';
+      document.getElementById('btnSaveLabel').innerText = '기록 저장하기';
       document.getElementById('tabWriteLabel').innerText = '점검 작성';
     }
 
@@ -1226,7 +1054,7 @@
       const currentSelectedYear = yearSelect.value;
 
       const years = new Set();
-      (window.records || []).forEach(r => {
+      records.forEach(r => {
         if (r.date) {
           const yyyy = r.date.split('-')[0];
           if (yyyy) years.add(yyyy);
@@ -1255,7 +1083,7 @@
       const selectedYear = document.getElementById('yearFilterSelect').value;
       const selectedMonth = document.getElementById('monthFilterSelect').value;
 
-      let filtered = (window.records || []).filter(r => {
+      let filtered = records.filter(r => {
         if (!r.date) return false;
         const [yyyy, mm] = r.date.split('-');
 
@@ -1280,9 +1108,9 @@
         const timeB = new Date(b.date).getTime() || 0;
 
         if (sortOrder === 'asc') {
-          return timeA - timeB || (a.createdAt || '').localeCompare(b.createdAt || '');
+          return timeA - timeB || a.id - b.id;
         } else {
-          return timeB - timeA || (b.createdAt || '').localeCompare(a.createdAt || '');
+          return timeB - timeA || b.id - a.id;
         }
       });
 
@@ -1293,7 +1121,7 @@
       const container = document.getElementById('historyListContainer');
       const displayRecords = getFilteredAndSortedRecords();
       
-      document.getElementById('totalRecordCount').innerText = `총 ${(window.records || []).length}건 (조회: ${displayRecords.length}건)`;
+      document.getElementById('totalRecordCount').innerText = `총 ${records.length}건 (조회: ${displayRecords.length}건)`;
 
       if (displayRecords.length === 0) {
         container.innerHTML = `
@@ -1308,7 +1136,7 @@
       container.innerHTML = displayRecords.map(rec => {
         const itemsObj = rec.items || {};
         const checkedCount = Object.values(itemsObj).filter(Boolean).length;
-        const initialInspectorStr = rec.firstInspector || (rec.inspectors ? rec.inspectors.join(', ') : '-');
+        const initialInspectorStr = rec.firstInspector || rec.inspectors.join(', ');
         const sundayWeekStr = rec.sundayWeek || getSundayWeekOfMonth(rec.date);
 
         return `
@@ -1326,19 +1154,19 @@
                   ` : ''}
                 </div>
                 <div class="flex items-center gap-1.5 txt-sub font-bold text-stone-600 mt-1">
-                  <i class="fa-solid fa-users text-stone-400"></i> 점검자: ${rec.inspectors ? rec.inspectors.join(', ') : ''}
+                  <i class="fa-solid fa-users text-stone-400"></i> 점검자: ${rec.inspectors.join(', ')}
                 </div>
               </div>
 
               <!-- Action Buttons -->
               <div class="flex items-center gap-1.5 z-20">
-                <button type="button" onclick="editRecord('${rec.id}')" class="glass-btn p-2.5 rounded-xl text-stone-600 hover:text-amber-600 transition-colors" title="수정하기">
+                <button type="button" onclick="editRecord(${rec.id})" class="glass-btn p-2.5 rounded-xl text-stone-600 hover:text-amber-600 transition-colors" title="수정하기">
                   <i class="fa-solid fa-pen text-xs pointer-events-none"></i>
                 </button>
-                <button type="button" onclick="exportCardToJpg('${rec.id}', '${rec.date}')" class="glass-btn p-2.5 rounded-xl text-stone-600 hover:text-teal-600 transition-colors" title="JPG로 저장/공유">
+                <button type="button" onclick="exportCardToJpg(${rec.id}, '${rec.date}')" class="glass-btn p-2.5 rounded-xl text-stone-600 hover:text-teal-600 transition-colors" title="JPG로 저장/공유">
                   <i class="fa-solid fa-file-image text-xs pointer-events-none"></i>
                 </button>
-                <button type="button" onclick="openDeleteModal('${rec.id}')" class="glass-btn p-2.5 rounded-xl text-stone-400 hover:text-rose-500 transition-colors" title="삭제">
+                <button type="button" onclick="openDeleteModal(${rec.id})" class="glass-btn p-2.5 rounded-xl text-stone-400 hover:text-rose-500 transition-colors" title="삭제">
                   <i class="fa-solid fa-trash-can text-xs pointer-events-none"></i>
                 </button>
               </div>
@@ -1371,7 +1199,8 @@
               </div>
               <div class="border-t border-stone-200/40 pt-2">
                 <span class="font-bold text-teal-600 block mb-0.5">🛠 원인 & 해결:</span>
-                <div class="font-medium text-stone-700 leading-relaxed">${rec.solution}</div>
+                <!-- 서식 및 줄바꿈/띄어쓰기가 반영되는 영역 -->
+                <div class="font-medium text-stone-700 leading-relaxed whitespace-pre-wrap">${rec.solution}</div>
               </div>
             </div>
 
@@ -1412,7 +1241,7 @@
           showToast('JPG 이미지 다운로드 완료!');
         }).catch(err => {
           console.error(err);
-          showToast('JPG 생성 실패');
+          showToast('JPG 생성 실패 ㅠㅠ');
         });
       }, 100);
     }
@@ -1429,13 +1258,14 @@
       modal.classList.add('hidden');
     }
 
-    async function confirmDeleteRecord() {
+    function confirmDeleteRecord() {
       if (pendingDeleteId !== null) {
-        showToast('클라우드에서 삭제하는 중...');
-        const success = await window.dbDeleteRecord(pendingDeleteId);
-        if (success) {
-          showToast('삭제가 완료되었습니다!');
-        }
+        records = records.filter(r => r.id !== pendingDeleteId);
+        saveRecordsToStorage();
+        updateFilterOptions();
+        updateFilterBadgeText();
+        renderHistory();
+        showToast('삭제가 완료되었습니다!');
       }
       closeDeleteModal();
     }
@@ -1450,6 +1280,25 @@
         toast.classList.remove('opacity-100');
         toast.classList.add('opacity-0');
       }, 2000);
+    }
+
+    function saveRecordsToStorage() {
+      try {
+        localStorage.setItem('sound_checklist_records', JSON.stringify(records));
+      } catch(e) {
+        console.error('LocalStorage 저장 오류:', e);
+      }
+    }
+
+    function loadRecordsFromStorage() {
+      try {
+        const data = localStorage.getItem('sound_checklist_records');
+        if (data) {
+          records = JSON.parse(data);
+        }
+      } catch(e) {
+        records = [];
+      }
     }
 
     function escapeHtml(text) {
