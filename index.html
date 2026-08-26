@@ -14,14 +14,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
+    /* Font Size Rules */
     body.size-sm { font-size: 16px !important; }
     body.size-md { font-size: 18px !important; }
     body.size-lg { font-size: 24px !important; }
 
+    /* Font Family Rules */
     body.font-noto { font-family: 'Noto Sans KR', sans-serif !important; }
     body.font-gowun { font-family: 'Gowun Dodum', sans-serif !important; }
     body.font-myeongjo { font-family: 'Nanum Myeongjo', serif !important; font-weight: 700 !important; }
 
+    /* 라이트모드 부드러운 다중 감성 그라데이션 바탕 */
     body {
       background: #f4f0eb;
       background-image: 
@@ -35,6 +38,7 @@
       transition: background 0.3s ease, color 0.3s ease, font-size 0.2s ease;
     }
 
+    /* 다크모드 깊이감 있는 흑백 그라데이션 바탕 */
     body.dark-mode {
       background: #0d0d0d !important;
       background-image: 
@@ -46,7 +50,7 @@
     }
 
     body.dark-mode .glass-card {
-      background: rgba(30, 30, 30, 0.7) !important;
+      background: rgba(30, 30, 30, 0.85) !important;
       border: 1px solid rgba(70, 70, 70, 0.5) !important;
       border-bottom: 1px solid rgba(45, 45, 45, 0.4) !important;
       border-right: 1px solid rgba(45, 45, 45, 0.4) !important;
@@ -58,7 +62,7 @@
     }
 
     body.dark-mode .glass-pill {
-      background: rgba(40, 40, 40, 0.65) !important;
+      background: rgba(40, 40, 40, 0.75) !important;
       border: 1px solid rgba(70, 70, 70, 0.4) !important;
       box-shadow: 
         0 10px 20px -5px rgba(0, 0, 0, 0.4),
@@ -66,7 +70,7 @@
     }
 
     body.dark-mode .glass-input, body.dark-mode .glass-editor {
-      background: rgba(45, 45, 45, 0.8) !important;
+      background: rgba(45, 45, 45, 0.85) !important;
       border: 1px solid rgba(80, 80, 80, 0.6) !important;
       color: #ffffff !important;
     }
@@ -98,19 +102,19 @@
     }
 
     body.dark-mode .btn-save-deep {
-      background: linear-gradient(135deg, #374151 0%, #111827 100%) !important;
+      background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
       color: #ffffff !important;
       border: 1px solid rgba(100, 100, 100, 0.4) !important;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
     }
 
     body.dark-mode .btn-save-deep:hover {
-      background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%) !important;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
     }
 
     body.dark-mode .checkbox-pill.checked {
-      background: linear-gradient(135deg, rgba(65, 65, 65, 0.8), rgba(45, 45, 45, 0.8)) !important;
-      border-color: rgba(110, 110, 110, 0.6) !important;
+      background: linear-gradient(135deg, rgba(30, 70, 60, 0.8), rgba(20, 50, 45, 0.8)) !important;
+      border-color: rgba(16, 185, 129, 0.6) !important;
     }
 
     body.dark-mode #checklistContainer span,
@@ -138,12 +142,14 @@
       border-color: rgba(80, 80, 80, 0.6) !important;
     }
 
+    /* Relative text sizes inside scaling container */
     .txt-title { font-size: 1.5em; line-height: 1.2; }
     .txt-sub { font-size: 0.85em; }
     .txt-badge { font-size: 0.7em; }
     .txt-body { font-size: 0.9em; }
     .txt-caption { font-size: 0.75em; }
 
+    /* Glassmorphic Cards & Panels */
     .glass-card {
       background: rgba(255, 255, 255, 0.45);
       backdrop-filter: blur(16px);
@@ -186,6 +192,7 @@
       box-shadow: 0 0 12px rgba(140, 203, 185, 0.3);
     }
 
+    /* ContentEditable Placeholder style */
     .glass-editor[contenteditable="true"]:empty:before {
       content: attr(data-placeholder);
       color: #9ca3af;
@@ -193,6 +200,7 @@
       display: block;
     }
 
+    /* Glass Buttons */
     .glass-btn {
       background: rgba(255, 255, 255, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.8);
@@ -258,8 +266,10 @@
   </style>
 </head>
 <body id="appBody" class="font-noto size-md min-h-screen pb-12 flex justify-center items-start pt-3 md:pt-8 px-3">
-  <div class="w-full max-w-md relative">
 
+  <div class="w-full max-w-md relative">
+ 
+    <!-- App Header & Navigation Tabs -->
     <header class="glass-card p-5 mb-5 flex flex-col gap-4 relative">
       <div class="flex justify-between items-start">
         <div>
@@ -268,38 +278,43 @@
               사랑과 평안의 교회 🎚 음향실
             </span>
           </div>
-          <h1 class="txt-title font-extrabold text-stone-800 mt-1 flex items-center gap-2 tracking-tight">
+          <h1 class="txt-title font-extrabold text-stone-800 dark:text-stone-100 mt-1 flex items-center gap-2 tracking-tight">
             사운드 체크리스트
           </h1>
+          <!-- Realtime Sync Badge -->
           <div class="mt-1.5 flex items-center">
             <span id="syncStatusBadge" class="txt-badge font-bold bg-amber-100/80 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-200 shadow-xs flex items-center gap-1.5">
-              <i class="fa-solid fa-arrows-rotate animate-spin text-amber-600"></i> Firebase 연동 중...
+              <i class="fa-solid fa-arrows-rotate animate-spin text-amber-600"></i> Firebase 연동 준비 중...
             </span>
           </div>
         </div>
         
         <div class="flex items-center gap-1.5">
+          <!-- 다크모드 토글 버튼 -->
           <button onclick="toggleDarkMode()" id="darkModeBtn" class="glass-btn w-10 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-stone-900 transition-colors shadow-sm" title="다크모드 토글">
             <i id="darkModeIcon" class="fa-solid fa-moon text-xs"></i>
           </button>
           
+          <!-- 폰트 버튼 텍스트 -->
           <button onclick="toggleFontSettings()" class="glass-btn w-10 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-extrabold txt-caption transition-colors shadow-sm gap-1" title="글꼴 및 크기 설정">
             <i class="fa-solid fa-font text-xs text-stone-700"></i>
           </button>
         </div>
       </div>
 
-      <div id="fontSettingsPanel" class="hidden glass-card p-4 flex-col gap-3 border border-teal-200/60 shadow-xl rounded-2xl my-1 bg-white/90">
-        <div class="flex justify-between items-center border-b border-stone-200/60 pb-2">
-          <span class="txt-sub font-bold text-stone-700 flex items-center gap-1.5">
+      <!-- Font & Size Control Panel -->
+      <div id="fontSettingsPanel" class="hidden glass-card p-4 flex-col gap-3 border border-teal-200/60 shadow-xl rounded-2xl my-1 bg-white/90 dark:bg-stone-800/90">
+        <div class="flex justify-between items-center border-b border-stone-200/60 dark:border-stone-700 pb-2">
+          <span class="txt-sub font-bold text-stone-700 dark:text-stone-200 flex items-center gap-1.5">
             <i class="fa-solid fa-sliders text-teal-600"></i> 텍스트 스타일 설정
           </span>
           <button onclick="toggleFontSettings()" class="text-stone-400 hover:text-stone-600 text-xs">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
+
         <div>
-          <span class="txt-caption font-bold text-stone-500 block mb-1.5">글꼴 선택</span>
+          <span class="txt-caption font-bold text-stone-500 dark:text-stone-400 block mb-1.5">글꼴 선택</span>
           <div class="grid grid-cols-3 gap-1.5">
             <button onclick="setFontFamily('noto')" id="font-noto" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-700 glass-btn-active">
               기본 고딕
@@ -312,8 +327,9 @@
             </button>
           </div>
         </div>
+
         <div>
-          <span class="txt-caption font-bold text-stone-500 block mb-1.5">글자 크기</span>
+          <span class="txt-caption font-bold text-stone-500 dark:text-stone-400 block mb-1.5">글자 크기</span>
           <div class="grid grid-cols-3 gap-1.5">
             <button onclick="setFontSize('sm')" id="size-sm" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-700">
               작게
@@ -328,6 +344,7 @@
         </div>
       </div>
 
+      <!-- Segmented Navigation Control -->
       <div class="glass-pill p-1.5 grid grid-cols-2 gap-1">
         <button id="tabWrite" onclick="switchTab('write')" class="glass-btn glass-btn-active py-2.5 px-4 rounded-xl font-bold txt-sub text-stone-700 flex items-center justify-center gap-2">
           <i class="fa-solid fa-pen-to-square"></i> <span id="tabWriteLabel">점검 작성</span>
@@ -338,6 +355,7 @@
       </div>
     </header>
 
+    <!-- TAB 1: 점검 작성 페이지 -->
     <main id="viewWrite" class="view-section flex flex-col gap-4">
       
       <div id="editNoticeBanner" class="hidden glass-card p-3 bg-amber-50/80 border-amber-200 flex justify-between items-center txt-sub font-bold text-amber-800">
@@ -349,25 +367,28 @@
         </button>
       </div>
 
+      <!-- 1. 날짜 선택 -->
       <section class="glass-card p-5">
         <div class="flex justify-between items-center mb-2">
-          <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
+          <label class="txt-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5">
             <i class="fa-regular fa-calendar-check text-teal-600"></i> 점검 날짜
           </label>
           <span id="sundayWeekBadge" class="txt-badge font-bold bg-teal-100/90 text-teal-800 px-2.5 py-0.5 rounded-full border border-teal-200/60 shadow-sm">
             -
           </span>
         </div>
-        <input type="date" id="checkDate" onchange="onCheckDateChange()" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-700 txt-body">
+        <input type="date" id="checkDate" onchange="onCheckDateChange()" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-700 dark:text-stone-100 txt-body">
       </section>
 
+      <!-- 2. 음향 장비 점검 목록 -->
       <section class="glass-card p-5">
         <div class="flex justify-between items-center mb-3">
-          <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
+          <label class="txt-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5">
             <i class="fa-solid fa-list-check text-teal-600"></i> 음향 장비 점검
           </label>
-          <span id="progressBadge" class="txt-badge bg-white/70 text-stone-600 font-bold px-2.5 py-0.5 rounded-full border border-white">0 / 5</span>
+          <span id="progressBadge" class="txt-badge bg-white/70 dark:bg-stone-700/70 text-stone-600 dark:text-stone-200 font-bold px-2.5 py-0.5 rounded-full border border-white/40">0 / 5</span>
         </div>
+
         <div class="flex flex-col gap-2.5" id="checklistContainer">
           <div onclick="toggleCheck('vocal')" id="item-vocal" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none">
             <div class="flex items-center gap-3">
@@ -380,6 +401,7 @@
               <i class="fa-solid fa-check opacity-0"></i>
             </div>
           </div>
+
           <div onclick="toggleCheck('pastor')" id="item-pastor" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none">
             <div class="flex items-center gap-3">
               <div id="icon-pastor" class="w-8 h-8 rounded-xl bg-blue-100/80 text-blue-700 flex items-center justify-center font-bold text-xs pointer-events-none">
@@ -391,6 +413,7 @@
               <i class="fa-solid fa-check opacity-0"></i>
             </div>
           </div>
+
           <div onclick="toggleCheck('piano')" id="item-piano" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none">
             <div class="flex items-center gap-3">
               <div id="icon-piano" class="w-8 h-8 rounded-xl bg-purple-100/80 text-purple-700 flex items-center justify-center font-bold text-xs pointer-events-none">
@@ -402,6 +425,7 @@
               <i class="fa-solid fa-check opacity-0"></i>
             </div>
           </div>
+
           <div onclick="toggleCheck('condenser')" id="item-condenser" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none">
             <div class="flex items-center gap-3">
               <div id="icon-condenser" class="w-8 h-8 rounded-xl bg-teal-100/80 text-teal-700 flex items-center justify-center font-bold text-xs pointer-events-none">
@@ -413,6 +437,7 @@
               <i class="fa-solid fa-check opacity-0"></i>
             </div>
           </div>
+
           <div onclick="toggleCheck('mainSpeaker')" id="item-mainSpeaker" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none">
             <div class="flex items-center gap-3">
               <div id="icon-mainSpeaker" class="w-8 h-8 rounded-xl bg-rose-100/80 text-rose-700 flex items-center justify-center font-bold text-xs pointer-events-none">
@@ -427,9 +452,10 @@
         </div>
       </section>
 
+      <!-- 3. 점검자 선택 -->
       <section class="glass-card p-5">
         <div class="flex justify-between items-center mb-3">
-          <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
+          <label class="txt-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5">
             <i class="fa-solid fa-user-check text-teal-600"></i> 점검자 선택
           </label>
           <span class="txt-badge text-stone-400 font-small">다수 선택 가능</span>
@@ -450,13 +476,15 @@
         </div>
       </section>
 
+      <!-- 4. 영상 장비 점검 목록 -->
       <section class="glass-card p-5">
         <div class="flex justify-between items-center mb-3">
-          <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
+          <label class="txt-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5">
             <i class="fa-solid fa-video text-teal-600"></i> 영상 장비 점검
           </label>
-          <span id="videoProgressBadge" class="txt-badge bg-white/70 text-stone-600 font-bold px-2.5 py-0.5 rounded-full border border-white">0 / 2</span>
+          <span id="videoProgressBadge" class="txt-badge bg-white/70 dark:bg-stone-700/70 text-stone-600 dark:text-stone-200 font-bold px-2.5 py-0.5 rounded-full border border-white/40">0 / 2</span>
         </div>
+
         <div class="flex flex-col gap-2.5">
           <div onclick="toggleCheck('youtube')" id="item-youtube" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none">
             <div class="flex items-center gap-3">
@@ -469,6 +497,7 @@
               <i class="fa-solid fa-check opacity-0"></i>
             </div>
           </div>
+
           <div onclick="toggleCheck('recording')" id="item-recording" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none">
             <div class="flex items-center gap-3">
               <div id="icon-recording" class="w-8 h-8 rounded-xl bg-indigo-100/80 text-indigo-600 flex items-center justify-center font-bold text-xs pointer-events-none">
@@ -483,97 +512,118 @@
         </div>
       </section>
 
+      <!-- 5. 메모 (단일 카드 통합 서식 툴바) -->
       <section class="glass-card p-5">
-        <label class="block txt-caption font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+        <label class="block txt-caption font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
           <i class="fa-solid fa-note-sticky text-teal-600"></i> 메모
         </label>
         
         <div class="flex flex-col gap-4">
           <div>
-            <span class="txt-sub font-bold text-stone-600 mb-1.5 block">이슈</span>
-            <textarea id="issueProblem" rows="3" placeholder="예: 보컬 마이크 노이즈 발생&#10;스피커 좌측 출력 이상 등..." class="glass-input w-full p-3.5 rounded-2xl txt-body font-medium text-stone-700 whitespace-pre-wrap leading-relaxed"></textarea>
+            <span class="txt-sub font-bold text-stone-600 dark:text-stone-300 mb-1.5 block">이슈</span>
+            <textarea id="issueProblem" rows="3" placeholder="예: 보컬 마이크 노이즈 발생&#10;스피커 좌측 출력 이상 등..." class="glass-input w-full p-3.5 rounded-2xl txt-body font-medium text-stone-700 dark:text-stone-100 whitespace-pre-wrap leading-relaxed"></textarea>
           </div>
+
           <div>
-            <div class="flex justify-between items-center mb-1.5">
-              <span class="txt-sub font-bold text-stone-600 block">원인 & 해결</span>
+            <div class="flex justify-between items-center mb-1.5 flex-wrap gap-1">
+              <span class="txt-sub font-bold text-stone-600 dark:text-stone-300 block">원인 & 해결</span>
               
-              <div class="glass-pill px-2 py-1 flex items-center gap-1 bg-white/50 border border-white/80 shadow-xs">
-                <button type="button" onclick="applyFormat('bold')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-stone-700 transition-colors" title="굵게">
+              <!-- 통합 서식 카드 & '|' 구분선 -->
+              <div class="glass-pill px-2 py-1 flex items-center gap-1 bg-white/50 dark:bg-stone-800/60 border border-white/80 shadow-xs">
+                <button type="button" onclick="applyFormat('bold')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-stone-700 dark:text-stone-200 transition-colors" title="굵게">
                   <i class="fa-solid fa-bold"></i>
                 </button>
-                <span class="text-stone-300 text-xs font-light select-none px-0.5">|</span>
-                <button type="button" onclick="applyFormat('italic')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-stone-700 transition-colors" title="비스듬하게">
+
+                <span class="text-stone-300 dark:text-stone-600 text-xs font-light select-none px-0.5">|</span>
+
+                <button type="button" onclick="applyFormat('italic')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-stone-700 dark:text-stone-200 transition-colors" title="비스듬하게">
                   <i class="fa-solid fa-italic"></i>
                 </button>
-                <span class="text-stone-300 text-xs font-light select-none px-0.5">|</span>
+
+                <span class="text-stone-300 dark:text-stone-600 text-xs font-light select-none px-0.5">|</span>
+
                 <button type="button" onclick="applyFormat('foreColor', '#e11d48')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-rose-600 transition-colors" title="빨간색">
                   빨
                 </button>
-                <span class="text-stone-300 text-xs font-light select-none px-0.5">|</span>
+
+                <span class="text-stone-300 dark:text-stone-600 text-xs font-light select-none px-0.5">|</span>
+
                 <button type="button" onclick="applyFormat('foreColor', '#2563eb')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-blue-600 transition-colors" title="파란색">
                   파
                 </button>
-                <span class="text-stone-300 text-xs font-light select-none px-0.5">|</span>
+
+                <span class="text-stone-300 dark:text-stone-600 text-xs font-light select-none px-0.5">|</span>
+
                 <button type="button" onclick="applyFormat('removeFormat')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption text-stone-400 hover:text-stone-600 transition-colors" title="서식 초기화">
                   <i class="fa-solid fa-eraser"></i>
                 </button>
               </div>
             </div>
-            <div id="issueSolution" contenteditable="true" data-placeholder="예: 케이블 재연결 완료&#10;페이더 수치 재조정으로 문제 해결..." class="glass-editor w-full p-3.5 rounded-2xl txt-body font-medium text-stone-700 min-h-[120px] max-h-[250px] overflow-y-auto leading-relaxed"></div>
+
+            <!-- contenteditable 입력창으로 실시간 폰트 서식 반영 -->
+            <div id="issueSolution" contenteditable="true" data-placeholder="예: 케이블 재연결 완료&#10;페이더 수치 재조정으로 문제 해결..." class="glass-editor w-full p-3.5 rounded-2xl txt-body font-medium text-stone-700 dark:text-stone-100 min-h-[120px] max-h-[250px] overflow-y-auto leading-relaxed"></div>
           </div>
         </div>
       </section>
 
+      <!-- 저장 버튼 -->
       <button type="button" id="btnSaveRecord" onclick="saveRecord()" class="btn-save-deep py-4 px-6 rounded-2xl font-bold txt-body flex items-center justify-center gap-2 mt-1 cursor-pointer">
         <i class="fa-solid fa-cloud-arrow-up text-base pointer-events-none"></i> <span id="btnSaveLabel" class="pointer-events-none">클라우드에 기록 저장하기</span>
       </button>
+
     </main>
 
+    <!-- TAB 2: 지난 기록 볼 수 있는 페이지 -->
     <main id="viewHistory" class="view-section hidden flex flex-col gap-3">
       <div class="flex justify-between items-center px-1">
-        <h2 class="txt-body font-extrabold text-stone-700 flex items-center gap-2">
+        <h2 class="txt-body font-extrabold text-stone-700 dark:text-stone-100 flex items-center gap-2">
           <i class="fa-solid fa-folder-open text-teal-600"></i> 지난 점검 기록
         </h2>
-        <span id="totalRecordCount" class="txt-badge font-bold bg-white/60 text-stone-600 px-3 py-1 rounded-full border border-white">총 0건</span>
+        <span id="totalRecordCount" class="txt-badge font-bold bg-white/60 dark:bg-stone-800/60 text-stone-600 dark:text-stone-200 px-3 py-1 rounded-full border border-white/40">총 0건</span>
       </div>
 
+      <!-- 정렬 및 연도/월/메모 필터 아코디언 컨테이너 -->
       <div class="glass-card overflow-hidden transition-all duration-300">
         <button type="button" onclick="toggleFilterPanel()" class="w-full p-3.5 flex items-center justify-between text-left hover:bg-white/30 transition-colors">
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-filter text-teal-600 text-sm"></i>
-            <span class="txt-sub font-bold text-stone-700">기록 검색 & 정렬</span>
+            <span class="txt-sub font-bold text-stone-700 dark:text-stone-200">기록 검색 & 정렬</span>
             <span id="filterSummaryBadge" class="txt-badge bg-teal-100/80 text-teal-800 font-bold px-2 py-0.5 rounded-full border border-teal-200">
               최신순
             </span>
           </div>
           <i id="filterChevronIcon" class="fa-solid fa-chevron-down text-stone-400 text-xs transition-transform duration-200"></i>
         </button>
-        <div id="filterContentPanel" class="hidden p-3.5 border-t border-white/60 flex flex-col gap-3 bg-white/20">
+
+        <div id="filterContentPanel" class="hidden p-3.5 border-t border-white/60 dark:border-stone-700/60 flex flex-col gap-3 bg-white/20 dark:bg-stone-900/20">
           <div class="flex items-center justify-between gap-2">
-            <span class="txt-caption font-bold text-stone-500">정렬 기준</span>
-            <select id="sortOrderSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
+            <span class="txt-caption font-bold text-stone-500 dark:text-stone-400">정렬 기준</span>
+            <select id="sortOrderSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 dark:text-stone-100 cursor-pointer">
               <option value="desc">📅 최신 날짜순</option>
               <option value="asc">⏳ 오래된 날짜순</option>
             </select>
           </div>
-          <div class="flex items-center justify-between gap-2 border-t border-white/40 pt-2.5">
-            <span class="txt-caption font-bold text-stone-500">메모 필터</span>
-            <select id="memoFilterSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 cursor-pointer">
+
+          <!-- 메모 필터 옵션 -->
+          <div class="flex items-center justify-between gap-2 border-t border-white/40 dark:border-stone-700/40 pt-2.5">
+            <span class="txt-caption font-bold text-stone-500 dark:text-stone-400">메모 필터</span>
+            <select id="memoFilterSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-700 dark:text-stone-100 cursor-pointer">
               <option value="all">📋 전체 보기</option>
               <option value="has_memo">메모 ⭕️</option>
               <option value="no_memo">메모 ❌️</option>
             </select>
           </div>
-          <div class="grid grid-cols-2 gap-2 border-t border-white/40 pt-2.5">
+
+          <div class="grid grid-cols-2 gap-2 border-t border-white/40 dark:border-stone-700/40 pt-2.5">
             <div>
               <label class="block txt-badge font-bold text-stone-400 mb-1">연도 선택</label>
-              <select id="yearFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
+              <select id="yearFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 dark:text-stone-100 cursor-pointer">
                 <option value="all">전체 연도</option>
               </select>
             </div>
             <div>
               <label class="block txt-badge font-bold text-stone-400 mb-1">월 선택</label>
-              <select id="monthFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 cursor-pointer">
+              <select id="monthFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-700 dark:text-stone-100 cursor-pointer">
                 <option value="all">전체 월</option>
                 <option value="01">1월</option>
                 <option value="02">2월</option>
@@ -592,12 +642,16 @@
           </div>
         </div>
       </div>
-      <div id="historyListContainer" class="flex flex-col gap-4 mt-1"></div>
+
+      <div id="historyListContainer" class="flex flex-col gap-4 mt-1">
+        <!-- Records populated by JS -->
+      </div>
     </main>
 
+    <!-- Custom Glassmorphism Confirmation Modal -->
     <div id="deleteModal" class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden transition-all duration-200">
-      <div class="glass-card p-6 w-full max-w-sm flex flex-col gap-4 text-center shadow-2xl border border-white/80">
-        <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-500 mx-auto flex items-center justify-center text-xl font-bold">
+      <div class="glass-card p-6 w-full max-w-sm flex flex-col gap-4 text-center shadow-2xl border border-white/80 dark:border-stone-700">
+        <div class="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-900/50 text-rose-500 mx-auto flex items-center justify-center text-xl font-bold">
           <i class="fa-solid fa-trash-can"></i>
         </div>
         <div>
@@ -605,7 +659,7 @@
           <p class="txt-sub text-stone-500 dark:text-stone-300 mt-1">이 점검 기록을 정말 삭제하시겠습니까?<br><span class="text-xs text-rose-500">(클라우드에서 완전히 삭제됩니다)</span></p>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-2">
-          <button type="button" onclick="closeDeleteModal()" class="glass-btn py-2.5 rounded-xl font-bold txt-sub text-stone-600 hover:bg-stone-200/50">
+          <button type="button" onclick="closeDeleteModal()" class="glass-btn py-2.5 rounded-xl font-bold txt-sub text-stone-600 dark:text-stone-200 hover:bg-stone-200/50">
             취소
           </button>
           <button type="button" onclick="confirmDeleteRecord()" class="py-2.5 rounded-xl font-bold txt-sub bg-rose-500 hover:bg-rose-600 text-white shadow-md transition-colors">
@@ -615,33 +669,35 @@
       </div>
     </div>
 
+    <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-stone-800/90 backdrop-blur-md text-white txt-sub font-bold py-3 px-5 rounded-full shadow-2xl opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 z-50">
       <i class="fa-solid fa-circle-check text-teal-400"></i> <span id="toastMsg">저장 완료!</span>
     </div>
+
   </div>
 
+  <!-- Firebase SDK Module Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    const firebaseConfig = typeof __firebase_config !== 'undefined' 
-      ? JSON.parse(__firebase_config) 
-      : {
-          apiKey: "AIzaSyAWHXX5wtDxarZR57PSvqO7oHiSSDno2x0",
-          authDomain: "lapchurch-sound.firebaseapp.com",
-          databaseURL: "https://lapchurch-sound-default-rtdb.firebaseio.com",
-          projectId: "lapchurch-sound",
-          storageBucket: "lapchurch-sound.firebasestorage.app",
-          messagingSenderId: "573776602283",
-          appId: "1:573776602283:web:487d8bd1027b56e0c6c3ee"
-        };
+    const firebaseConfig = {
+      apiKey: "AIzaSyAWHXX5wtDxarZR57PSvqO7oHiSSDno2x0",
+      authDomain: "lapchurch-sound.firebaseapp.com",
+      databaseURL: "https://lapchurch-sound-default-rtdb.firebaseio.com",
+      projectId: "lapchurch-sound",
+      storageBucket: "lapchurch-sound.firebasestorage.app",
+      messagingSenderId: "573776602283",
+      appId: "1:573776602283:web:487d8bd1027b56e0c6c3ee",
+      measurementId: "G-9MSJN50T5W"
+    };
 
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'church-sound-checklist-app';
+    const appId = 'church-sound-checklist-app';
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    
+
     let unsubscribeRecords = null;
     window.isLocalStorageMode = false;
 
@@ -695,22 +751,13 @@
 
     async function initFirebase() {
       try {
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-          await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-          await signInAnonymously(auth);
-        }
-        
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            listenToFirestoreRecords();
-          } else {
-            signInAnonymously(auth).catch(() => enableLocalStorageMode('인증 실패'));
-          }
-        });
+        await signInAnonymously(auth);
+        listenToFirestoreRecords();
       } catch (err) {
         console.error("Firebase Auth Error:", err);
-        enableLocalStorageMode('오프라인 모드');
+        enableLocalStorageMode(err.code === 'auth/configuration-not-found'
+          ? '익명 로그인 미활성화'
+          : '오프라인 모드');
       }
     }
 
@@ -719,6 +766,7 @@
       const syncBadge = document.getElementById('syncStatusBadge');
       if (syncBadge) {
         syncBadge.className = "txt-badge font-bold bg-amber-100/90 text-amber-900 px-2.5 py-0.5 rounded-full border border-amber-300 shadow-xs flex items-center gap-1.5 cursor-pointer";
+        syncBadge.title = "Firebase 익명 로그인이 켜지지 않았습니다. Firebase 콘솔 > Authentication > Sign-in method에서 '익명'을 활성화하세요.";
         syncBadge.innerHTML = `<i class="fa-solid fa-hard-drive text-amber-600"></i> 로컬 저장 모드 (${reasonMsg})`;
       }
       window.loadLocalStorageRecords();
@@ -726,9 +774,9 @@
 
     function listenToFirestoreRecords() {
       if (!auth.currentUser) return;
-      // Using mandatory public collection path rule for collaborative church audio team sync
+
       const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
-      
+
       unsubscribeRecords = onSnapshot(colRef, (snapshot) => {
         const fetchedRecords = [];
         snapshot.forEach((docSnap) => {
@@ -737,7 +785,7 @@
             ...docSnap.data()
           });
         });
-        
+
         window.records = fetchedRecords;
 
         if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
@@ -759,12 +807,14 @@
       if (window.isLocalStorageMode || !auth.currentUser) {
         return window.saveLocalStorageRecord(recordData, recordId);
       }
+
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
+
       try {
         if (recordId) {
           const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'sound_records', String(recordId));
           await setDoc(docRef, recordData, { merge: true });
         } else {
-          const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
           await addDoc(colRef, recordData);
         }
         return true;
@@ -778,6 +828,7 @@
       if (window.isLocalStorageMode || !auth.currentUser) {
         return window.deleteLocalStorageRecord(recordId);
       }
+
       try {
         const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'sound_records', String(recordId));
         await deleteDoc(docRef);
@@ -802,6 +853,7 @@
       youtube: '유튜브 송출',
       recording: '영상 녹화'
     };
+
     let checkedItems = {
       vocal: false,
       pastor: false,
@@ -811,14 +863,24 @@
       youtube: false,
       recording: false
     };
+
     let selectedInspectors = new Set();
     window.records = [];
     let editingRecordId = null;
     let pendingDeleteId = null;
 
+    // 로컬 타임존 기준 YYYY-MM-DD 변환 함수 (UTC 시차 보정)
+    function getLocalDateString(d = new Date()) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
     window.onload = function() {
-      const today = new Date().toISOString().split('T')[0];
+      const today = getLocalDateString();
       document.getElementById('checkDate').value = today;
+
       loadDarkModeSetting();
       updateProgress();
       onCheckDateChange();
@@ -833,6 +895,7 @@
       const body = document.getElementById('appBody');
       const icon = document.getElementById('darkModeIcon');
       body.classList.toggle('dark-mode');
+
       const isDark = body.classList.contains('dark-mode');
       if (isDark) {
         icon.className = 'fa-solid fa-sun text-xs text-amber-300';
@@ -849,6 +912,7 @@
       const savedMode = localStorage.getItem('sound_checklist_darkmode');
       const body = document.getElementById('appBody');
       const icon = document.getElementById('darkModeIcon');
+
       if (savedMode === 'true') {
         body.classList.add('dark-mode');
         icon.className = 'fa-solid fa-sun text-xs text-amber-300';
@@ -862,18 +926,23 @@
       if (!dateStr) return '';
       const parts = dateStr.split('-');
       if (parts.length !== 3) return '';
+
       const year = parseInt(parts[0], 10);
       const month = parseInt(parts[1], 10);
       const day = parseInt(parts[2], 10);
+
       const currentDate = new Date(year, month - 1, day);
       if (isNaN(currentDate.getTime())) return '';
+
       const dayOfWeek = currentDate.getDay(); 
       const distanceToSunday = (dayOfWeek === 0) ? 0 : (7 - dayOfWeek);
       
       const sundayDate = new Date(year, month - 1, day + distanceToSunday);
       const sundayMonth = sundayDate.getMonth() + 1;
       const sundayDay = sundayDate.getDate();
+
       const weekNum = Math.ceil(sundayDay / 7);
+
       return `${sundayMonth}월 ${weekNum}주차`;
     }
 
@@ -911,6 +980,7 @@
       const body = document.getElementById('appBody');
       body.classList.remove('font-noto', 'font-gowun', 'font-myeongjo');
       body.classList.add(`font-${font}`);
+
       document.querySelectorAll('[id^="font-"]').forEach(btn => btn.classList.remove('glass-btn-active'));
       document.getElementById(`font-${font}`).classList.add('glass-btn-active');
     }
@@ -919,6 +989,7 @@
       const body = document.getElementById('appBody');
       body.classList.remove('size-sm', 'size-md', 'size-lg');
       body.classList.add(`size-${size}`);
+
       document.querySelectorAll('[id^="size-"]').forEach(btn => btn.classList.remove('glass-btn-active'));
       document.getElementById(`size-${size}`).classList.add('glass-btn-active');
     }
@@ -928,16 +999,20 @@
       const viewHistory = document.getElementById('viewHistory');
       const tabWrite = document.getElementById('tabWrite');
       const tabHistory = document.getElementById('tabHistory');
+
       if (tab === 'write') {
         viewWrite.classList.remove('hidden');
         viewHistory.classList.add('hidden');
+
         tabWrite.className = 'glass-btn glass-btn-active py-2.5 px-4 rounded-xl font-bold txt-sub flex items-center justify-center gap-2';
         tabHistory.className = 'glass-btn py-2.5 px-4 rounded-xl font-bold txt-sub text-stone-500 flex items-center justify-center gap-2';
       } else {
         viewWrite.classList.add('hidden');
         viewHistory.classList.remove('hidden');
+
         tabHistory.className = 'glass-btn glass-btn-active py-2.5 px-4 rounded-xl font-bold txt-sub flex items-center justify-center gap-2';
         tabWrite.className = 'glass-btn py-2.5 px-4 rounded-xl font-bold txt-sub text-stone-500 flex items-center justify-center gap-2';
+
         updateFilterOptions();
         updateFilterBadgeText();
         renderHistory();
@@ -947,6 +1022,7 @@
     function toggleFilterPanel() {
       const content = document.getElementById('filterContentPanel');
       const chevron = document.getElementById('filterChevronIcon');
+
       content.classList.toggle('hidden');
       if (content.classList.contains('hidden')) {
         chevron.style.transform = 'rotate(0deg)';
@@ -965,12 +1041,14 @@
       const memoVal = document.getElementById('memoFilterSelect').value;
       const yearVal = document.getElementById('yearFilterSelect').value;
       const monthVal = document.getElementById('monthFilterSelect').value;
+
       const labels = [];
       if (memoVal === 'has_memo') labels.push('메모 ⭕️');
       if (memoVal === 'no_memo') labels.push('메모 ❌️');
       if (yearVal !== 'all') labels.push(`${yearVal}년`);
       if (monthVal !== 'all') labels.push(`${parseInt(monthVal, 10)}월`);
       labels.push(sortVal === 'asc' ? '오래된순' : '최신순');
+
       document.getElementById('filterSummaryBadge').innerText = labels.join(' · ');
     }
 
@@ -990,6 +1068,7 @@
       const itemEl = document.getElementById(`item-${key}`);
       const textEl = document.getElementById(`text-${key}`);
       const checkEl = document.getElementById(`check-${key}`);
+
       if (checkedItems[key]) {
         itemEl.classList.add('checked');
         textEl.classList.add('completed-item');
@@ -1001,6 +1080,7 @@
         checkEl.className = 'w-6 h-6 rounded-full border border-stone-300 bg-white/50 flex items-center justify-center text-white text-[10px] pointer-events-none';
         checkEl.querySelector('i').classList.add('opacity-0');
       }
+
       updateProgress();
     }
 
@@ -1008,6 +1088,7 @@
       const audioKeys = ['vocal', 'pastor', 'piano', 'condenser', 'mainSpeaker'];
       const audioCount = audioKeys.filter(k => checkedItems[k]).length;
       document.getElementById('progressBadge').innerText = `${audioCount} / ${audioKeys.length}`;
+
       const videoKeys = ['youtube', 'recording'];
       const videoCount = videoKeys.filter(k => checkedItems[k]).length;
       document.getElementById('videoProgressBadge').innerText = `${videoCount} / ${videoKeys.length}`;
@@ -1019,16 +1100,19 @@
         showToast('날짜를 선택하세요!');
         return;
       }
+
       const inspectorsArr = Array.from(selectedInspectors);
       if (inspectorsArr.length === 0) {
         showToast('점검자를 선택하세요!');
         return;
       }
+
       const problemText = document.getElementById('issueProblem').value;
       const solutionHtml = document.getElementById('issueSolution').innerHTML;
       const solutionText = document.getElementById('issueSolution').innerText;
       const nowTime = getCurrentFormattedTime();
       const sundayWeek = getSundayWeekOfMonth(dateVal);
+
       const finalSolution = solutionText.trim() ? solutionHtml : '특이사항 없음';
 
       let recordPayload = {
@@ -1054,6 +1138,7 @@
       }
 
       const success = await window.dbSaveRecord(recordPayload, editingRecordId);
+
       if (success) {
         showToast(editingRecordId ? '클라우드에 수정 완료!' : '클라우드에 저장 완료!');
         resetForm();
@@ -1066,31 +1151,40 @@
     function editRecord(id) {
       const target = window.records.find(r => String(r.id) === String(id));
       if (!target) return;
+
       editingRecordId = target.id;
+
       document.getElementById('checkDate').value = target.date;
       onCheckDateChange();
+
       selectedInspectors.clear();
       ['김광수', '이승수', '유진'].forEach(name => {
         const btn = document.getElementById(`inspector-${name}`);
-        if (target.inspectors && target.inspectors.includes(name)) {
-          selectedInspectors.add(name);
-          btn.classList.add('glass-btn-active');
-        } else {
-          btn.classList.remove('glass-btn-active');
+        if (btn) {
+          if (target.inspectors && target.inspectors.includes(name)) {
+            selectedInspectors.add(name);
+            btn.classList.add('glass-btn-active');
+          } else {
+            btn.classList.remove('glass-btn-active');
+          }
         }
       });
+
       itemKeys.forEach(key => {
         const targetChecked = !!(target.items && target.items[key]);
         if (checkedItems[key] !== targetChecked) {
           toggleCheck(key);
         }
       });
+
       document.getElementById('issueProblem').value = target.problem === '특이사항 없음' ? '' : target.problem;
       document.getElementById('issueSolution').innerHTML = target.solution === '특이사항 없음' ? '' : target.solution;
+
       document.getElementById('editNoticeBanner').classList.remove('hidden');
       document.getElementById('editNoticeText').innerText = `${target.date} 기록을 수정하는 중`;
       document.getElementById('btnSaveLabel').innerText = '클라우드에 수정 완료';
       document.getElementById('tabWriteLabel').innerText = '점검 수정';
+
       switchTab('write');
       showToast('기록 정보를 불러옴');
     }
@@ -1098,23 +1192,29 @@
     function cancelEditMode() {
       resetForm();
       switchTab('history');
-      showToast('수정 취소.');
+      showToast('수정 취소');
     }
 
     function resetForm() {
       editingRecordId = null;
+
       itemKeys.forEach(key => {
         if (checkedItems[key]) toggleCheck(key);
       });
+
       selectedInspectors.clear();
       ['김광수', '이승수', '유진'].forEach(name => {
-        document.getElementById(`inspector-${name}`).classList.remove('glass-btn-active');
+        const btn = document.getElementById(`inspector-${name}`);
+        if (btn) btn.classList.remove('glass-btn-active');
       });
+
       document.getElementById('issueProblem').value = '';
       document.getElementById('issueSolution').innerHTML = '';
-      const today = new Date().toISOString().split('T')[0];
+
+      const today = getLocalDateString();
       document.getElementById('checkDate').value = today;
       onCheckDateChange();
+
       document.getElementById('editNoticeBanner').classList.add('hidden');
       document.getElementById('btnSaveLabel').innerText = '클라우드에 기록 저장하기';
       document.getElementById('tabWriteLabel').innerText = '점검 작성';
@@ -1123,6 +1223,7 @@
     function updateFilterOptions() {
       const yearSelect = document.getElementById('yearFilterSelect');
       const currentSelectedYear = yearSelect.value;
+
       const years = new Set();
       (window.records || []).forEach(r => {
         if (r.date) {
@@ -1130,11 +1231,14 @@
           if (yyyy) years.add(yyyy);
         }
       });
+
       const sortedYears = Array.from(years).sort((a, b) => b - a);
+
       let optionsHtml = '<option value="all">전체 연도</option>';
       sortedYears.forEach(y => {
         optionsHtml += `<option value="${y}">${y}년</option>`;
       });
+
       yearSelect.innerHTML = optionsHtml;
       
       if (sortedYears.includes(currentSelectedYear)) {
@@ -1149,32 +1253,38 @@
       const memoFilter = document.getElementById('memoFilterSelect').value;
       const selectedYear = document.getElementById('yearFilterSelect').value;
       const selectedMonth = document.getElementById('monthFilterSelect').value;
-      
+
       let filtered = (window.records || []).filter(r => {
         if (!r.date) return false;
         const [yyyy, mm] = r.date.split('-');
+
         const hasProb = r.problem && r.problem.trim() !== '' && r.problem !== '특이사항 없음';
         const hasSol = r.solution && r.solution.trim() !== '' && r.solution !== '특이사항 없음';
         const isMemoWritten = hasProb || hasSol;
+
         if (memoFilter === 'has_memo') {
           if (!isMemoWritten) return false;
         } else if (memoFilter === 'no_memo') {
           if (isMemoWritten) return false;
         }
+
         if (selectedYear !== 'all' && yyyy !== selectedYear) return false;
         if (selectedMonth !== 'all' && mm !== selectedMonth) return false;
+
         return true;
       });
 
       filtered.sort((a, b) => {
         const timeA = new Date(a.date).getTime() || 0;
         const timeB = new Date(b.date).getTime() || 0;
+
         if (sortOrder === 'asc') {
           return timeA - timeB || (a.createdAt || '').localeCompare(b.createdAt || '');
         } else {
           return timeB - timeA || (b.createdAt || '').localeCompare(a.createdAt || '');
         }
       });
+
       return filtered;
     }
 
@@ -1183,6 +1293,7 @@
       const displayRecords = getFilteredAndSortedRecords();
       
       document.getElementById('totalRecordCount').innerText = `총 ${(window.records || []).length}건 (조회: ${displayRecords.length}건)`;
+
       if (displayRecords.length === 0) {
         container.innerHTML = `
           <div class="glass-card p-8 text-center flex flex-col items-center justify-center gap-3 text-stone-400">
@@ -1201,7 +1312,7 @@
 
         return `
           <div id="card-${rec.id}" class="glass-card p-5 flex flex-col gap-3 relative">
-            <div class="flex justify-between items-start border-b border-white/60 pb-3">
+            <div class="flex justify-between items-start border-b border-white/60 dark:border-stone-700/60 pb-3">
               <div>
                 <div class="flex items-center gap-1.5 flex-wrap mb-1">
                   <span class="txt-badge font-extrabold text-teal-800 bg-teal-100/70 px-2.5 py-0.5 rounded-full border border-teal-200/50 inline-block">
@@ -1213,16 +1324,17 @@
                     </span>
                   ` : ''}
                 </div>
-                <div class="flex items-center gap-1.5 txt-sub font-bold text-stone-600 mt-1">
+                <div class="flex items-center gap-1.5 txt-sub font-bold text-stone-600 dark:text-stone-300 mt-1">
                   <i class="fa-solid fa-users text-stone-400"></i> 점검자: ${rec.inspectors ? rec.inspectors.join(', ') : ''}
                 </div>
               </div>
 
+              <!-- Action Buttons -->
               <div class="flex items-center gap-1.5 z-20">
-                <button type="button" onclick="editRecord('${rec.id}')" class="glass-btn p-2.5 rounded-xl text-stone-600 hover:text-amber-600 transition-colors" title="수정하기">
+                <button type="button" onclick="editRecord('${rec.id}')" class="glass-btn p-2.5 rounded-xl text-stone-600 dark:text-stone-300 hover:text-amber-600 transition-colors" title="수정하기">
                   <i class="fa-solid fa-pen text-xs pointer-events-none"></i>
                 </button>
-                <button type="button" onclick="exportCardToJpg('${rec.id}', '${rec.date}')" class="glass-btn p-2.5 rounded-xl text-stone-600 hover:text-teal-600 transition-colors" title="JPG로 저장/공유">
+                <button type="button" onclick="exportCardToJpg('${rec.id}', '${rec.date}')" class="glass-btn p-2.5 rounded-xl text-stone-600 dark:text-stone-300 hover:text-teal-600 transition-colors" title="JPG로 저장/공유">
                   <i class="fa-solid fa-file-image text-xs pointer-events-none"></i>
                 </button>
                 <button type="button" onclick="openDeleteModal('${rec.id}')" class="glass-btn p-2.5 rounded-xl text-stone-400 hover:text-rose-500 transition-colors" title="삭제">
@@ -1231,17 +1343,18 @@
               </div>
             </div>
 
+            <!-- Checked Items List -->
             <div>
               <div class="txt-caption font-bold text-stone-400 uppercase mb-2 flex justify-between">
                 <span>장비 점검 결과</span>
-                <span class="text-teal-700 font-extrabold">${checkedCount} / ${itemKeys.length} 완료</span>
+                <span class="text-teal-700 dark:text-teal-400 font-extrabold">${checkedCount} / ${itemKeys.length} 완료</span>
               </div>
               <div class="grid grid-cols-2 gap-1.5">
                 ${itemKeys.map(k => {
                   const isChecked = !!itemsObj[k];
                   return `
-                    <div class="flex items-center gap-2 txt-sub font-semibold ${isChecked ? 'text-stone-700' : 'text-stone-400 line-through'}">
-                      <i class="fa-solid ${isChecked ? 'fa-circle-check text-teal-500' : 'fa-circle-xmark text-stone-300'}"></i>
+                    <div class="flex items-center gap-2 txt-sub font-semibold ${isChecked ? 'text-stone-700 dark:text-stone-200' : 'text-stone-400 dark:text-stone-500 line-through'}">
+                      <i class="fa-solid ${isChecked ? 'fa-circle-check text-teal-500' : 'fa-circle-xmark text-stone-300 dark:text-stone-600'}"></i>
                       <span>${itemNames[k]}</span>
                     </div>
                   `;
@@ -1249,24 +1362,26 @@
               </div>
             </div>
 
+            <!-- Issues Section -->
             <div class="glass-pill p-3.5 txt-sub flex flex-col gap-2.5 mt-1">
               <div>
                 <span class="font-bold text-rose-500 block mb-0.5">🚨 이슈:</span>
-                <div class="font-medium text-stone-700 whitespace-pre-wrap leading-relaxed">${escapeHtml(rec.problem)}</div>
+                <div class="font-medium text-stone-700 dark:text-stone-200 whitespace-pre-wrap leading-relaxed">${escapeHtml(rec.problem)}</div>
               </div>
-              <div class="border-t border-stone-200/40 pt-2">
-                <span class="font-bold text-teal-600 block mb-0.5">🛠 원인 & 해결:</span>
-                <div class="font-medium text-stone-700 leading-relaxed">${rec.solution}</div>
+              <div class="border-t border-stone-200/40 dark:border-stone-700/40 pt-2">
+                <span class="font-bold text-teal-600 dark:text-teal-400 block mb-0.5">🛠 원인 & 해결:</span>
+                <div class="font-medium text-stone-700 dark:text-stone-200 leading-relaxed">${sanitizeHtml(rec.solution)}</div>
               </div>
             </div>
 
-            <div class="border-t border-white/50 pt-2 flex flex-col gap-0.5 text-[10px] text-stone-400">
+            <!-- Time & Inspector Metadata Section -->
+            <div class="border-t border-white/50 dark:border-stone-700/50 pt-2 flex flex-col gap-0.5 text-[10px] text-stone-400">
               <div class="flex justify-between items-center flex-wrap gap-1">
                 <span>작성시간 : ${rec.createdAt || '-'}</span>
                 <span>첫 점검자 : ${escapeHtml(initialInspectorStr)}</span>
               </div>
               ${rec.updatedAt ? `
-                <div class="flex justify-between items-center flex-wrap gap-1 text-amber-700/80 font-medium">
+                <div class="flex justify-between items-center flex-wrap gap-1 text-amber-700/80 dark:text-amber-400/80 font-medium">
                   <span>수정시간 : ${rec.updatedAt}</span>
                   <span>수정자 : ${escapeHtml(rec.lastEditor)}</span>
                 </div>
@@ -1280,12 +1395,21 @@
     function exportCardToJpg(id, dateStr) {
       showToast('JPG 이미지를 생성하는 중...');
       const cardEl = document.getElementById(`card-${id}`);
+      if (!cardEl) return;
+
       setTimeout(() => {
         html2canvas(cardEl, {
           scale: 2,
-          backgroundColor: document.body.classList.contains('dark-mode') ? '#1a1a1a' : '#f5f2eb',
+          backgroundColor: document.body.classList.contains('dark-mode') ? '#1e1e1e' : '#f5f2eb',
           useCORS: true,
-          logging: false
+          logging: false,
+          onclone: (clonedDoc) => {
+            const clonedCard = clonedDoc.getElementById(`card-${id}`);
+            if (clonedCard) {
+              clonedCard.style.backdropFilter = 'none';
+              clonedCard.style.webkitBackdropFilter = 'none';
+            }
+          }
         }).then(canvas => {
           const image = canvas.toDataURL('image/jpeg', 0.95);
           const link = document.createElement('a');
@@ -1342,7 +1466,14 @@
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(/[']/g, "&#039;");
+    }
+
+    function sanitizeHtml(htmlStr) {
+      if (!htmlStr) return '';
+      if (htmlStr === '특이사항 없음') return '특이사항 없음';
+      // 간단한 서식 태그(b, i, font, span, br, div) 이외의 위험 태그만 거르는 예시
+      return htmlStr.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
     }
   </script>
 </body>
