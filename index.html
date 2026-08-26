@@ -12,8 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
   <!-- html2canvas for JPG export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
   <style>
     /* Font Size Rules */
@@ -138,7 +136,6 @@
       color: #e5e5e5 !important;
     }
 
-    /* 다크모드 시 상단 음향실 배지 스타일 */
     body.dark-mode header .txt-badge {
       background: linear-gradient(135deg, rgba(60, 60, 60, 0.8), rgba(35, 35, 35, 0.8)) !important;
       color: #5eead4 !important;
@@ -272,7 +269,7 @@
 
   <div class="w-full max-w-md relative">
  
-<!-- App Header & Navigation Tabs -->
+    <!-- App Header & Navigation Tabs -->
     <header class="glass-card p-5 mb-5 flex flex-col gap-4 relative">
       <div class="flex justify-between items-start">
         <div>
@@ -292,8 +289,7 @@
           
           <!-- 폰트 버튼 텍스트 -->
           <button onclick="toggleFontSettings()" class="glass-btn w-10 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-extrabold txt-caption transition-colors shadow-sm gap-1" title="글꼴 및 크기 설정">
-            <i class="fa-solid fa-font text-xs ​text-stone-700"></i>
-            <span></span>
+            <i class="fa-solid fa-font text-xs text-stone-700"></i>
           </button>
         </div>
       </div>
@@ -318,8 +314,6 @@
             <button onclick="setFontFamily('gowun')" id="font-gowun" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-700 font-gowun">
               둥근 고딕
             </button>
-
-            <!-- 굵은 명조체 선택 옵션 -->
             <button onclick="setFontFamily('myeongjo')" id="font-myeongjo" class="glass-btn py-1.5 txt-caption rounded-xl text-stone-700 font-myeongjo font-bold">
               굵은 명조
             </button>
@@ -358,7 +352,7 @@
       
       <div id="editNoticeBanner" class="hidden glass-card p-3 bg-amber-50/80 border-amber-200 flex justify-between items-center txt-sub font-bold text-amber-800">
         <span class="flex items-center gap-1.5">
-          <i class="fa-solid fa-pen-to-square text-amber-600"></i> <span id="editNoticeText">기록을 수정하는 중이야</span>
+          <i class="fa-solid fa-pen-to-square text-amber-600"></i> <span id="editNoticeText">기록을 수정하는 중입니다</span>
         </span>
         <button onclick="cancelEditMode()" class="text-stone-400 hover:text-stone-600 txt-caption underline font-normal">
           취소
@@ -646,6 +640,27 @@
       </div>
     </main>
 
+    <!-- Custom Glassmorphism Confirmation Modal (Replacing confirm()) -->
+    <div id="deleteModal" class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden transition-all duration-200">
+      <div class="glass-card p-6 w-full max-w-sm flex flex-col gap-4 text-center shadow-2xl border border-white/80">
+        <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-500 mx-auto flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-trash-can"></i>
+        </div>
+        <div>
+          <h3 class="txt-body font-extrabold text-stone-800 dark:text-stone-100">점검 기록 삭제</h3>
+          <p class="txt-sub text-stone-500 dark:text-stone-300 mt-1">이 점검 기록을 정말 삭제하시겠습니까?</p>
+        </div>
+        <div class="grid grid-cols-2 gap-2 mt-2">
+          <button type="button" onclick="closeDeleteModal()" class="glass-btn py-2.5 rounded-xl font-bold txt-sub text-stone-600 hover:bg-stone-200/50">
+            취소
+          </button>
+          <button type="button" onclick="confirmDeleteRecord()" class="py-2.5 rounded-xl font-bold txt-sub bg-rose-500 hover:bg-rose-600 text-white shadow-md transition-colors">
+            삭제하기
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-stone-800/90 backdrop-blur-md text-white txt-sub font-bold py-3 px-5 rounded-full shadow-2xl opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 z-50">
       <i class="fa-solid fa-circle-check text-teal-400"></i> <span id="toastMsg">저장 완료!</span>
@@ -679,6 +694,7 @@
     let selectedInspectors = new Set();
     let records = [];
     let editingRecordId = null;
+    let pendingDeleteId = null;
 
     window.onload = function() {
       const today = new Date().toISOString().split('T')[0];
@@ -1150,7 +1166,7 @@
                 <button type="button" onclick="exportCardToJpg(${rec.id}, '${rec.date}')" class="glass-btn p-2.5 rounded-xl text-stone-600 hover:text-teal-600 transition-colors" title="JPG로 저장/공유">
                   <i class="fa-solid fa-file-image text-xs pointer-events-none"></i>
                 </button>
-                <button type="button" onclick="deleteRecord(${rec.id})" class="glass-btn p-2.5 rounded-xl text-stone-400 hover:text-rose-500 transition-colors" title="삭제">
+                <button type="button" onclick="openDeleteModal(${rec.id})" class="glass-btn p-2.5 rounded-xl text-stone-400 hover:text-rose-500 transition-colors" title="삭제">
                   <i class="fa-solid fa-trash-can text-xs pointer-events-none"></i>
                 </button>
               </div>
@@ -1230,15 +1246,28 @@
       }, 100);
     }
 
-    function deleteRecord(id) {
-      if (confirm('이 점검 기록을 삭제할까요?')) {
-        records = records.filter(r => r.id !== id);
+    function openDeleteModal(id) {
+      pendingDeleteId = id;
+      const modal = document.getElementById('deleteModal');
+      modal.classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+      pendingDeleteId = null;
+      const modal = document.getElementById('deleteModal');
+      modal.classList.add('hidden');
+    }
+
+    function confirmDeleteRecord() {
+      if (pendingDeleteId !== null) {
+        records = records.filter(r => r.id !== pendingDeleteId);
         saveRecordsToStorage();
         updateFilterOptions();
         updateFilterBadgeText();
         renderHistory();
-        showToast('삭제완료!');
+        showToast('삭제가 완료되었습니다!');
       }
+      closeDeleteModal();
     }
 
     function showToast(msg) {
@@ -1257,7 +1286,7 @@
       try {
         localStorage.setItem('sound_checklist_records', JSON.stringify(records));
       } catch(e) {
-        console.error(e);
+        console.error('LocalStorage 저장 오류:', e);
       }
     }
 
