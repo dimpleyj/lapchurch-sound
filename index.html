@@ -10,6 +10,11 @@
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[class*="dark-mode"]']
+    }
+  </script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
@@ -57,6 +62,15 @@
   .txt-body  { font-size: 0.9em; }
   .txt-caption, .txt-badge { font-size: 0.75em; }
   .txt-badge { font-size: 0.7em; }
+
+  /* OS 다크모드 시 사파리 타이틀 색상 씻김(회색 변색) 방지 */
+  .title-teal-fix {
+    color: #134e4a !important;
+  }
+  body.dark-mode .title-teal-fix,
+  body.dark .title-teal-fix {
+    color: #5eead4 !important;
+  }
 
   /* 4. Glassmorphic Base Components */
   .glass-card, .glass-pill, .glass-input {
@@ -271,13 +285,13 @@
         <div>
           <div class="flex items-center gap-2 mb-1">
             <span class="txt-badge font-bold tracking-widest text-teal-800 uppercase bg-gradient-to-r from-[#FFDFDF] to-[#DCF7EA] px-3 py-1 rounded-full border border-white shadow-sm">
-              사랑과 평안의 교회 🎚 음향실
-            </span>
-          </div>
-          <h1 class="txt-title font-extrabold text-stone-800 dark:text-stone-100 mt-1 flex items-center gap-2 tracking-tight">
-            사운드 체크리스트
-          </h1>
-          <div class="mt-1.5 flex items-center">
+            사랑과 평안의 교회 🎚 음향실
+          </span>
+        </div>
+        <h1 class="txt-title title-teal-fix font-extrabold mt-1 flex items-center gap-2 tracking-tight">
+          사운드 체크리스트
+        </h1>
+        <div class="mt-1.5 flex items-center">
             <span id="syncStatusBadge" class="txt-badge font-bold bg-amber-100/90 text-amber-900 px-2.5 py-0.5 rounded-full border border-amber-200 shadow-xs flex items-center gap-1.5">
               <i class="fa-solid fa-hard-drive text-amber-600"></i> 저장소 준비 중...
             </span>
@@ -877,6 +891,7 @@
       const body = document.getElementById('appBody');
       const icon = document.getElementById('darkModeIcon');
       body.classList.toggle('dark-mode');
+      body.classList.toggle('dark');
 
       const isDark = body.classList.contains('dark-mode');
       if (isDark) {
@@ -896,10 +911,10 @@
       const icon = document.getElementById('darkModeIcon');
 
       if (savedMode === 'true') {
-        body.classList.add('dark-mode');
+        body.classList.add('dark-mode', 'dark');
         icon.className = 'fa-solid fa-sun text-xs text-amber-300';
       } else {
-        body.classList.remove('dark-mode');
+        body.classList.remove('dark-mode', 'dark');
         icon.className = 'fa-solid fa-moon text-xs';
       }
     }
