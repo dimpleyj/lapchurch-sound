@@ -98,13 +98,25 @@
   }
 
   .glass-input {
-    background: rgba(255, 255, 255, 0.5) !important;
-    border: 1px solid rgba(255, 255, 255, 0.7) !important;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
-    outline: none;
-    color: #2d3748 !important;
-    transition: all 0.2s ease;
-  }
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+  outline: none;
+  color: #2d3748 !important;
+  transition: all 0.2s ease;
+
+  /* 👇 iOS 아이폰 날짜 선택칸 스타일 픽스 (추가할 코드) */
+  -webkit-appearance: none; /* iOS 기본 폼 요소 스타일 제거 (튀어나옴 방지) */
+  -moz-appearance: none;
+  appearance: none;
+  text-align: left !important; /* 좌측 정렬 고정 */
+  min-height: 2.8rem; /* iOS input 높이 일정하게 유지 */
+}
+
+/* 👇 iOS Safari 날짜 선택 텍스트 강제 좌측 정렬 */
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left !important;
+}
 
   .glass-input:focus {
     background: rgba(255, 255, 255, 0.85) !important;
