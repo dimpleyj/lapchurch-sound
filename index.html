@@ -753,8 +753,8 @@
 
         const syncBadge = document.getElementById('syncStatusBadge');
         if (syncBadge) {
-          syncBadge.className = "txt-badge font-bold bg-white/40 dark:bg-stone-800/40 text-stone-600 dark:text-stone-300 px-2.5 py-0.5 rounded-full border border-white/60 dark:border-stone-700/50 backdrop-blur-md shadow-xs flex items-center gap-1.5";
-          syncBadge.innerHTML = '<i class="fa-solid fa-wifi text-stone-500 dark:text-stone-400"></i> 실시간 클라우드 연동됨';
+          syncBadge.className = "txt-badge font-bold bg-emerald-100/90 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-200 shadow-xs flex items-center gap-1.5";
+          syncBadge.innerHTML = '<i class="fa-solid fa-wifi text-emerald-400"></i> 실시간 클라우드 연동됨';
         }
       }, (error) => {
         console.warn("Firestore 구독 실패 (로컬 모드 유지):", error);
