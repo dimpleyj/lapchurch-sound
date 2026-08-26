@@ -706,11 +706,22 @@
       onCheckDateChange();
     };
 
-    /* 실시간 서식 명령 실행 함수 */
-    function applyFormat(command, value = null) {
-      document.execCommand(command, false, value);
-      document.getElementById('issueSolution').focus();
-    }
+/* 안전한 실시간 서식 적용 함수 */
+function applyFormat(command, value = null) {
+  const editor = document.getElementById('issueSolution');
+  editor.focus();
+
+  // 최신 브라우저 선택 영역(Selection) 가져오기
+  const selection = window.getSelection();
+  if (!selection.rangeCount) return;
+
+  // execCommand 실행 중 에러가 나지 않도록 예외 처리 보완
+  try {
+    document.execCommand(command, false, value);
+  } catch (e) {
+    console.warn('서식 적용 실패:', e);
+  }
+}
 
     function toggleDarkMode() {
       const body = document.getElementById('appBody');
