@@ -1514,6 +1514,12 @@
         return;
       }
 
+
+
+
+
+
+
       // 장비 키 분류
       const audioKeys = ['vocal', 'pastor', 'piano', 'condenser', 'mainSpeaker'];
       const videoKeys = ['youtube', 'recording'];
@@ -1526,7 +1532,15 @@
 
         return `
           <div id="card-${rec.id}" class="glass-card p-5 flex flex-col gap-3 relative">
-            <div class="flex justify-between items-start border-b border-white/60 dark:border-stone-700/60 pb-3 gap-2">
+           <!-- border-stone-400 (라이트모드) / dark:border-stone-500 (다크모드)로 바꿔서 훨씬 진하게 강조 -->
+<div class="flex justify-between items-start border-b-2 border-stone-400 dark:border-stone-500 pb-3 gap-2">
+
+
+
+
+
+
+
               <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-1.5 flex-wrap mb-1">
                   <span class="txt-badge font-extrabold text-teal-800 bg-teal-100/80 px-2.5 py-0.5 rounded-full border border-teal-200/50 inline-block">
@@ -1541,33 +1555,7 @@
                 <div class="flex items-center gap-1.5 txt-sub font-bold text-stone-700 dark:text-stone-300 mt-1 truncate">
                   <i class="fa-solid fa-users text-stone-400 flex-shrink-0"></i> <span>점검자: ${rec.inspectors ? rec.inspectors.join(', ') : ''}</span>
                 </div>
-
-<!-- 하단 흰색 구분선 추가 -->
-<div class="w-full border-b border-white my-2"></div>
-
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
