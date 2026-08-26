@@ -133,6 +133,29 @@
     color: #333a42 !important;
   }
 
+  /* 메모 예시문구 (Placeholder) 폰트 디자인 통일 */
+  textarea::placeholder,
+  .ql-editor.ql-blank::before {
+    color: #8b98a5 !important;
+    font-style: normal !important;
+    font-size: 0.9em !important;
+    font-family: inherit !important;
+    line-height: 1.6 !important;
+    opacity: 0.85 !important;
+  }
+
+  body.dark-mode textarea::placeholder,
+  body.dark-mode .ql-editor.ql-blank::before {
+    color: #64748b !important;
+    opacity: 0.85 !important;
+  }
+
+  .ql-editor {
+    font-size: 0.9em !important;
+    font-family: inherit !important;
+    line-height: 1.6 !important;
+  }
+
   /* 5. Buttons & Interactive Elements */
   .glass-btn {
     background: rgba(255, 255, 255, 0.65) !important;
@@ -528,7 +551,7 @@
         <div class="flex flex-col gap-4">
           <div>
             <span class="txt-sub font-bold text-stone-700 dark:text-stone-300 mb-1.5 block">이슈</span>
-            <textarea id="issueProblem" rows="3" placeholder="예: 보컬 마이크 노이즈 발생&#10;스피커 좌측 출력 이상 등..." class="glass-input w-full p-3.5 rounded-2xl txt-body font-medium text-stone-800 dark:text-stone-100 whitespace-pre-wrap leading-relaxed"></textarea>
+            <textarea id="issueProblem" rows="3" placeholder="예) 보컬 마이크 노이즈 발생&#10;    스피커 좌측 출력 이상 등..." class="glass-input w-full p-3.5 rounded-2xl txt-body font-medium text-stone-800 dark:text-stone-100 whitespace-pre-wrap leading-relaxed"></textarea>
           </div>
 
           <div>
@@ -867,7 +890,7 @@
       // Quill 에디터 초기화
       quill = new Quill('#quillEditor', {
         theme: 'snow',
-        placeholder: '예: 케이블 재연결 완료\n페이더 수치 재조정으로 문제 해결...',
+        placeholder: '예) 케이블 재연결 완료\n    페이더 수치 재조정으로 문제 해결...',
         modules: {
           toolbar: [
             ['bold', 'italic']
