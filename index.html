@@ -472,18 +472,28 @@
         </button>
       </div>
 
-      <!-- 1. 날짜 선택 -->
-      <section class="glass-card p-5">
-        <div class="flex justify-between items-center mb-2 gap-2">
-          <label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
-            <i class="fa-regular fa-calendar-check text-teal-600 flex-shrink-0"></i> <span>점검 날짜</span>
-          </label>
-          <span id="sundayWeekBadge" class="txt-badge font-bold bg-teal-100/90 text-teal-900 px-2.5 py-0.5 rounded-full border border-teal-200/60 shadow-md truncate">
-            -
-          </span>
-        </div>
-        <input type="date" id="checkDate" onchange="onCheckDateChange()" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-800 dark:text-stone-100 txt-body text-center">
-      </section>
+<!-- 1. 날짜 선택 -->
+<section class="glass-card p-5">
+  <div class="flex justify-between items-center mb-2 gap-2">
+    <label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
+      <i class="fa-regular fa-calendar-check text-teal-600 flex-shrink-0"></i> <span>점검 날짜</span>
+    </label>
+    <span id="sundayWeekBadge" class="txt-badge font-bold bg-teal-100/90 text-teal-900 px-2.5 py-0.5 rounded-full border border-teal-200/60 shadow-sm truncate">
+      -
+    </span>
+  </div>
+  <!-- shadow-md 클래스를 추가해서 뒤로 그림자가 지도록 수정 -->
+  <input type="date" id="checkDate" onchange="onCheckDateChange()" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-800 dark:text-stone-100 txt-body text-center shadow-md">
+</section>
+
+
+
+
+  
+
+
+
+
 
       <!-- 2. 음향 장비 점검 목록 -->
       <section class="glass-card p-5">
