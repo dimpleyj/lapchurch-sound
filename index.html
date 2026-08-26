@@ -1203,7 +1203,7 @@
 
       await window.dbSaveRecord(recordPayload, editingRecordId);
 
-      showToast(editingRecordId ? '기록이 수정되었습니다!' : '기록이 저장되었습니다!');
+      showToast(editingRecordId ? '기록 수정 완료!' : '기록 저장 완료!');
       resetForm();
       setTimeout(() => {
         switchTab('history');
@@ -1509,7 +1509,7 @@
       if (pendingDeleteId !== null) {
         showToast('삭제 처리 중...');
         await window.dbDeleteRecord(pendingDeleteId);
-        showToast('삭제가 완료되었습니다!');
+        showToast('삭제 완료!');
       }
       closeDeleteModal();
     }
