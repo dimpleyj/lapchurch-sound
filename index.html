@@ -1,957 +1,1599 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<!-- Prevent OS level auto-dark mode font overrides -->
-<meta name="color-scheme" content="light">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Prevent OS level auto-dark mode font overrides -->
+  <meta name="color-scheme" content="light">
+  
+  <title>사랑과 평안의 교회 음향실 - 사운드 체크리스트</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[class*="dark-mode"]']
+    }
+  </script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <!-- html2canvas for JPG export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <!-- Quill.js CDN -->
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
-<title>사랑과 평안의 교회 음향실 - 사운드 체크리스트</title>
+  <style>
+  :root {
+    color-scheme: light;
+  }
 
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-darkMode: ['class', '[class*="dark-mode"]']
-}
-</script>
-<!-- FontAwesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-<!-- html2canvas for JPG export -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  /* OS 차원의 폰트 자동 확대/축소 방지 (가변 폰트 대응) */
+  html, body {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
 
-<!-- Quill.js CDN -->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+  /* 1. Base Reset & Font Rules */
+  body.size-sm { font-size: 16px !important; }
+  body.size-md { font-size: 18px !important; }
+  body.size-lg { font-size: 24px !important; }
 
-<style>
-:root {
-color-scheme: light;
-}
+  body.font-noto { font-family: 'Noto Sans KR', sans-serif !important; }
+  body.font-gowun { font-family: 'Gowun Dodum', sans-serif !important; }
+  body.font-myeongjo { font-family: 'Nanum Myeongjo', serif !important; font-weight: 700 !important; }
 
-/* OS 차원의 폰트 자동 확대/축소 방지 (가변 폰트 대응) */
-html, body {
--webkit-text-size-adjust: 100%;
--moz-text-size-adjust: 100%;
--ms-text-size-adjust: 100%;
-text-size-adjust: 100%;
-}
+  /* 2. Global Light Theme (Forced Color Preservation on OS Dark Mode) */
+  body {
+    background: #f4f0eb !important;
+    background-image: 
+      radial-gradient(circle at 10% 10%, rgba(140, 215, 198, 0.45) 0%, transparent 50%),
+      radial-gradient(circle at 90% 85%, rgba(245, 180, 195, 0.45) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, transparent 80%),
+      linear-gradient(135deg, #f7f4ee 0%, #efeae1 100%) !important;
+    background-attachment: fixed !important;
+    color: #333a42 !important;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background 0.3s ease, color 0.3s ease, font-size 0.2s ease;
+  }
 
-/* 1. Base Reset & Font Rules */
-body.size-sm { font-size: 16px !important; }
-body.size-md { font-size: 18px !important; }
-body.size-lg { font-size: 24px !important; }
+  /* 3. Text Utility Classes */
+  .txt-title { font-size: 1.5em; line-height: 1.2; }
+  .txt-sub   { font-size: 0.85em; }
+  .txt-body  { font-size: 0.9em; }
+  .txt-caption, .txt-badge { font-size: 0.75em; }
+  .txt-badge { font-size: 0.7em; }
 
-body.font-noto { font-family: 'Noto Sans KR', sans-serif !important; }
-body.font-gowun { font-family: 'Gowun Dodum', sans-serif !important; }
-body.font-myeongjo { font-family: 'Nanum Myeongjo', serif !important; font-weight: 700 !important; }
+  /* OS 다크모드 시 사파리 타이틀 색상 씻김(회색 변색) 방지 */
+  .title-teal-fix {
+    color: #134e4a !important;
+  }
+  body.dark-mode .title-teal-fix,
+  body.dark .title-teal-fix {
+    color: #5eead4 !important;
+  }
 
-/* 2. Global Light Theme (Forced Color Preservation on OS Dark Mode) */
-body {
-background: #f4f0eb !important;
-background-image:
-radial-gradient(circle at 10% 10%, rgba(140, 215, 198, 0.45) 0%, transparent 50%),
-radial-gradient(circle at 90% 85%, rgba(245, 180, 195, 0.45) 0%, transparent 50%),
-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, transparent 80%),
-linear-gradient(135deg, #f7f4ee 0%, #efeae1 100%) !important;
-background-attachment: fixed !important;
-color: #333a42 !important;
--webkit-tap-highlight-color: transparent;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
-transition: background 0.3s ease, color 0.3s ease, font-size 0.2s ease;
-}
+  /* 4. Glassmorphic Base Components */
+  .glass-card, .glass-pill, .glass-input {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 
-/* 3. Text Utility Classes */
-.txt-title { font-size: 1.5em; line-height: 1.2; }
-.txt-sub { font-size: 0.85em; }
-.txt-body { font-size: 0.9em; }
-.txt-caption, .txt-badge { font-size: 0.75em; }
-.txt-badge { font-size: 0.7em; }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.45) !important;
+    border-right-color: rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 20px 40px -10px rgba(100, 115, 130, 0.22), 0 8px 16px -6px rgba(0, 0, 0, 0.08), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+    color: #333a42 !important;
+  }
 
-/* OS 다크모드 시 사파리 타이틀 색상 씻김(회색 변색) 방지 */
-.title-teal-fix {
-color: #134e4a !important;
-}
-body.dark-mode .title-teal-fix,
-body.dark .title-teal-fix {
-color: #5eead4 !important;
-}
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08), inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    color: #333a42 !important;
+  }
 
-/* 4. Glassmorphic Base Components */
-.glass-card, .glass-pill, .glass-input {
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-}
+  .glass-input {
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+    outline: none;
+    color: #2d3748 !important;
+    transition: all 0.2s ease;
 
-.glass-card {
-background: rgba(255, 255, 255, 0.55) !important;
-border: 1px solid rgba(255, 255, 255, 0.85) !important;
-border-bottom-color: rgba(255, 255, 255, 0.45) !important;
-border-right-color: rgba(255, 255, 255, 0.45) !important;
-box-shadow: 0 20px 40px -10px rgba(100, 115, 130, 0.22), 0 8px 16px -6px rgba(0, 0, 0, 0.08), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
-border-radius: 28px;
-color: #333a42 !important;
-}
+    /* iOS/안드로이드 날짜 입력 중앙 정렬 픽스 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-align: center !important;
+    min-height: 2.8rem;
+  }
 
-.glass-pill {
-background: rgba(255, 255, 255, 0.45) !important;
-border: 1px solid rgba(255, 255, 255, 0.8) !important;
-border-bottom-color: rgba(255, 255, 255, 0.35) !important;
-box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08), inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
-border-radius: 20px;
-color: #333a42 !important;
-}
+  /* iOS Safari 날짜 선택 텍스트 중앙 정렬 픽스 */
+  input[type="date"]::-webkit-date-and-time-value {
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
 
-.glass-input {
-background: rgba(255, 255, 255, 0.5) !important;
-border: 1px solid rgba(255, 255, 255, 0.7) !important;
-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
-outline: none;
-color: #2d3748 !important;
-transition: all 0.2s ease;
+  /* 크롬/안드로이드 캘린더 아이콘 내부 정렬 제어 */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    margin-left: 0.5rem;
+  }
 
-/* iOS/안드로이드 날짜 입력 중앙 정렬 픽스 */
--webkit-appearance: none;
--moz-appearance: none;
-appearance: none;
-text-align: center !important;
-min-height: 2.8rem;
-}
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-color: rgba(140, 203, 185, 0.9) !important;
+    box-shadow: 0 0 12px rgba(140, 203, 185, 0.35);
+  }
 
-/* iOS Safari 날짜 선택 텍스트 중앙 정렬 픽스 */
-input[type="date"]::-webkit-date-and-time-value {
-text-align: center !important;
-margin: 0 auto !important;
-}
+  /* Quill 커스텀 스타일링 및 메모 입력칸 그림자(입체감) 추가 */
+  .ql-toolbar.ql-snow {
+    display: flex !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+    border-top-left-radius: 1rem !important;
+    border-top-right-radius: 1rem !important;
+    backdrop-filter: blur(8px);
+  }
+  
+  .ql-container.ql-snow {
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.75) !important;
+    border-bottom-left-radius: 1rem !important;
+    border-bottom-right-radius: 1rem !important;
+    min-height: 100px;
+    resize: vertical;
+    overflow: auto;
+    font-size: 0.9em;
+    color: #333a42 !important;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.06), 0 8px 20px -4px rgba(100, 115, 130, 0.15) !important;
+  }
 
-/* 크롬/안드로이드 캘린더 아이콘 내부 정렬 제어 */
-input[type="date"]::-webkit-calendar-picker-indicator {
-margin-left: 0.5rem;
-}
+  /* 메모 예시문구 (Placeholder) 및 본문 폰트 디자인 통일 & 정렬 보정 */
+  textarea::placeholder,
+  .ql-editor.ql-blank::before {
+    color: #8b98a5 !important;
+    font-style: normal !important;
+    font-size: 0.9em !important;
+    font-family: inherit !important;
+    line-height: 1.6 !important;
+    opacity: 0.85 !important;
+    text-align: left !important;
+    left: 15px !important;
+    right: 15px !important;
+  }
 
-.glass-input:focus {
-background: rgba(255, 255, 255, 0.85) !important;
-border-color: rgba(140, 203, 185, 0.9) !important;
-box-shadow: 0 0 12px rgba(140, 203, 185, 0.35);
-}
+  body.dark-mode textarea::placeholder,
+  body.dark-mode .ql-editor.ql-blank::before {
+    color: #64748b !important;
+    opacity: 0.85 !important;
+  }
 
-/* Quill 커스텀 스타일링 및 메모 입력칸 그림자(입체감) 추가 */
-.ql-toolbar.ql-snow {
-display: flex !important;
-justify-content: flex-end !important;
-flex-wrap: wrap !important;
-border: 1px solid rgba(255, 255, 255, 0.8) !important;
-background: rgba(255, 255, 255, 0.6) !important;
-border-top-left-radius: 1rem !important;
-border-top-right-radius: 1rem !important;
-backdrop-filter: blur(8px);
-}
+  .ql-editor {
+    font-size: 0.9em !important;
+    font-family: inherit !important;
+    line-height: 1.6 !important;
+    min-height: 100%;
+    text-align: left !important;
+  }
 
-.ql-container.ql-snow {
-border: 1px solid rgba(255, 255, 255, 0.7) !important;
-background: rgba(255, 255, 255, 0.75) !important;
-border-bottom-left-radius: 1rem !important;
-border-bottom-right-radius: 1rem !important;
-min-height: 100px;
-resize: vertical;
-overflow: auto;
-font-size: 0.9em;
-color: #333a42 !important;
-box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.06), 0 8px 20px -4px rgba(100, 115, 130, 0.15) !important;
-}
+  /* 5. Buttons & Interactive Elements */
+  .glass-btn {
+    background: rgba(255, 255, 255, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 4px 12px rgba(160, 170, 180, 0.12);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    color: #333a42 !important;
+  }
 
-/* 메모 예시문구 (Placeholder) 및 본문 폰트 디자인 통일 & 정렬 보정 */
-textarea::placeholder,
-.ql-editor.ql-blank::before {
-color: #8b98a5 !important;
-font-style: normal !important;
-font-size: 0.9em !important;
-font-family: inherit !important;
-line-height: 1.6 !important;
-opacity: 0.85 !important;
-text-align: left !important;
-left: 15px !important;
-right: 15px !important;
-}
+  .glass-btn-active {
+    background: linear-gradient(135deg, rgba(140, 200, 185, 0.95), rgba(115, 180, 165, 0.95)) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 6px 16px rgba(115, 180, 165, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  }
 
-body.dark-mode textarea::placeholder,
-body.dark-mode .ql-editor.ql-blank::before {
-color: #64748b !important;
-opacity: 0.85 !important;
-}
+  .glass-btn-active i, .glass-btn-active span { color: #ffffff !important; }
 
-.ql-editor {
-font-size: 0.9em !important;
-font-family: inherit !important;
-line-height: 1.6 !important;
-min-height: 100%;
-text-align: left !important;
-}
+  .btn-save-deep {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    transition: all 0.15s ease-in-out;
+  }
 
-/* 5. Buttons & Interactive Elements */
-.glass-btn {
-background: rgba(255, 255, 255, 0.65) !important;
-border: 1px solid rgba(255, 255, 255, 0.85) !important;
-box-shadow: 0 4px 12px rgba(160, 170, 180, 0.12);
-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-position: relative;
-z-index: 10;
-cursor: pointer;
-color: #333a42 !important;
-}
+  .btn-save-deep:hover {
+    background: linear-gradient(135deg, #059669 0%, #065f46 100%) !important;
+    box-shadow: 0 8px 24px rgba(5, 150, 105, 0.45);
+  }
 
-.glass-btn-active {
-background: linear-gradient(135deg, rgba(140, 200, 185, 0.95), rgba(115, 180, 165, 0.95)) !important;
-color: #ffffff !important;
-border: 1px solid rgba(255, 255, 255, 0.9) !important;
-box-shadow: 0 6px 16px rgba(115, 180, 165, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6);
-}
+  .btn-save-deep:active {
+    transform: scale(0.95);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
 
-.glass-btn-active i, .glass-btn-active span { color: #ffffff !important; }
+  .checkbox-pill.checked {
+    background: linear-gradient(135deg, rgba(225, 245, 240, 0.95), rgba(200, 235, 225, 0.95)) !important;
+    border-color: rgba(130, 200, 180, 0.8) !important;
+  }
 
-.btn-save-deep {
-background: linear-gradient(135deg, #10b981 0%, #047857 100%) !important;
-color: #ffffff !important;
-border: 1px solid rgba(255, 255, 255, 0.4) !important;
-box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
-transition: all 0.15s ease-in-out;
-}
+  .completed-item {
+    text-decoration: line-through;
+    color: #64748b !important;
+  }
 
-.btn-save-deep:hover {
-background: linear-gradient(135deg, #059669 0%, #065f46 100%) !important;
-box-shadow: 0 8px 24px rgba(5, 150, 105, 0.45);
-}
+  .view-section { transition: opacity 0.2s ease-in-out; }
 
-.btn-save-deep:active {
-transform: scale(0.95);
-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
-}
+  /* 6. Explicit Dark Mode Styles */
+  body.dark-mode {
+    color-scheme: dark !important;
+    background: #0d0d0d !important;
+    background-image: 
+      radial-gradient(circle at 10% 10%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 90% 85%, rgba(40, 40, 40, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.95) 0%, transparent 80%),
+      linear-gradient(135deg, #161616 0%, #0a0a0a 100%) !important;
+    color: #f8fafc !important;
+  }
 
-.checkbox-pill.checked {
-background: linear-gradient(135deg, rgba(225, 245, 240, 0.95), rgba(200, 235, 225, 0.95)) !important;
-border-color: rgba(130, 200, 180, 0.8) !important;
-}
+  body.dark-mode .glass-card {
+    background: rgba(30, 30, 30, 0.88) !important;
+    border: 1px solid rgba(70, 70, 70, 0.5) !important;
+    border-bottom-color: rgba(45, 45, 45, 0.4) !important;
+    border-right-color: rgba(45, 45, 45, 0.4) !important;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.4), inset 0 1px 2px 0 rgba(255, 255, 255, 0.08) !important;
+    color: #f8fafc !important;
+  }
 
-.completed-item {
-text-decoration: line-through;
-color: #64748b !important;
-}
+  body.dark-mode .glass-pill {
+    background: rgba(40, 40, 40, 0.8) !important;
+    border: 1px solid rgba(70, 70, 70, 0.4) !important;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.05) !important;
+    color: #f8fafc !important;
+  }
 
-.view-section { transition: opacity 0.2s ease-in-out; }
+  body.dark-mode .glass-input {
+    background: rgba(45, 45, 45, 0.9) !important;
+    border: 1px solid rgba(80, 80, 80, 0.6) !important;
+    color: #ffffff !important;
+  }
 
-/* 6. Explicit Dark Mode Styles */
-body.dark-mode {
-color-scheme: dark !important;
-background: #0d0d0d !important;
-background-image:
-radial-gradient(circle at 10% 10%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
-radial-gradient(circle at 90% 85%, rgba(40, 40, 40, 0.4) 0%, transparent 50%),
-radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.95) 0%, transparent 80%),
-linear-gradient(135deg, #161616 0%, #0a0a0a 100%) !important;
-color: #f8fafc !important;
-}
+  body.dark-mode .ql-toolbar.ql-snow {
+    background: rgba(45, 45, 45, 0.85) !important;
+    border-color: rgba(80, 80, 80, 0.6) !important;
+  }
+  body.dark-mode .ql-container.ql-snow {
+    background: rgba(35, 35, 35, 0.85) !important;
+    border-color: rgba(80, 80, 80, 0.6) !important;
+    color: #ffffff !important;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.3), 0 10px 24px -4px rgba(0, 0, 0, 0.5) !important;
+  }
+  body.dark-mode .ql-stroke { stroke: #e5e5e5 !important; }
+  body.dark-mode .ql-fill { fill: #e5e5e5 !important; }
+  body.dark-mode .ql-picker { color: #e5e5e5 !important; }
 
-body.dark-mode .glass-card {
-background: rgba(30, 30, 30, 0.88) !important;
-border: 1px solid rgba(70, 70, 70, 0.5) !important;
-border-bottom-color: rgba(45, 45, 45, 0.4) !important;
-border-right-color: rgba(45, 45, 45, 0.4) !important;
-box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.4), inset 0 1px 2px 0 rgba(255, 255, 255, 0.08) !important;
-color: #f8fafc !important;
-}
+  body.dark-mode .glass-btn {
+    background: rgba(45, 45, 45, 0.8) !important;
+    border: 1px solid rgba(75, 75, 75, 0.7) !important;
+    color: #f8fafc !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  }
 
-body.dark-mode .glass-pill {
-background: rgba(40, 40, 40, 0.8) !important;
-border: 1px solid rgba(70, 70, 70, 0.4) !important;
-box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.05) !important;
-color: #f8fafc !important;
-}
+  body.dark-mode .glass-btn-active {
+    background: linear-gradient(135deg, rgba(85, 85, 85, 0.95), rgba(55, 55, 55, 0.95)) !important;
+    border: 1px solid rgba(130, 130, 130, 0.9) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+  }
 
-body.dark-mode .glass-input {
-background: rgba(45, 45, 45, 0.9) !important;
-border: 1px solid rgba(80, 80, 80, 0.6) !important;
-color: #ffffff !important;
-}
+  body.dark-mode .checkbox-pill.checked {
+    background: linear-gradient(135deg, rgba(30, 70, 60, 0.85), rgba(20, 50, 45, 0.85)) !important;
+    border-color: rgba(16, 185, 129, 0.6) !important;
+  }
 
-body.dark-mode .ql-toolbar.ql-snow {
-background: rgba(45, 45, 45, 0.85) !important;
-border-color: rgba(80, 80, 80, 0.6) !important;
-}
-body.dark-mode .ql-container.ql-snow {
-background: rgba(35, 35, 35, 0.85) !important;
-border-color: rgba(80, 80, 80, 0.6) !important;
-color: #ffffff !important;
-box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.3), 0 10px 24px -4px rgba(0, 0, 0, 0.5) !important;
-}
-body.dark-mode .ql-stroke { stroke: #e5e5e5 !important; }
-body.dark-mode .ql-fill { fill: #e5e5e5 !important; }
-body.dark-mode .ql-picker { color: #e5e5e5 !important; }
+  body.dark-mode #checklistContainer span,
+  body.dark-mode #historyListContainer span,
+  body.dark-mode #historyListContainer div,
+  body.dark-mode #historyListContainer p,
+  body.dark-mode .text-stone-700,
+  body.dark-mode .text-stone-600,
+  body.dark-mode .text-stone-800 {
+    color: #f3f4f6 !important;
+  }
 
-body.dark-mode .glass-btn {
-background: rgba(45, 45, 45, 0.8) !important;
-border: 1px solid rgba(75, 75, 75, 0.7) !important;
-color: #f8fafc !important;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-}
+  body.dark-mode .completed-item { color: #9ca3af !important; }
 
-body.dark-mode .glass-btn-active {
-background: linear-gradient(135deg, rgba(85, 85, 85, 0.95), rgba(55, 55, 55, 0.95)) !important;
-border: 1px solid rgba(130, 130, 130, 0.9) !important;
-box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
-color: #ffffff !important;
-}
+  body.dark-mode select, 
+  body.dark-mode option {
+    background-color: #222222 !important;
+    color: #e5e5e5 !important;
+  }
 
-body.dark-mode .checkbox-pill.checked {
-background: linear-gradient(135deg, rgba(30, 70, 60, 0.85), rgba(20, 50, 45, 0.85)) !important;
-border-color: rgba(16, 185, 129, 0.6) !important;
-}
-
-body.dark-mode #checklistContainer span,
-body.dark-mode #historyListContainer span,
-body.dark-mode #historyListContainer div,
-body.dark-mode #historyListContainer p,
-body.dark-mode .text-stone-700,
-body.dark-mode .text-stone-600,
-body.dark-mode .text-stone-800 {
-color: #f3f4f6 !important;
-}
-
-body.dark-mode .completed-item { color: #9ca3af !important; }
-
-body.dark-mode select,
-body.dark-mode option {
-background-color: #222222 !important;
-color: #e5e5e5 !important;
-}
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-thumb {
-background: rgba(180, 190, 200, 0.4);
-border-radius: 10px;
-}
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(180, 190, 200, 0.4);
+    border-radius: 10px;
+  }
 </style>
 </head>
 <body id="appBody" class="font-noto size-md min-h-screen pb-12 flex justify-center items-start pt-3 md:pt-8 px-3">
 
-<div class="w-full max-w-md relative min-w-0">
-
-<!-- App Header & Navigation Tabs -->
-<header class="glass-card !bg-white/35 dark:!bg-stone-900/40 p-5 mb-5 flex flex-col gap-4 relative">
-<div class="flex flex-col items-center justify-center text-center w-full">
-<!-- 1. 사랑과 평안의 교회 음향실 (테두리 삭제, 위로 갈수록 사라지는 그라데이션, 하단 얇은 회색 구분선 추가) -->
-<div class="w-full pb-2 mb-1 border-b border-white/50 dark:border-white/50">
-<span class="txt-badge font-bold tracking-widest text-teal-900 dark:text-teal-200 uppercase bg-gradient-to-t from-[#DCF7EA]/80 via-[#FFDFDF]/50 to-transparent dark:from-teal-950/60 dark:via-rose-950/30 dark:to-transparent px-3 py-1.5 rounded-xl w-full block text-center">
-사랑과 평안의 교회 🎚 음향실
-</span>
-</div>
-
-<!-- 2. 사운드 체크리스트 (가운데 정렬) -->
-<h1 class="txt-title title-teal-fix font-extrabold mt-1 flex items-center justify-center text-center gap-2 tracking-tight w-full">
-사운드 체크리스트
-</h1>
-
-<!-- 3. 실시간 클라우드 연동됨 옆에 다크모드 및 폰트아이콘 배치 -->
-<div class="mt-2.5 flex items-center justify-center gap-2 flex-wrap w-full">
-<span id="syncStatusBadge" class="txt-badge font-bold bg-amber-100/90 text-amber-900 px-2.5 py-1 rounded-full border border-amber-200 shadow-xs flex items-center gap-1.5 flex-shrink-0">
-<i class="fa-solid fa-hard-drive text-amber-600 flex-shrink-0"></i> <span>저장소 준비 중...</span>
-</span>
-
-<div class="flex items-center gap-1.5 flex-shrink-0">
-<button onclick="toggleDarkMode()" id="darkModeBtn" class="glass-btn w-8 h-8 rounded-xl flex items-center justify-center text-stone-700 hover:text-stone-900 transition-colors shadow-sm flex-shrink-0" title="다크모드 토글">
-<i id="darkModeIcon" class="fa-solid fa-moon text-xs"></i>
-</button>
-
-<button onclick="toggleFontSettings()" class="glass-btn w-8 h-8 rounded-xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-extrabold txt-caption transition-colors shadow-sm gap-1 flex-shrink-0" title="글꼴 및 크기 설정">
-<i class="fa-solid fa-font text-xs text-stone-700"></i>
-</button>
-</div>
-</div>
-</div>
-
-<!-- Font & Size Control Panel -->
-<div id="fontSettingsPanel" class="hidden glass-card p-4 flex-col gap-3 border border-teal-200/60 shadow-xl rounded-2xl my-1 bg-white/95 dark:bg-stone-800/90">
-<div class="flex justify-between items-center border-b border-stone-200/60 dark:border-stone-700 pb-2">
-<span class="txt-sub font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1.5">
-<i class="fa-solid fa-sliders text-teal-600"></i> 텍스트 스타일 설정
-</span>
-<button onclick="toggleFontSettings()" class="text-stone-400 hover:text-stone-600 text-xs p-1">
-<i class="fa-solid fa-xmark"></i>
-</button>
-</div>
-
-<div>
-<span class="txt-caption font-bold text-stone-600 dark:text-stone-400 block mb-1.5">글꼴 선택</span>
-<div class="grid grid-cols-3 gap-1.5">
-<button onclick="setFontFamily('noto')" id="font-noto" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800 glass-btn-active">
-기본 고딕
-</button>
-<button onclick="setFontFamily('gowun')" id="font-gowun" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800 font-gowun">
-둥근 고딕
-</button>
-<button onclick="setFontFamily('myeongjo')" id="font-myeongjo" class="glass-btn py-1.5 txt-caption rounded-xl text-stone-800 font-myeongjo font-bold">
-굵은 명조
-</button>
-</div>
-</div>
-
-<div>
-<span class="txt-caption font-bold text-stone-600 dark:text-stone-400 block mb-1.5">글자 크기</span>
-<div class="grid grid-cols-3 gap-1.5">
-<button onclick="setFontSize('sm')" id="size-sm" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800">
-작게
-</button>
-<button onclick="setFontSize('md')" id="size-md" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800 glass-btn-active">
-보통
-</button>
-<button onclick="setFontSize('lg')" id="size-lg" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800">
-크게
-</button>
-</div>
-</div>
-</div>
-
-<!-- Segmented Navigation Control -->
-<div class="glass-pill p-1.5 grid grid-cols-2 gap-1">
-<button id="tabWrite" onclick="switchTab('write')" class="glass-btn glass-btn-active py-2.5 px-3 rounded-xl font-bold txt-sub text-stone-800 flex items-center justify-center gap-2">
-<i class="fa-solid fa-pen-to-square flex-shrink-0"></i> <span id="tabWriteLabel" class="truncate">점검 작성</span>
-</button>
-<button id="tabHistory" onclick="switchTab('history')" class="glass-btn py-2.5 px-3 rounded-xl font-bold txt-sub text-stone-600 flex items-center justify-center gap-2">
-<i class="fa-solid fa-clock-rotate-left flex-shrink-0"></i> <span class="truncate">지난 기록</span>
-</button>
-</div>
-</header>
-
-<!-- TAB 1: 점검 작성 페이지 -->
-<main id="viewWrite" class="view-section flex flex-col gap-4">
-
-<div id="editNoticeBanner" class="hidden glass-card p-3 bg-amber-50/90 border-amber-200 flex justify-between items-center txt-sub font-bold text-amber-900">
-<span class="flex items-center gap-1.5 min-w-0">
-<i class="fa-solid fa-pen-to-square text-amber-600 flex-shrink-0"></i> <span id="editNoticeText" class="truncate">기록을 수정하는 중입니다</span>
-</span>
-<button onclick="cancelEditMode()" class="text-stone-400 hover:text-stone-600 txt-caption underline font-normal flex-shrink-0 ml-2">
-취소
-</button>
-</div>
-
-<!-- 1. 날짜 선택 -->
-<section class="glass-card p-5">
-<div class="flex justify-between items-center mb-2 gap-2">
-<label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
-<i class="fa-regular fa-calendar-check text-teal-600 flex-shrink-0"></i> <span>점검 날짜</span>
-</label>
-<span id="sundayWeekBadge" class="txt-badge font-bold bg-teal-100/90 text-teal-900 px-2.5 py-0.5 rounded-full border border-teal-200/60 shadow-sm truncate">
--
-</span>
-</div>
-<input type="date" id="checkDate" onchange="onCheckDateChange()" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-800 dark:text-stone-100 txt-body text-center">
-</section>
-
-<!-- 2. 음향 장비 점검 목록 -->
-<section class="glass-card p-5">
-<div class="flex justify-between items-center mb-3 gap-2">
-<label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
-<i class="fa-solid fa-music text-teal-600 flex-shrink-0"></i> <span>음향 장비 점검</span>
-</label>
-<span id="progressBadge" class="txt-badge bg-white/80 dark:bg-stone-700/70 text-stone-700 dark:text-stone-200 font-bold px-2.5 py-0.5 rounded-full border border-white/40 flex-shrink-0">0 / 5</span>
-</div>
-
-<div class="flex flex-col gap-2.5" id="checklistContainer">
-<div onclick="toggleCheck('vocal')" id="item-vocal" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
-<div class="flex items-center gap-3 min-w-0">
-<div id="icon-vocal" class="w-8 h-8 rounded-xl bg-amber-100/90 text-amber-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-microphone"></i>
-</div>
-<span id="text-vocal" class="font-bold txt-body text-stone-800 pointer-events-none truncate">보컬 마이크</span>
-</div>
-<div id="check-vocal" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-check opacity-0"></i>
-</div>
-</div>
-
-<div onclick="toggleCheck('pastor')" id="item-pastor" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
-<div class="flex items-center gap-3 min-w-0">
-<div id="icon-pastor" class="w-8 h-8 rounded-xl bg-blue-100/90 text-blue-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-user-tie"></i>
-</div>
-<span id="text-pastor" class="font-bold txt-body text-stone-800 pointer-events-none truncate">목사님 마이크</span>
-</div>
-<div id="check-pastor" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-check opacity-0"></i>
-</div>
-</div>
-
-<div onclick="toggleCheck('piano')" id="item-piano" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
-<div class="flex items-center gap-3 min-w-0">
-<div id="icon-piano" class="w-8 h-8 rounded-xl bg-purple-100/90 text-purple-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-music"></i>
-</div>
-<span id="text-piano" class="font-bold txt-body text-stone-800 pointer-events-none truncate">피아노 마이크</span>
-</div>
-<div id="check-piano" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-check opacity-0"></i>
-</div>
-</div>
-
-<div onclick="toggleCheck('condenser')" id="item-condenser" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
-<div class="flex items-center gap-3 min-w-0">
-<div id="icon-condenser" class="w-8 h-8 rounded-xl bg-teal-100/90 text-teal-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-tower-broadcast"></i>
-</div>
-<span id="text-condenser" class="font-bold txt-body text-stone-800 pointer-events-none truncate">컨덴서 마이크</span>
-</div>
-<div id="check-condenser" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-check opacity-0"></i>
-</div>
-</div>
-
-<div onclick="toggleCheck('mainSpeaker')" id="item-mainSpeaker" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
-<div class="flex items-center gap-3 min-w-0">
-<div id="icon-mainSpeaker" class="w-8 h-8 rounded-xl bg-rose-100/90 text-rose-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-volume-high"></i>
-</div>
-<span id="text-mainSpeaker" class="font-bold txt-body text-stone-800 pointer-events-none truncate">본당 메인 스피커</span>
-</div>
-<div id="check-mainSpeaker" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-check opacity-0"></i>
-</div>
-</div>
-</div>
-</section>
-
-<!-- 3. 점검자 선택 -->
-<section class="glass-card p-5">
-<div class="flex justify-between items-center mb-3 gap-2">
-<label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
-<i class="fa-solid fa-user-check text-teal-600 flex-shrink-0"></i> <span>점검자 선택</span>
-</label>
-<span class="txt-badge text-stone-500 font-small flex-shrink-0">다수 선택 가능</span>
-</div>
-<div class="grid grid-cols-3 gap-2.5">
-<button type="button" onclick="toggleInspector('김광수')" id="inspector-김광수" class="glass-btn py-3 px-2 rounded-2xl font-bold txt-sub text-stone-800 flex flex-col items-center gap-1">
-<i class="fa-solid fa-user text-stone-500 text-sm pointer-events-none flex-shrink-0"></i>
-<span class="pointer-events-none truncate w-full text-center">김광수</span>
-</button>
-<button type="button" onclick="toggleInspector('이승수')" id="inspector-이승수" class="glass-btn py-3 px-2 rounded-2xl font-bold txt-sub text-stone-800 flex flex-col items-center gap-1">
-<i class="fa-solid fa-user text-stone-500 text-sm pointer-events-none flex-shrink-0"></i>
-<span class="pointer-events-none truncate w-full text-center">이승수</span>
-</button>
-<button type="button" onclick="toggleInspector('유진')" id="inspector-유진" class="glass-btn py-3 px-2 rounded-2xl font-bold txt-sub text-stone-800 flex flex-col items-center gap-1">
-<i class="fa-solid fa-user text-stone-500 text-sm pointer-events-none flex-shrink-0"></i>
-<span class="pointer-events-none truncate w-full text-center">유진</span>
-</button>
-</div>
-</section>
-
-<!-- 4. 영상 장비 점검 목록 -->
-<section class="glass-card p-5">
-<div class="flex justify-between items-center mb-3 gap-2">
-<label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
-<i class="fa-solid fa-video text-teal-600 flex-shrink-0"></i> <span>영상 장비 점검</span>
-</label>
-<span id="videoProgressBadge" class="txt-badge bg-white/80 dark:bg-stone-700/70 text-stone-700 dark:text-stone-200 font-bold px-2.5 py-0.5 rounded-full border border-white/40 flex-shrink-0">0 / 2</span>
-</div>
-
-<div class="flex flex-col gap-2.5">
-<div onclick="toggleCheck('youtube')" id="item-youtube" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
-<div class="flex items-center gap-3 min-w-0">
-<div id="icon-youtube" class="w-8 h-8 rounded-xl bg-red-100/90 text-red-600 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
-<i class="fa-brands fa-youtube text-sm"></i>
-</div>
-<span id="text-youtube" class="font-bold txt-body text-stone-800 pointer-events-none truncate">유튜브 송출</span>
-</div>
-<div id="check-youtube" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-check opacity-0"></i>
-</div>
-</div>
-
-<div onclick="toggleCheck('recording')" id="item-recording" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
-<div class="flex items-center gap-3 min-w-0">
-<div id="icon-recording" class="w-8 h-8 rounded-xl bg-indigo-100/90 text-indigo-700 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-video"></i>
-</div>
-<span id="text-recording" class="font-bold txt-body text-stone-800 pointer-events-none truncate">영상 녹화</span>
-</div>
-<div id="check-recording" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
-<i class="fa-solid fa-check opacity-0"></i>
-</div>
-</div>
-</div>
-</section>
-
-<!-- 5. 메모 (Quill 적용 구역) -->
-<section class="glass-card p-5">
-<label class="block txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-<i class="fa-solid fa-note-sticky text-teal-600 flex-shrink-0"></i> <span>메모</span>
-</label>
-
-<div class="flex flex-col gap-4">
-<div>
-<span class="txt-sub font-bold text-stone-700 dark:text-stone-300 mb-1.5 block">이슈</span>
-<!-- 이슈 입력용 Quill 에디터 컨테이너 -->
-<div id="issueProblemEditor"></div>
-</div>
-
-<div>
-<span class="txt-sub font-bold text-stone-700 dark:text-stone-300 mb-1.5 block">원인 & 해결</span>
-<!-- 원인 및 해결용 Quill 에디터 컨테이너 -->
-<div id="quillEditor"></div>
-</div>
-</div>
-</section>
-
-<!-- 저장 버튼 -->
-<button type="button" id="btnSaveRecord" onclick="saveRecord()" class="btn-save-deep py-4 px-6 rounded-2xl font-bold txt-body flex items-center justify-center gap-2 mt-1 cursor-pointer">
-<i class="fa-solid fa-cloud-arrow-up text-base pointer-events-none flex-shrink-0"></i> <span id="btnSaveLabel" class="pointer-events-none truncate">기록 저장하기</span>
-</button>
-
-</main>
-
-<!-- TAB 2: 지난 기록 페이지 -->
-<main id="viewHistory" class="view-section hidden flex flex-col gap-3">
-<div class="flex justify-between items-center px-1 gap-2">
-<h2 class="txt-body font-extrabold text-stone-800 dark:text-stone-100 flex items-center gap-2 min-w-0">
-<i class="fa-solid fa-folder-open text-teal-600 flex-shrink-0"></i> <span class="truncate">지난 점검 기록</span>
-</h2>
-<span id="totalRecordCount" class="txt-badge font-bold bg-white/80 dark:bg-stone-800/60 text-stone-700 dark:text-stone-200 px-3 py-1 rounded-full border border-white/40 flex-shrink-0">총 0건</span>
-</div>
-
-<!-- 정렬 및 필터 아코디언 -->
-<div class="glass-card overflow-hidden transition-all duration-300">
-<button type="button" onclick="toggleFilterPanel()" class="w-full p-3.5 flex items-center justify-between text-left hover:bg-white/30 transition-colors gap-2">
-<div class="flex items-center gap-2 min-w-0">
-<i class="fa-solid fa-filter text-teal-600 text-sm flex-shrink-0"></i>
-<span class="txt-sub font-bold text-stone-800 dark:text-stone-200 flex-shrink-0">기록 검색 & 정렬</span>
-<span id="filterSummaryBadge" class="txt-badge bg-teal-100/90 text-teal-900 font-bold px-2 py-0.5 rounded-full border border-teal-200 truncate">
-최신순
-</span>
-</div>
-<i id="filterChevronIcon" class="fa-solid fa-chevron-down text-stone-400 text-xs transition-transform duration-200 flex-shrink-0"></i>
-</button>
-
-<div id="filterContentPanel" class="hidden p-3.5 border-t border-white/60 dark:border-stone-700/60 flex flex-col gap-3 bg-white/30 dark:bg-stone-900/20">
-<div class="flex items-center justify-between gap-2">
-<span class="txt-caption font-bold text-stone-600 dark:text-stone-400 flex-shrink-0">정렬 기준</span>
-<select id="sortOrderSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-800 dark:text-stone-100 cursor-pointer">
-<option value="desc">📅 최신 날짜순</option>
-<option value="asc">⏳ 오래된 날짜순</option>
-</select>
-</div>
-
-<div class="flex items-center justify-between gap-2 border-t border-white/40 dark:border-stone-700/40 pt-2.5">
-<span class="txt-caption font-bold text-stone-600 dark:text-stone-400 flex-shrink-0">메모 필터</span>
-<select id="memoFilterSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-800 dark:text-stone-100 cursor-pointer">
-<option value="all">📋 전체 보기</option>
-<option value="has_memo">메모 ⭕️</option>
-<option value="no_memo">메모 ❌️</option>
-</select>
-</div>
-
-<div class="grid grid-cols-2 gap-2 border-t border-white/40 dark:border-stone-700/40 pt-2.5">
-<div>
-<label class="block txt-badge font-bold text-stone-500 mb-1">연도 선택</label>
-<select id="yearFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-800 dark:text-stone-100 cursor-pointer">
-<option value="all">전체 연도</option>
-</select>
-</div>
-<div>
-<label class="block txt-badge font-bold text-stone-500 mb-1">월 선택</label>
-<select id="monthFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-800 dark:text-stone-100 cursor-pointer">
-<option value="all">전체 월</option>
-<option value="01">1월</option>
-<option value="02">2월</option>
-<option value="03">3월</option>
-<option value="04">4월</option>
-<option value="05">5월</option>
-<option value="06">6월</option>
-<option value="07">7월</option>
-<option value="08">8월</option>
-<option value="09">9월</option>
-<option value="10">10월</option>
-<option value="11">11월</option>
-<option value="12">12월</option>
-</select>
-</div>
-</div>
-</div>
-</div>
-
-<div id="historyListContainer" class="flex flex-col gap-4 mt-1">
-<!-- JS로 동적 생성 -->
-</div>
-</main>
-
-<!-- 삭제 확인 모달 -->
-<div id="deleteModal" class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden transition-all duration-200">
-<div class="glass-card p-6 w-full max-w-sm flex flex-col gap-4 text-center shadow-2xl border border-white/80 dark:border-stone-700">
-<div class="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-900/50 text-rose-500 mx-auto flex items-center justify-center text-xl font-bold flex-shrink-0">
-<i class="fa-solid fa-trash-can"></i>
-</div>
-<div>
-<h3 class="txt-body font-extrabold text-stone-800 dark:text-stone-100">점검 기록 삭제</h3>
-<p class="txt-sub text-stone-600 dark:text-stone-300 mt-1">이 점검 기록을 정말 삭제하시겠습니까?<br><span class="text-xs text-rose-500">(삭제된 데이터는 복구할 수 없습니다)</span></p>
-</div>
-<div class="grid grid-cols-2 gap-2 mt-2">
-<button type="button" onclick="closeDeleteModal()" class="glass-btn py-2.5 rounded-xl font-bold txt-sub text-stone-700 dark:text-stone-200 hover:bg-stone-200/50">
-취소
-</button>
-<button type="button" onclick="confirmDeleteRecord()" class="py-2.5 rounded-xl font-bold txt-sub bg-rose-500 hover:bg-rose-600 text-white shadow-md transition-colors">
-삭제하기
-</button>
-</div>
-</div>
-</div>
-
-<!-- 토스트 알림 -->
-<div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-stone-800/90 backdrop-blur-md text-white txt-sub font-bold py-3 px-5 rounded-full shadow-2xl opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 z-50 max-w-[90vw]">
-<i class="fa-solid fa-circle-check text-teal-400 flex-shrink-0"></i> <span id="toastMsg" class="truncate">저장 완료!</span>
-</div>
-
-</div>
-
-<!-- Firebase SDK 및 저장소 제어 스크립트 -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-const firebaseConfig = {
-apiKey: "AIzaSyAnAtbGnRpgDEaF8l0HGhsRQJPgbH0Y1I0",
-authDomain: "lapsound-checklist.firebaseapp.com",
-projectId: "lapsound-checklist",
-storageBucket: "lapsound-checklist.firebasestorage.app",
-messagingSenderId: "259798291978",
-appId: "1:259798291978:web:0e4e4fcfe1b9fa1059f1f3"
-};
-
-const appId = 'church-sound-checklist-app';
-let app, auth, db;
-
-window.isLocalStorageMode = true;
-
-window.loadLocalStorageRecords = function() {
-try {
-const saved = localStorage.getItem('sound_records_local');
-window.records = saved ? JSON.parse(saved) : [];
-} catch(e) {
-window.records = [];
-}
-if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
-if (typeof window.updateFilterBadgeText === 'function') window.updateFilterBadgeText();
-if (typeof window.renderHistory === 'function') window.renderHistory();
-};
-
-window.saveLocalStorageRecord = function(recordData, recordId = null) {
-try {
-let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
-if (recordId) {
-const idx = localRecords.findIndex(r => String(r.id) === String(recordId));
-if (idx !== -1) {
-localRecords[idx] = { ...localRecords[idx], ...recordData, id: String(recordId) };
-} else {
-localRecords.push({ ...recordData, id: String(recordId) });
-}
-} else {
-const newId = 'local_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
-localRecords.push({ ...recordData, id: newId });
-}
-localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
-
-if (window.isLocalStorageMode) {
-window.loadLocalStorageRecords();
-}
-return true;
-} catch(e) {
-console.error("Local storage save error:", e);
-return false;
-}
-};
-
-window.deleteLocalStorageRecord = function(recordId) {
-try {
-let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
-localRecords = localRecords.filter(r => String(r.id) !== String(recordId));
-localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
-
-if (window.isLocalStorageMode) {
-window.loadLocalStorageRecords();
-}
-return true;
-} catch(e) {
-console.error("Local storage delete error:", e);
-return false;
-}
-};
-
-async function initFirebase() {
-try {
-app = initializeApp(firebaseConfig);
-auth = getAuth(app);
-db = getFirestore(app);
-
-await signInAnonymously(auth);
-listenToFirestoreRecords();
-} catch (err) {
-console.warn("Firebase 연결 제한됨 (로컬 모드로 전환):", err);
-enableLocalStorageMode('로컬 보존 모드');
-}
-}
-
-function enableLocalStorageMode(reasonMsg) {
-window.isLocalStorageMode = true;
-const syncBadge = document.getElementById('syncStatusBadge');
-if (syncBadge) {
-syncBadge.className = "txt-badge font-bold bg-teal-100/90 text-teal-900 px-2.5 py-1 rounded-full border border-teal-300 shadow-xs flex items-center gap-1.5 cursor-pointer flex-shrink-0";
-syncBadge.innerHTML = <i class="fa-solid fa-hard-drive text-teal-600 flex-shrink-0"&gt;&lt;/i&gt; &lt;span&gt;${reasonMsg}</span>`;
-}
-window.loadLocalStorageRecords();
-}
-
-function listenToFirestoreRecords() {
-if (!auth || !auth.currentUser) return;
-
-const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
-
-onSnapshot(colRef, (snapshot) => {
-const fetchedRecords = [];
-snapshot.forEach((docSnap) => {
-fetchedRecords.push({
-id: docSnap.id,
-...docSnap.data()
-});
-});
-
-window.isLocalStorageMode = false;
-window.records = fetchedRecords;
-
-localStorage.setItem('sound_records_local', JSON.stringify(fetchedRecords));
-
-if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
-if (typeof window.updateFilterBadgeText === 'function') window.updateFilterBadgeText();
-if (typeof window.renderHistory === 'function') window.renderHistory();
-
-const syncBadge = document.getElementById('syncStatusBadge');
-if (syncBadge) {
-syncBadge.className = "txt-badge font-bold bg-emerald-100/90 text-emerald-800 px-2.5 py-1 rounded-full border border-emerald-200 shadow-xs flex items-center gap-1.5 flex-shrink-0";
-syncBadge.innerHTML = '<i class="fa-solid fa-wifi text-emerald-500 flex-shrink-0"></i> <span>실시간 클라우드 연동됨</span>';
-}
-}, (error) => {
-console.warn("Firestore 구독 실패 (로컬 모드 유지):", error);
-enableLocalStorageMode('로컬 보존 모드');
-});
-}
-
-window.dbSaveRecord = async function(recordData, recordId = null) {
-window.saveLocalStorageRecord(recordData, recordId);
-
-if (window.isLocalStorageMode || !auth || !auth.currentUser) {
-return true;
-}
-
-const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
-
-try {
-if (recordId && !String(recordId).startsWith('local_')) {
-const targetDocRef = doc(colRef, String(recordId));
-await setDoc(targetDocRef, recordData, { merge: true });
-} else {
-await addDoc(colRef, recordData);
-}
-return true;
-} catch (err) {
-console.warn("Firestore 저장 실패 (로컬 저장은 완료됨):", err);
-return true;
-}
-};
-
-window.dbDeleteRecord = async function(recordId) {
-window.deleteLocalStorageRecord(recordId);
-
-if (window.isLocalStorageMode || !auth || !auth.currentUser) {
-return true;
-}
-
-const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
-
-try {
-if (!String(recordId).startsWith('local_')) {
-const targetDocRef = doc(colRef, String(recordId));
-await deleteDoc(targetDocRef);
-}
-return true;
-} catch (err) {
-console.warn("Firestore 삭제 오류:", err);
-return true;
-}
-};
-
-initFirebase();
-</script>
-
-<script>
-const itemKeys = ['vocal', 'pastor', 'piano', 'condenser', 'mainSpeaker', 'youtube', 'recording'];
-const itemNames = {
-vocal: '보컬 마이크',
-pastor: '목사님 마이크',
-piano: '피아노 마이크',
-condenser: '컨덴서 마이크',
-mainSpeaker: '본당 메인 스피커',
-youtube: '유튜브 송출',
-recording: '영상 녹화'
-};
-
-let checkedItems = {
-vocal: false,
-pastor: false,
-piano: false,
-condenser: false,
-mainSpeaker: false,
-youtube: false,
-recording: false
-};
-
-let selectedInspectors = new Set();
-window.records = [];
-let editingRecordId = null;
-let pendingDeleteId = null;
-
-// Quill 에디터 변수 2개 선언
-let issueQuill = null;
-let solutionQuill = null;
-
-function getLocalDateString(d = new Date()) {
-const yyyy = d.getFullYear();
-const mm = String(d.getMonth() + 1).padStart(2, '0');
-const dd = String(d.getDate()).padStart(2, '0');
-return ``${yyyy}- {dd}`;
-}
-
-window.onload = function() {
-// 1. 이슈 입력용 Quill 에디터 초기화
-issueQuill = new Quill('#issueProblemEditor', {
-theme: 'snow',
-placeholder: '예) 보컬 마이크 노이즈 발생\n 스피커 좌측 출력 이상 등...',
-modules: {
-toolbar: [
-['bold', 'italic']
-]
-}
-});
-
-// 2. 원인 & 해결용 Quill 에디터 초기화
-solutionQuill = new Quill('#quillEditor', {
-theme: 'snow',
-placeholder: '예) 케이블 재연결 완료\n 페이더 수치 재조정으로 문제 해결...',
-modules: {
-toolbar: [
-['bold', 'italic']
-]
-}
-});
-
-const today = getLocalDateString();
-document.getElementById('checkDate').value = today;
-
-loadDarkM
+  <div class="w-full max-w-md relative min-w-0">
+ 
+    <!-- App Header & Navigation Tabs -->
+    <header class="glass-card !bg-white/35 dark:!bg-stone-900/40 p-5 mb-5 flex flex-col gap-4 relative">
+      <div class="flex flex-col items-center justify-center text-center w-full">
+        <!-- 1. 사랑과 평안의 교회 음향실 (테두리 삭제, 위로 갈수록 사라지는 그라데이션, 하단 얇은 회색 구분선 추가) -->
+        <div class="w-full pb-2 mb-1 border-b border-
+white/60 dark:border-white/60">
+          <span class="txt-badge font-bold tracking-widest text-teal-900 dark:text-teal-200 uppercase bg-gradient-to-t from-[#DCF7EA]/80 via-[#FFDFDF]/50 to-transparent dark:from-teal-950/60 dark:via-rose-950/30 dark:to-transparent px-3 py-1.5 rounded-xl w-full block text-center">
+            사랑과 평안의 교회 🎚 음향실
+          </span>
+        </div>
+
+        <!-- 2. 사운드 체크리스트 (가운데 정렬) -->
+        <h1 class="txt-title title-teal-fix font-extrabold mt-1 flex items-center justify-center text-center gap-2 tracking-tight w-full">
+          사운드 체크리스트
+        </h1>
+
+        <!-- 3. 실시간 클라우드 연동됨 옆에 다크모드 및 폰트아이콘 배치 -->
+        <div class="mt-2.5 flex items-center justify-center gap-2 flex-wrap w-full">
+          <span id="syncStatusBadge" class="txt-badge font-bold bg-amber-100/90 text-amber-900 px-2.5 py-1 rounded-full border border-amber-200 shadow-xs flex items-center gap-1.5 flex-shrink-0">
+            <i class="fa-solid fa-hard-drive text-amber-600 flex-shrink-0"></i> <span>저장소 준비 중...</span>
+          </span>
+
+          <div class="flex items-center gap-1.5 flex-shrink-0">
+            <button onclick="toggleDarkMode()" id="darkModeBtn" class="glass-btn w-8 h-8 rounded-xl flex items-center justify-center text-stone-700 hover:text-stone-900 transition-colors shadow-sm flex-shrink-0" title="다크모드 토글">
+              <i id="darkModeIcon" class="fa-solid fa-moon text-xs"></i>
+            </button>
+
+            <button onclick="toggleFontSettings()" class="glass-btn w-8 h-8 rounded-xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-extrabold txt-caption transition-colors shadow-sm gap-1 flex-shrink-0" title="글꼴 및 크기 설정">
+              <i class="fa-solid fa-font text-xs text-stone-700"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Font & Size Control Panel -->
+      <div id="fontSettingsPanel" class="hidden glass-card p-4 flex-col gap-3 border border-teal-200/60 shadow-xl rounded-2xl my-1 bg-white/95 dark:bg-stone-800/90">
+        <div class="flex justify-between items-center border-b border-stone-200/60 dark:border-stone-700 pb-2">
+          <span class="txt-sub font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1.5">
+            <i class="fa-solid fa-sliders text-teal-600"></i> 텍스트 스타일 설정
+          </span>
+          <button onclick="toggleFontSettings()" class="text-stone-400 hover:text-stone-600 text-xs p-1">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div>
+          <span class="txt-caption font-bold text-stone-600 dark:text-stone-400 block mb-1.5">글꼴 선택</span>
+          <div class="grid grid-cols-3 gap-1.5">
+            <button onclick="setFontFamily('noto')" id="font-noto" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800 glass-btn-active">
+              기본 고딕
+            </button>
+            <button onclick="setFontFamily('gowun')" id="font-gowun" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800 font-gowun">
+              둥근 고딕
+            </button>
+            <button onclick="setFontFamily('myeongjo')" id="font-myeongjo" class="glass-btn py-1.5 txt-caption rounded-xl text-stone-800 font-myeongjo font-bold">
+              굵은 명조
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <span class="txt-caption font-bold text-stone-600 dark:text-stone-400 block mb-1.5">글자 크기</span>
+          <div class="grid grid-cols-3 gap-1.5">
+            <button onclick="setFontSize('sm')" id="size-sm" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800">
+              작게
+            </button>
+            <button onclick="setFontSize('md')" id="size-md" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800 glass-btn-active">
+              보통
+            </button>
+            <button onclick="setFontSize('lg')" id="size-lg" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-800">
+              크게
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segmented Navigation Control -->
+      <div class="glass-pill p-1.5 grid grid-cols-2 gap-1">
+        <button id="tabWrite" onclick="switchTab('write')" class="glass-btn glass-btn-active py-2.5 px-3 rounded-xl font-bold txt-sub text-stone-800 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-pen-to-square flex-shrink-0"></i> <span id="tabWriteLabel" class="truncate">점검 작성</span>
+        </button>
+        <button id="tabHistory" onclick="switchTab('history')" class="glass-btn py-2.5 px-3 rounded-xl font-bold txt-sub text-stone-600 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-clock-rotate-left flex-shrink-0"></i> <span class="truncate">지난 기록</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- TAB 1: 점검 작성 페이지 -->
+    <main id="viewWrite" class="view-section flex flex-col gap-4">
+      
+      <div id="editNoticeBanner" class="hidden glass-card p-3 bg-amber-50/90 border-amber-200 flex justify-between items-center txt-sub font-bold text-amber-900">
+        <span class="flex items-center gap-1.5 min-w-0">
+          <i class="fa-solid fa-pen-to-square text-amber-600 flex-shrink-0"></i> <span id="editNoticeText" class="truncate">기록을 수정하는 중입니다</span>
+        </span>
+        <button onclick="cancelEditMode()" class="text-stone-400 hover:text-stone-600 txt-caption underline font-normal flex-shrink-0 ml-2">
+          취소
+        </button>
+      </div>
+
+      <!-- 1. 날짜 선택 -->
+      <section class="glass-card p-5">
+        <div class="flex justify-between items-center mb-2 gap-2">
+          <label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
+            <i class="fa-regular fa-calendar-check text-teal-600 flex-shrink-0"></i> <span>점검 날짜</span>
+          </label>
+          <span id="sundayWeekBadge" class="txt-badge font-bold bg-teal-100/90 text-teal-900 px-2.5 py-0.5 rounded-full border border-teal-200/60 shadow-sm truncate">
+            -
+          </span>
+        </div>
+        <input type="date" id="checkDate" onchange="onCheckDateChange()" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-800 dark:text-stone-100 txt-body text-center">
+      </section>
+
+      <!-- 2. 음향 장비 점검 목록 -->
+      <section class="glass-card p-5">
+        <div class="flex justify-between items-center mb-3 gap-2">
+          <label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
+            <i class="fa-solid fa-music text-teal-600 flex-shrink-0"></i> <span>음향 장비 점검</span>
+          </label>
+          <span id="progressBadge" class="txt-badge bg-white/80 dark:bg-stone-700/70 text-stone-700 dark:text-stone-200 font-bold px-2.5 py-0.5 rounded-full border border-white/40 flex-shrink-0">0 / 5</span>
+        </div>
+
+        <div class="flex flex-col gap-2.5" id="checklistContainer">
+          <div onclick="toggleCheck('vocal')" id="item-vocal" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="icon-vocal" class="w-8 h-8 rounded-xl bg-amber-100/90 text-amber-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
+                <i class="fa-solid fa-microphone"></i>
+              </div>
+              <span id="text-vocal" class="font-bold txt-body text-stone-800 pointer-events-none truncate">보컬 마이크</span>
+            </div>
+            <div id="check-vocal" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
+              <i class="fa-solid fa-check opacity-0"></i>
+            </div>
+          </div>
+
+          <div onclick="toggleCheck('pastor')" id="item-pastor" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="icon-pastor" class="w-8 h-8 rounded-xl bg-blue-100/90 text-blue-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <span id="text-pastor" class="font-bold txt-body text-stone-800 pointer-events-none truncate">목사님 마이크</span>
+            </div>
+            <div id="check-pastor" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
+              <i class="fa-solid fa-check opacity-0"></i>
+            </div>
+          </div>
+
+          <div onclick="toggleCheck('piano')" id="item-piano" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="icon-piano" class="w-8 h-8 rounded-xl bg-purple-100/90 text-purple-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
+                <i class="fa-solid fa-music"></i>
+              </div>
+              <span id="text-piano" class="font-bold txt-body text-stone-800 pointer-events-none truncate">피아노 마이크</span>
+            </div>
+            <div id="check-piano" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
+              <i class="fa-solid fa-check opacity-0"></i>
+            </div>
+          </div>
+
+          <div onclick="toggleCheck('condenser')" id="item-condenser" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="icon-condenser" class="w-8 h-8 rounded-xl bg-teal-100/90 text-teal-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
+                <i class="fa-solid fa-tower-broadcast"></i>
+              </div>
+              <span id="text-condenser" class="font-bold txt-body text-stone-800 pointer-events-none truncate">컨덴서 마이크</span>
+            </div>
+            <div id="check-condenser" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
+              <i class="fa-solid fa-check opacity-0"></i>
+            </div>
+          </div>
+
+          <div onclick="toggleCheck('mainSpeaker')" id="item-mainSpeaker" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="icon-mainSpeaker" class="w-8 h-8 rounded-xl bg-rose-100/90 text-rose-800 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
+                <i class="fa-solid fa-volume-high"></i>
+              </div>
+              <span id="text-mainSpeaker" class="font-bold txt-body text-stone-800 pointer-events-none truncate">본당 메인 스피커</span>
+            </div>
+            <div id="check-mainSpeaker" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
+              <i class="fa-solid fa-check opacity-0"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. 점검자 선택 -->
+      <section class="glass-card p-5">
+        <div class="flex justify-between items-center mb-3 gap-2">
+          <label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
+            <i class="fa-solid fa-user-check text-teal-600 flex-shrink-0"></i> <span>점검자 선택</span>
+          </label>
+          <span class="txt-badge text-stone-500 font-small flex-shrink-0">다수 선택 가능</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2.5">
+          <button type="button" onclick="toggleInspector('김광수')" id="inspector-김광수" class="glass-btn py-3 px-2 rounded-2xl font-bold txt-sub text-stone-800 flex flex-col items-center gap-1">
+            <i class="fa-solid fa-user text-stone-500 text-sm pointer-events-none flex-shrink-0"></i>
+            <span class="pointer-events-none truncate w-full text-center">김광수</span>
+          </button>
+          <button type="button" onclick="toggleInspector('이승수')" id="inspector-이승수" class="glass-btn py-3 px-2 rounded-2xl font-bold txt-sub text-stone-800 flex flex-col items-center gap-1">
+            <i class="fa-solid fa-user text-stone-500 text-sm pointer-events-none flex-shrink-0"></i>
+            <span class="pointer-events-none truncate w-full text-center">이승수</span>
+          </button>
+          <button type="button" onclick="toggleInspector('유진')" id="inspector-유진" class="glass-btn py-3 px-2 rounded-2xl font-bold txt-sub text-stone-800 flex flex-col items-center gap-1">
+            <i class="fa-solid fa-user text-stone-500 text-sm pointer-events-none flex-shrink-0"></i>
+            <span class="pointer-events-none truncate w-full text-center">유진</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 4. 영상 장비 점검 목록 -->
+      <section class="glass-card p-5">
+        <div class="flex justify-between items-center mb-3 gap-2">
+          <label class="txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
+            <i class="fa-solid fa-video text-teal-600 flex-shrink-0"></i> <span>영상 장비 점검</span>
+          </label>
+          <span id="videoProgressBadge" class="txt-badge bg-white/80 dark:bg-stone-700/70 text-stone-700 dark:text-stone-200 font-bold px-2.5 py-0.5 rounded-full border border-white/40 flex-shrink-0">0 / 2</span>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          <div onclick="toggleCheck('youtube')" id="item-youtube" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="icon-youtube" class="w-8 h-8 rounded-xl bg-red-100/90 text-red-600 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
+                <i class="fa-brands fa-youtube text-sm"></i>
+              </div>
+              <span id="text-youtube" class="font-bold txt-body text-stone-800 pointer-events-none truncate">유튜브 송출</span>
+            </div>
+            <div id="check-youtube" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
+              <i class="fa-solid fa-check opacity-0"></i>
+            </div>
+          </div>
+
+          <div onclick="toggleCheck('recording')" id="item-recording" class="checkbox-pill glass-btn p-3.5 rounded-2xl flex items-center justify-between cursor-pointer select-none gap-2">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="icon-recording" class="w-8 h-8 rounded-xl bg-indigo-100/90 text-indigo-700 flex items-center justify-center font-bold text-xs pointer-events-none flex-shrink-0">
+                <i class="fa-solid fa-video"></i>
+              </div>
+              <span id="text-recording" class="font-bold txt-body text-stone-800 pointer-events-none truncate">영상 녹화</span>
+            </div>
+            <div id="check-recording" class="w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0">
+              <i class="fa-solid fa-check opacity-0"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. 메모 (Quill 적용 구역) -->
+      <section class="glass-card p-5">
+        <label class="block txt-caption font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+          <i class="fa-solid fa-note-sticky text-teal-600 flex-shrink-0"></i> <span>메모</span>
+        </label>
+        
+        <div class="flex flex-col gap-4">
+          <div>
+            <span class="txt-sub font-bold text-stone-700 dark:text-stone-300 mb-1.5 block">이슈</span>
+            <!-- 이슈 입력용 Quill 에디터 컨테이너 -->
+            <div id="issueProblemEditor"></div>
+          </div>
+
+          <div>
+            <span class="txt-sub font-bold text-stone-700 dark:text-stone-300 mb-1.5 block">원인 & 해결</span>
+            <!-- 원인 및 해결용 Quill 에디터 컨테이너 -->
+            <div id="quillEditor"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 저장 버튼 -->
+      <button type="button" id="btnSaveRecord" onclick="saveRecord()" class="btn-save-deep py-4 px-6 rounded-2xl font-bold txt-body flex items-center justify-center gap-2 mt-1 cursor-pointer">
+        <i class="fa-solid fa-cloud-arrow-up text-base pointer-events-none flex-shrink-0"></i> <span id="btnSaveLabel" class="pointer-events-none truncate">기록 저장하기</span>
+      </button>
+
+    </main>
+
+    <!-- TAB 2: 지난 기록 페이지 -->
+    <main id="viewHistory" class="view-section hidden flex flex-col gap-3">
+      <div class="flex justify-between items-center px-1 gap-2">
+        <h2 class="txt-body font-extrabold text-stone-800 dark:text-stone-100 flex items-center gap-2 min-w-0">
+          <i class="fa-solid fa-folder-open text-teal-600 flex-shrink-0"></i> <span class="truncate">지난 점검 기록</span>
+        </h2>
+        <span id="totalRecordCount" class="txt-badge font-bold bg-white/80 dark:bg-stone-800/60 text-stone-700 dark:text-stone-200 px-3 py-1 rounded-full border border-white/40 flex-shrink-0">총 0건</span>
+      </div>
+
+      <!-- 정렬 및 필터 아코디언 -->
+      <div class="glass-card overflow-hidden transition-all duration-300">
+        <button type="button" onclick="toggleFilterPanel()" class="w-full p-3.5 flex items-center justify-between text-left hover:bg-white/30 transition-colors gap-2">
+          <div class="flex items-center gap-2 min-w-0">
+            <i class="fa-solid fa-filter text-teal-600 text-sm flex-shrink-0"></i>
+            <span class="txt-sub font-bold text-stone-800 dark:text-stone-200 flex-shrink-0">기록 검색 & 정렬</span>
+            <span id="filterSummaryBadge" class="txt-badge bg-teal-100/90 text-teal-900 font-bold px-2 py-0.5 rounded-full border border-teal-200 truncate">
+              최신순
+            </span>
+          </div>
+          <i id="filterChevronIcon" class="fa-solid fa-chevron-down text-stone-400 text-xs transition-transform duration-200 flex-shrink-0"></i>
+        </button>
+
+        <div id="filterContentPanel" class="hidden p-3.5 border-t border-white/60 dark:border-stone-700/60 flex flex-col gap-3 bg-white/30 dark:bg-stone-900/20">
+          <div class="flex items-center justify-between gap-2">
+            <span class="txt-caption font-bold text-stone-600 dark:text-stone-400 flex-shrink-0">정렬 기준</span>
+            <select id="sortOrderSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-800 dark:text-stone-100 cursor-pointer">
+              <option value="desc">📅 최신 날짜순</option>
+              <option value="asc">⏳ 오래된 날짜순</option>
+            </select>
+          </div>
+
+          <div class="flex items-center justify-between gap-2 border-t border-white/40 dark:border-stone-700/40 pt-2.5">
+            <span class="txt-caption font-bold text-stone-600 dark:text-stone-400 flex-shrink-0">메모 필터</span>
+            <select id="memoFilterSelect" onchange="onFilterChange()" class="glass-input px-3 py-1.5 rounded-xl txt-caption font-bold text-stone-800 dark:text-stone-100 cursor-pointer">
+              <option value="all">📋 전체 보기</option>
+              <option value="has_memo">메모 ⭕️</option>
+              <option value="no_memo">메모 ❌️</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 border-t border-white/40 dark:border-stone-700/40 pt-2.5">
+            <div>
+              <label class="block txt-badge font-bold text-stone-500 mb-1">연도 선택</label>
+              <select id="yearFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-800 dark:text-stone-100 cursor-pointer">
+                <option value="all">전체 연도</option>
+              </select>
+            </div>
+            <div>
+              <label class="block txt-badge font-bold text-stone-500 mb-1">월 선택</label>
+              <select id="monthFilterSelect" onchange="onFilterChange()" class="glass-input w-full px-2.5 py-1.5 rounded-xl txt-caption font-semibold text-stone-800 dark:text-stone-100 cursor-pointer">
+                <option value="all">전체 월</option>
+                <option value="01">1월</option>
+                <option value="02">2월</option>
+                <option value="03">3월</option>
+                <option value="04">4월</option>
+                <option value="05">5월</option>
+                <option value="06">6월</option>
+                <option value="07">7월</option>
+                <option value="08">8월</option>
+                <option value="09">9월</option>
+                <option value="10">10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="historyListContainer" class="flex flex-col gap-4 mt-1">
+        <!-- JS로 동적 생성 -->
+      </div>
+    </main>
+
+    <!-- 삭제 확인 모달 -->
+    <div id="deleteModal" class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden transition-all duration-200">
+      <div class="glass-card p-6 w-full max-w-sm flex flex-col gap-4 text-center shadow-2xl border border-white/80 dark:border-stone-700">
+        <div class="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-900/50 text-rose-500 mx-auto flex items-center justify-center text-xl font-bold flex-shrink-0">
+          <i class="fa-solid fa-trash-can"></i>
+        </div>
+        <div>
+          <h3 class="txt-body font-extrabold text-stone-800 dark:text-stone-100">점검 기록 삭제</h3>
+          <p class="txt-sub text-stone-600 dark:text-stone-300 mt-1">이 점검 기록을 정말 삭제하시겠습니까?<br><span class="text-xs text-rose-500">(삭제된 데이터는 복구할 수 없습니다)</span></p>
+        </div>
+        <div class="grid grid-cols-2 gap-2 mt-2">
+          <button type="button" onclick="closeDeleteModal()" class="glass-btn py-2.5 rounded-xl font-bold txt-sub text-stone-700 dark:text-stone-200 hover:bg-stone-200/50">
+            취소
+          </button>
+          <button type="button" onclick="confirmDeleteRecord()" class="py-2.5 rounded-xl font-bold txt-sub bg-rose-500 hover:bg-rose-600 text-white shadow-md transition-colors">
+            삭제하기
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 토스트 알림 -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-stone-800/90 backdrop-blur-md text-white txt-sub font-bold py-3 px-5 rounded-full shadow-2xl opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 z-50 max-w-[90vw]">
+      <i class="fa-solid fa-circle-check text-teal-400 flex-shrink-0"></i> <span id="toastMsg" class="truncate">저장 완료!</span>
+    </div>
+
+  </div>
+
+  <!-- Firebase SDK 및 저장소 제어 스크립트 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAnAtbGnRpgDEaF8l0HGhsRQJPgbH0Y1I0",
+      authDomain: "lapsound-checklist.firebaseapp.com",
+      projectId: "lapsound-checklist",
+      storageBucket: "lapsound-checklist.firebasestorage.app",
+      messagingSenderId: "259798291978",
+      appId: "1:259798291978:web:0e4e4fcfe1b9fa1059f1f3"
+    };
+
+    const appId = 'church-sound-checklist-app';
+    let app, auth, db;
+
+    window.isLocalStorageMode = true;
+
+    window.loadLocalStorageRecords = function() {
+      try {
+        const saved = localStorage.getItem('sound_records_local');
+        window.records = saved ? JSON.parse(saved) : [];
+      } catch(e) {
+        window.records = [];
+      }
+      if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
+      if (typeof window.updateFilterBadgeText === 'function') window.updateFilterBadgeText();
+      if (typeof window.renderHistory === 'function') window.renderHistory();
+    };
+
+    window.saveLocalStorageRecord = function(recordData, recordId = null) {
+      try {
+        let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
+        if (recordId) {
+          const idx = localRecords.findIndex(r => String(r.id) === String(recordId));
+          if (idx !== -1) {
+            localRecords[idx] = { ...localRecords[idx], ...recordData, id: String(recordId) };
+          } else {
+            localRecords.push({ ...recordData, id: String(recordId) });
+          }
+        } else {
+          const newId = 'local_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+          localRecords.push({ ...recordData, id: newId });
+        }
+        localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
+        
+        if (window.isLocalStorageMode) {
+          window.loadLocalStorageRecords();
+        }
+        return true;
+      } catch(e) {
+        console.error("Local storage save error:", e);
+        return false;
+      }
+    };
+
+    window.deleteLocalStorageRecord = function(recordId) {
+      try {
+        let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
+        localRecords = localRecords.filter(r => String(r.id) !== String(recordId));
+        localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
+        
+        if (window.isLocalStorageMode) {
+          window.loadLocalStorageRecords();
+        }
+        return true;
+      } catch(e) {
+        console.error("Local storage delete error:", e);
+        return false;
+      }
+    };
+
+    async function initFirebase() {
+      try {
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        await signInAnonymously(auth);
+        listenToFirestoreRecords();
+      } catch (err) {
+        console.warn("Firebase 연결 제한됨 (로컬 모드로 전환):", err);
+        enableLocalStorageMode('로컬 보존 모드');
+      }
+    }
+
+    function enableLocalStorageMode(reasonMsg) {
+      window.isLocalStorageMode = true;
+      const syncBadge = document.getElementById('syncStatusBadge');
+      if (syncBadge) {
+        syncBadge.className = "txt-badge font-bold bg-teal-100/90 text-teal-900 px-2.5 py-1 rounded-full border border-teal-300 shadow-xs flex items-center gap-1.5 cursor-pointer flex-shrink-0";
+        syncBadge.innerHTML = `<i class="fa-solid fa-hard-drive text-teal-600 flex-shrink-0"></i> <span>${reasonMsg}</span>`;
+      }
+      window.loadLocalStorageRecords();
+    }
+
+    function listenToFirestoreRecords() {
+      if (!auth || !auth.currentUser) return;
+
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
+
+      onSnapshot(colRef, (snapshot) => {
+        const fetchedRecords = [];
+        snapshot.forEach((docSnap) => {
+          fetchedRecords.push({
+            id: docSnap.id,
+            ...docSnap.data()
+          });
+        });
+
+        window.isLocalStorageMode = false;
+        window.records = fetchedRecords;
+
+        localStorage.setItem('sound_records_local', JSON.stringify(fetchedRecords));
+
+        if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
+        if (typeof window.updateFilterBadgeText === 'function') window.updateFilterBadgeText();
+        if (typeof window.renderHistory === 'function') window.renderHistory();
+
+        const syncBadge = document.getElementById('syncStatusBadge');
+        if (syncBadge) {
+          syncBadge.className = "txt-badge font-bold bg-emerald-100/90 text-emerald-800 px-2.5 py-1 rounded-full border border-emerald-200 shadow-xs flex items-center gap-1.5 flex-shrink-0";
+          syncBadge.innerHTML = '<i class="fa-solid fa-wifi text-emerald-500 flex-shrink-0"></i> <span>실시간 클라우드 연동됨</span>';
+        }
+      }, (error) => {
+        console.warn("Firestore 구독 실패 (로컬 모드 유지):", error);
+        enableLocalStorageMode('로컬 보존 모드');
+      });
+    }
+
+    window.dbSaveRecord = async function(recordData, recordId = null) {
+      window.saveLocalStorageRecord(recordData, recordId);
+
+      if (window.isLocalStorageMode || !auth || !auth.currentUser) {
+        return true;
+      }
+
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
+
+      try {
+        if (recordId && !String(recordId).startsWith('local_')) {
+          const targetDocRef = doc(colRef, String(recordId));
+          await setDoc(targetDocRef, recordData, { merge: true });
+        } else {
+          await addDoc(colRef, recordData);
+        }
+        return true;
+      } catch (err) {
+        console.warn("Firestore 저장 실패 (로컬 저장은 완료됨):", err);
+        return true;
+      }
+    };
+
+    window.dbDeleteRecord = async function(recordId) {
+      window.deleteLocalStorageRecord(recordId);
+
+      if (window.isLocalStorageMode || !auth || !auth.currentUser) {
+        return true;
+      }
+
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
+
+      try {
+        if (!String(recordId).startsWith('local_')) {
+          const targetDocRef = doc(colRef, String(recordId));
+          await deleteDoc(targetDocRef);
+        }
+        return true;
+      } catch (err) {
+        console.warn("Firestore 삭제 오류:", err);
+        return true;
+      }
+    };
+
+    initFirebase();
+  </script>  
+
+  <script>
+    const itemKeys = ['vocal', 'pastor', 'piano', 'condenser', 'mainSpeaker', 'youtube', 'recording'];
+    const itemNames = {
+      vocal: '보컬 마이크',
+      pastor: '목사님 마이크',
+      piano: '피아노 마이크',
+      condenser: '컨덴서 마이크',
+      mainSpeaker: '본당 메인 스피커',
+      youtube: '유튜브 송출',
+      recording: '영상 녹화'
+    };
+
+    let checkedItems = {
+      vocal: false,
+      pastor: false,
+      piano: false,
+      condenser: false,
+      mainSpeaker: false,
+      youtube: false,
+      recording: false
+    };
+
+    let selectedInspectors = new Set();
+    window.records = [];
+    let editingRecordId = null;
+    let pendingDeleteId = null;
+    
+    // Quill 에디터 변수 2개 선언
+    let issueQuill = null;
+    let solutionQuill = null;
+
+    function getLocalDateString(d = new Date()) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    window.onload = function() {
+      // 1. 이슈 입력용 Quill 에디터 초기화
+      issueQuill = new Quill('#issueProblemEditor', {
+        theme: 'snow',
+        placeholder: '예) 보컬 마이크 노이즈 발생\n    스피커 좌측 출력 이상 등...',
+        modules: {
+          toolbar: [
+            ['bold', 'italic']
+          ]
+        }
+      });
+
+      // 2. 원인 & 해결용 Quill 에디터 초기화
+      solutionQuill = new Quill('#quillEditor', {
+        theme: 'snow',
+        placeholder: '예) 케이블 재연결 완료\n    페이더 수치 재조정으로 문제 해결...',
+        modules: {
+          toolbar: [
+            ['bold', 'italic']
+          ]
+        }
+      });
+
+      const today = getLocalDateString();
+      document.getElementById('checkDate').value = today;
+
+      loadDarkModeSetting();
+      updateProgress();
+      onCheckDateChange();
+
+      if (typeof window.loadLocalStorageRecords === 'function') {
+        window.loadLocalStorageRecords();
+      }
+    };
+
+    function toggleDarkMode() {
+      const body = document.getElementById('appBody');
+      const icon = document.getElementById('darkModeIcon');
+      body.classList.toggle('dark-mode');
+      body.classList.toggle('dark');
+
+      const isDark = body.classList.contains('dark-mode');
+      if (isDark) {
+        icon.className = 'fa-solid fa-sun text-xs text-amber-300';
+        localStorage.setItem('sound_checklist_darkmode', 'true');
+        showToast('다크모드 ON');
+      } else {
+        icon.className = 'fa-solid fa-moon text-xs';
+        localStorage.setItem('sound_checklist_darkmode', 'false');
+        showToast('라이트모드 ON');
+      }
+    }
+
+    function loadDarkModeSetting() {
+      const savedMode = localStorage.getItem('sound_checklist_darkmode');
+      const body = document.getElementById('appBody');
+      const icon = document.getElementById('darkModeIcon');
+
+      if (savedMode === 'true') {
+        body.classList.add('dark-mode', 'dark');
+        icon.className = 'fa-solid fa-sun text-xs text-amber-300';
+      } else {
+        body.classList.remove('dark-mode', 'dark');
+        icon.className = 'fa-solid fa-moon text-xs';
+      }
+    }
+
+    function getSundayWeekOfMonth(dateStr) {
+      if (!dateStr) return '';
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return '';
+
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10);
+      const day = parseInt(parts[2], 10);
+
+      const currentDate = new Date(year, month - 1, day);
+      if (isNaN(currentDate.getTime())) return '';
+
+      const dayOfWeek = currentDate.getDay(); 
+      const dayNames = ['주일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+      const dayName = dayNames[dayOfWeek];
+
+      const distanceToSunday = (dayOfWeek === 0) ? 0 : (7 - dayOfWeek);
+      
+      const sundayDate = new Date(year, month - 1, day + distanceToSunday);
+      const sundayMonth = sundayDate.getMonth() + 1;
+      const sundayDay = sundayDate.getDate();
+
+      const weekNum = Math.ceil(sundayDay / 7);
+
+      return `${sundayMonth}월 ${weekNum}주차 ${dayName}`;
+    }
+
+    function onCheckDateChange() {
+      const dateVal = document.getElementById('checkDate').value;
+      const weekText = getSundayWeekOfMonth(dateVal);
+      const badge = document.getElementById('sundayWeekBadge');
+      
+      if (weekText) {
+        badge.innerText = `⛪ ${weekText}`;
+        badge.classList.remove('hidden');
+      } else {
+        badge.innerText = '-';
+      }
+    }
+
+    function getCurrentFormattedTime() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const hh = String(now.getHours()).padStart(2, '0');
+      const min = String(now.getMinutes()).padStart(2, '0');
+      const ss = String(now.getSeconds()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
+    }
+
+    function toggleFontSettings() {
+      const panel = document.getElementById('fontSettingsPanel');
+      panel.classList.toggle('hidden');
+      panel.classList.toggle('flex');
+    }
+
+    function setFontFamily(font) {
+      const body = document.getElementById('appBody');
+      body.classList.remove('font-noto', 'font-gowun', 'font-myeongjo');
+      body.classList.add(`font-${font}`);
+
+      document.querySelectorAll('[id^="font-"]').forEach(btn => btn.classList.remove('glass-btn-active'));
+      document.getElementById(`font-${font}`).classList.add('glass-btn-active');
+    }
+
+    function setFontSize(size) {
+      const body = document.getElementById('appBody');
+      body.classList.remove('size-sm', 'size-md', 'size-lg');
+      body.classList.add(`size-${size}`);
+
+      document.querySelectorAll('[id^="size-"]').forEach(btn => btn.classList.remove('glass-btn-active'));
+      document.getElementById(`size-${size}`).classList.add('glass-btn-active');
+    }
+
+    function switchTab(tab) {
+      const viewWrite = document.getElementById('viewWrite');
+      const viewHistory = document.getElementById('viewHistory');
+      const tabWrite = document.getElementById('tabWrite');
+      const tabHistory = document.getElementById('tabHistory');
+
+      if (tab === 'write') {
+        viewWrite.classList.remove('hidden');
+        viewHistory.classList.add('hidden');
+
+        tabWrite.className = 'glass-btn glass-btn-active py-2.5 px-3 rounded-xl font-bold txt-sub text-stone-800 flex items-center justify-center gap-2';
+        tabHistory.className = 'glass-btn py-2.5 px-3 rounded-xl font-bold txt-sub text-stone-600 flex items-center justify-center gap-2';
+      } else {
+        viewWrite.classList.add('hidden');
+        viewHistory.classList.remove('hidden');
+
+        tabHistory.className = 'glass-btn glass-btn-active py-2.5 px-3 rounded-xl font-bold txt-sub text-stone-800 flex items-center justify-center gap-2';
+        tabWrite.className = 'glass-btn py-2.5 px-3 rounded-xl font-bold txt-sub text-stone-600 flex items-center justify-center gap-2';
+
+        updateFilterOptions();
+        updateFilterBadgeText();
+        renderHistory();
+      }
+    }
+
+    function toggleFilterPanel() {
+      const content = document.getElementById('filterContentPanel');
+      const chevron = document.getElementById('filterChevronIcon');
+
+      content.classList.toggle('hidden');
+      if (content.classList.contains('hidden')) {
+        chevron.style.transform = 'rotate(0deg)';
+      } else {
+        chevron.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    function onFilterChange() {
+      updateFilterBadgeText();
+      renderHistory();
+    }
+
+    function updateFilterBadgeText() {
+      const sortVal = document.getElementById('sortOrderSelect').value;
+      const memoVal = document.getElementById('memoFilterSelect').value;
+      const yearVal = document.getElementById('yearFilterSelect').value;
+      const monthVal = document.getElementById('monthFilterSelect').value;
+
+      const labels = [];
+      if (memoVal === 'has_memo') labels.push('메모 ⭕️');
+      if (memoVal === 'no_memo') labels.push('메모 ❌️');
+      if (yearVal !== 'all') labels.push(`${yearVal}년`);
+      if (monthVal !== 'all') labels.push(`${parseInt(monthVal, 10)}월`);
+      labels.push(sortVal === 'asc' ? '오래된순' : '최신순');
+
+      document.getElementById('filterSummaryBadge').innerText = labels.join(' · ');
+    }
+
+    function toggleInspector(name) {
+      const btn = document.getElementById(`inspector-${name}`);
+      if (selectedInspectors.has(name)) {
+        selectedInspectors.delete(name);
+        btn.classList.remove('glass-btn-active');
+      } else {
+        selectedInspectors.add(name);
+        btn.classList.add('glass-btn-active');
+      }
+    }
+
+    function toggleCheck(key) {
+      checkedItems[key] = !checkedItems[key];
+      const itemEl = document.getElementById(`item-${key}`);
+      const textEl = document.getElementById(`text-${key}`);
+      const checkEl = document.getElementById(`check-${key}`);
+
+      if (checkedItems[key]) {
+        itemEl.classList.add('checked');
+        textEl.classList.add('completed-item');
+        checkEl.className = 'w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center text-white text-[10px] shadow-sm pointer-events-none flex-shrink-0';
+        checkEl.querySelector('i').classList.remove('opacity-0');
+      } else {
+        itemEl.classList.remove('checked');
+        textEl.classList.remove('completed-item');
+        checkEl.className = 'w-6 h-6 rounded-full border border-stone-300 bg-white/70 flex items-center justify-center text-white text-[10px] pointer-events-none flex-shrink-0';
+        checkEl.querySelector('i').classList.add('opacity-0');
+      }
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const audioKeys = ['vocal', 'pastor', 'piano', 'condenser', 'mainSpeaker'];
+      const audioCount = audioKeys.filter(k => checkedItems[k]).length;
+      document.getElementById('progressBadge').innerText = `${audioCount} / ${audioKeys.length}`;
+
+      const videoKeys = ['youtube', 'recording'];
+      const videoCount = videoKeys.filter(k => checkedItems[k]).length;
+      document.getElementById('videoProgressBadge').innerText = `${videoCount} / ${videoKeys.length}`;
+    }
+
+    async function saveRecord() {
+      const dateVal = document.getElementById('checkDate').value;
+      if (!dateVal) {
+        showToast('날짜를 선택하세요!');
+        return;
+      }
+
+      const inspectorsArr = Array.from(selectedInspectors);
+      if (inspectorsArr.length === 0) {
+        showToast('점검자를 선택하세요!');
+        return;
+      }
+
+      // 1) 이슈 Quill 값 추출
+      const problemHtml = issueQuill.root.innerHTML;
+      const problemText = issueQuill.getText().trim();
+      const finalProblem = problemText ? problemHtml : '특이사항 없음';
+
+      // 2) 원인&해결 Quill 값 추출
+      const solutionHtml = solutionQuill.root.innerHTML;
+      const solutionText = solutionQuill.getText().trim();
+      const finalSolution = solutionText ? solutionHtml : '특이사항 없음';
+      
+      const nowTime = getCurrentFormattedTime();
+      const sundayWeek = getSundayWeekOfMonth(dateVal);
+
+      let recordPayload = {
+        date: dateVal,
+        sundayWeek: sundayWeek,
+        inspectors: inspectorsArr,
+        items: { ...checkedItems },
+        problem: finalProblem,
+        solution: finalSolution,
+        updatedAt: editingRecordId ? nowTime : null,
+        lastEditor: editingRecordId ? inspectorsArr.join(', ') : null
+      };
+
+      if (!editingRecordId) {
+        recordPayload.createdAt = nowTime;
+        recordPayload.firstInspector = inspectorsArr.join(', ');
+      } else {
+        const existing = window.records.find(r => String(r.id) === String(editingRecordId));
+        if (existing) {
+          recordPayload.createdAt = existing.createdAt || nowTime;
+          recordPayload.firstInspector = existing.firstInspector || inspectorsArr.join(', ');
+        }
+      }
+
+      await window.dbSaveRecord(recordPayload, editingRecordId);
+
+      showToast(editingRecordId ? '기록 수정 완료!' : '기록 저장 완료!');
+      resetForm();
+      setTimeout(() => {
+        switchTab('history');
+      }, 400);
+    }
+
+    function editRecord(id) {
+      const target = window.records.find(r => String(r.id) === String(id));
+      if (!target) return;
+
+      editingRecordId = target.id;
+
+      document.getElementById('checkDate').value = target.date;
+      onCheckDateChange();
+
+      selectedInspectors.clear();
+      ['김광수', '이승수', '유진'].forEach(name => {
+        const btn = document.getElementById(`inspector-${name}`);
+        if (btn) {
+          if (target.inspectors && target.inspectors.includes(name)) {
+            selectedInspectors.add(name);
+            btn.classList.add('glass-btn-active');
+          } else {
+            btn.classList.remove('glass-btn-active');
+          }
+        }
+      });
+
+      itemKeys.forEach(key => {
+        const targetChecked = !!(target.items && target.items[key]);
+        if (checkedItems[key] !== targetChecked) {
+          toggleCheck(key);
+        }
+      });
+
+      // 이슈 에디터 데이터 바인딩
+      if (!target.problem || target.problem === '특이사항 없음') {
+        issueQuill.setText('');
+      } else {
+        issueQuill.root.innerHTML = target.problem;
+      }
+
+      // 원인&해결 에디터 데이터 바인딩
+      if (!target.solution || target.solution === '특이사항 없음') {
+        solutionQuill.setText('');
+      } else {
+        solutionQuill.root.innerHTML = target.solution;
+      }
+
+      document.getElementById('editNoticeBanner').classList.remove('hidden');
+      document.getElementById('editNoticeText').innerText = `${target.date} 기록을 수정하는 중`;
+      document.getElementById('btnSaveLabel').innerText = '기록 수정 완료';
+      document.getElementById('tabWriteLabel').innerText = '점검 수정';
+
+      switchTab('write');
+      showToast('기록 정보를 불러왔습니다');
+    }
+
+    function cancelEditMode() {
+      resetForm();
+      switchTab('history');
+      showToast('수정 취소');
+    }
+
+    function resetForm() {
+      editingRecordId = null;
+
+      itemKeys.forEach(key => {
+        if (checkedItems[key]) toggleCheck(key);
+      });
+
+      selectedInspectors.clear();
+      ['김광수', '이승수', '유진'].forEach(name => {
+        const btn = document.getElementById(`inspector-${name}`);
+        if (btn) btn.classList.remove('glass-btn-active');
+      });
+
+      issueQuill.setText('');
+      solutionQuill.setText('');
+
+      const today = getLocalDateString();
+      document.getElementById('checkDate').value = today;
+      onCheckDateChange();
+
+      document.getElementById('editNoticeBanner').classList.add('hidden');
+      document.getElementById('btnSaveLabel').innerText = '기록 저장하기';
+      document.getElementById('tabWriteLabel').innerText = '점검 작성';
+    }
+
+    function updateFilterOptions() {
+      const yearSelect = document.getElementById('yearFilterSelect');
+      const currentSelectedYear = yearSelect.value;
+
+      const years = new Set();
+      (window.records || []).forEach(r => {
+        if (r.date) {
+          const yyyy = r.date.split('-')[0];
+          if (yyyy) years.add(yyyy);
+        }
+      });
+
+      const sortedYears = Array.from(years).sort((a, b) => b - a);
+
+      let optionsHtml = '<option value="all">전체 연도</option>';
+      sortedYears.forEach(y => {
+        optionsHtml += `<option value="${y}">${y}년</option>`;
+      });
+
+      yearSelect.innerHTML = optionsHtml;
+      
+      if (sortedYears.includes(currentSelectedYear)) {
+        yearSelect.value = currentSelectedYear;
+      } else {
+        yearSelect.value = 'all';
+      }
+    }
+
+    function getFilteredAndSortedRecords() {
+      const sortOrder = document.getElementById('sortOrderSelect').value;
+      const memoFilter = document.getElementById('memoFilterSelect').value;
+      const selectedYear = document.getElementById('yearFilterSelect').value;
+      const selectedMonth = document.getElementById('monthFilterSelect').value;
+
+      let filtered = (window.records || []).filter(r => {
+        if (!r.date) return false;
+        const [yyyy, mm] = r.date.split('-');
+
+        const hasProb = r.problem && r.problem.trim() !== '' && r.problem !== '특이사항 없음';
+        const hasSol = r.solution && r.solution.trim() !== '' && r.solution !== '특이사항 없음';
+        const isMemoWritten = hasProb || hasSol;
+
+        if (memoFilter === 'has_memo') {
+          if (!isMemoWritten) return false;
+        } else if (memoFilter === 'no_memo') {
+          if (isMemoWritten) return false;
+        }
+
+        if (selectedYear !== 'all' && yyyy !== selectedYear) return false;
+        if (selectedMonth !== 'all' && mm !== selectedMonth) return false;
+
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        const timeA = new Date(a.date).getTime() || 0;
+        const timeB = new Date(b.date).getTime() || 0;
+
+        if (sortOrder === 'asc') {
+          return timeA - timeB || (a.createdAt || '').localeCompare(b.createdAt || '');
+        } else {
+          return timeB - timeA || (b.createdAt || '').localeCompare(a.createdAt || '');
+        }
+      });
+
+      return filtered;
+    }
+
+    function renderHistory() {
+      const container = document.getElementById('historyListContainer');
+      const displayRecords = getFilteredAndSortedRecords();
+      
+      document.getElementById('totalRecordCount').innerText = `총 ${(window.records || []).length}건 (조회: ${displayRecords.length}건)`;
+
+      if (displayRecords.length === 0) {
+        container.innerHTML = `
+          <div class="glass-card p-8 text-center flex flex-col items-center justify-center gap-3 text-stone-500">
+            <i class="fa-solid fa-box-open text-3xl"></i>
+            <p class="font-bold txt-sub">조건에 맞는 점검 기록이 없습니다.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // 장비 키 분류
+      const audioKeys = ['vocal', 'pastor', 'piano', 'condenser', 'mainSpeaker'];
+      const videoKeys = ['youtube', 'recording'];
+
+      container.innerHTML = displayRecords.map(rec => {
+        const itemsObj = rec.items || {};
+        const checkedCount = Object.values(itemsObj).filter(Boolean).length;
+        const initialInspectorStr = rec.firstInspector || (rec.inspectors ? rec.inspectors.join(', ') : '-');
+        const sundayWeekStr = getSundayWeekOfMonth(rec.date) || rec.sundayWeek;
+
+        return `
+          <div id="card-${rec.id}" class="glass-card p-5 flex flex-col gap-3 relative">
+            <div class="flex justify-between items-start border-b border-white/60 dark:border-stone-700/60 pb-3 gap-2">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-1.5 flex-wrap mb-1">
+                  <span class="txt-badge font-extrabold text-teal-800 bg-teal-100/80 px-2.5 py-0.5 rounded-full border border-teal-200/50 inline-block">
+                    📅 ${rec.date}
+                  </span>
+                  ${sundayWeekStr ? `
+                    <span class="txt-badge font-bold text-teal-900 bg-teal-200/70 px-2.5 py-0.5 rounded-full border border-teal-300/60 inline-block">
+                      ⛪ ${sundayWeekStr}
+                    </span>
+                  ` : ''}
+                </div>
+                <div class="flex items-center gap-1.5 txt-sub font-bold text-stone-700 dark:text-stone-300 mt-1 truncate">
+                  <i class="fa-solid fa-users text-stone-400 flex-shrink-0"></i> <span>점검자: ${rec.inspectors ? rec.inspectors.join(', ') : ''}</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-1.5 z-20 flex-shrink-0">
+                <button type="button" onclick="editRecord('${rec.id}')" class="glass-btn p-2.5 rounded-xl text-stone-700 dark:text-stone-300 hover:text-amber-600 transition-colors" title="수정하기">
+                  <i class="fa-solid fa-pen text-xs pointer-events-none"></i>
+                </button>
+                <button type="button" onclick="exportCardToJpg('${rec.id}', '${rec.date}')" class="glass-btn p-2.5 rounded-xl text-stone-700 dark:text-stone-300 hover:text-teal-600 transition-colors" title="JPG로 저장">
+                  <i class="fa-solid fa-file-image text-xs pointer-events-none"></i>
+                </button>
+                <button type="button" onclick="openDeleteModal('${rec.id}')" class="glass-btn p-2.5 rounded-xl text-stone-500 hover:text-rose-500 transition-colors" title="삭제">
+                  <i class="fa-solid fa-trash-can text-xs pointer-events-none"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 분리된 장비 점검 결과 영역 -->
+            <div class="flex flex-col gap-2.5">
+              <div class="txt-caption font-bold text-stone-500 uppercase flex justify-between items-center gap-2">
+                <span>장비 점검 결과</span>
+                <span class="text-teal-700 dark:text-teal-400 font-extrabold flex-shrink-0">${checkedCount} / ${itemKeys.length} 완료</span>
+              </div>
+              
+              <!-- 1. 음향 장비 그룹 -->
+              <div class="overflow-hidden rounded-xl bg-white/40 dark:bg-stone-800/40 border border-white/70 dark:border-stone-700/60 shadow-sm">
+                <div class="bg-emerald-100/90 dark:bg-emerald-900/50 px-3 py-1.5 border-b border-emerald-200/60 dark:border-emerald-800/50">
+                  <span class="txt-caption font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5">
+                    <i class="fa-solid fa-music text-xs flex-shrink-0"></i> <span>음향 장비</span>
+                  </span>
+                </div>
+                <div class="p-3 grid grid-cols-2 gap-1.5">
+                  ${audioKeys.map(k => {
+                    const isChecked = !!itemsObj[k];
+                    return `
+                      <div class="flex items-center gap-2 txt-sub font-semibold min-w-0 ${isChecked ? 'text-stone-800 dark:text-stone-200' : 'text-stone-400 dark:text-stone-500 line-through'}">
+                        <i class="fa-solid ${isChecked ? 'fa-circle-check text-teal-500' : 'fa-circle-xmark text-stone-300 dark:text-stone-600'} flex-shrink-0"></i>
+                        <span class="truncate">${itemNames[k]}</span>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              <!-- 2. 영상 장비 그룹 -->
+              <div class="overflow-hidden rounded-xl bg-white/40 dark:bg-stone-800/40 border border-white/70 dark:border-stone-700/60 shadow-sm">
+                <div class="bg-emerald-100/90 dark:bg-emerald-900/50 px-3 py-1.5 border-b border-emerald-200/60 dark:border-emerald-800/50">
+                  <span class="txt-caption font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5">
+                    <i class="fa-solid fa-video text-xs flex-shrink-0"></i> <span>영상 장비</span>
+                  </span>
+                </div>
+                <div class="p-3 grid grid-cols-2 gap-1.5">
+                  ${videoKeys.map(k => {
+                    const isChecked = !!itemsObj[k];
+                    return `
+                      <div class="flex items-center gap-2 txt-sub font-semibold min-w-0 ${isChecked ? 'text-stone-800 dark:text-stone-200' : 'text-stone-400 dark:text-stone-500 line-through'}">
+                        <i class="fa-solid ${isChecked ? 'fa-circle-check text-teal-500' : 'fa-circle-xmark text-stone-300 dark:text-stone-600'} flex-shrink-0"></i>
+                        <span class="truncate">${itemNames[k]}</span>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-pill p-3.5 txt-sub flex flex-col gap-2.5 mt-1">
+              <div>
+                <span class="font-bold text-rose-600 block mb-0.5">🚨 이슈:</span>
+                <div class="font-medium text-stone-800 dark:text-stone-200 leading-relaxed break-words">${sanitizeHtml(rec.problem)}</div>
+              </div>
+              <div class="border-t border-stone-200/50 dark:border-stone-700/40 pt-2">
+                <span class="font-bold text-teal-600 dark:text-teal-400 block mb-0.5">🛠 원인 & 해결:</span>
+                <div class="font-medium text-stone-800 dark:text-stone-200 leading-relaxed break-words">${sanitizeHtml(rec.solution)}</div>
+              </div>
+            </div>
+
+            <div class="border-t border-white/60 dark:border-stone-700/50 pt-2 flex flex-col gap-0.5 text-[10px] text-stone-500">
+              <div class="flex justify-between items-center flex-wrap gap-1">
+                <span>작성시간 : ${rec.createdAt || '-'}</span>
+                <span>첫 점검자 : ${escapeHtml(initialInspectorStr)}</span>
+              </div>
+              ${rec.updatedAt ? `
+                <div class="flex justify-between items-center flex-wrap gap-1 text-amber-800 dark:text-amber-400/80 font-medium">
+                  <span>수정시간 : ${rec.updatedAt}</span>
+                  <span>수정자 : ${escapeHtml(rec.lastEditor)}</span>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function exportCardToJpg(id, dateStr) {
+      showToast('JPG 이미지를 생성하는 중...');
+      const cardEl = document.getElementById(`card-${id}`);
+      if (!cardEl) return;
+
+      setTimeout(() => {
+        html2canvas(cardEl, {
+          scale: 2,
+          backgroundColor: document.body.classList.contains('dark-mode') ? '#1e1e1e' : '#f5f2eb',
+          useCORS: true,
+          logging: false,
+          onclone: (clonedDoc) => {
+            const clonedCard = clonedDoc.getElementById(`card-${id}`);
+            if (clonedCard) {
+              clonedCard.style.backdropFilter = 'none';
+              clonedCard.style.webkitBackdropFilter = 'none';
+            }
+          }
+        }).then(canvas => {
+          const image = canvas.toDataURL('image/jpeg', 0.95);
+          const link = document.createElement('a');
+          link.href = image;
+          link.download = `SoundCheck_${dateStr}.jpg`;
+          link.click();
+          showToast('JPG 이미지 다운로드 완료!');
+        }).catch(err => {
+          console.error(err);
+          showToast('JPG 생성 실패');
+        });
+      }, 100);
+    }
+
+    function openDeleteModal(id) {
+      pendingDeleteId = id;
+      const modal = document.getElementById('deleteModal');
+      modal.classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+      pendingDeleteId = null;
+      const modal = document.getElementById('deleteModal');
+      modal.classList.add('hidden');
+    }
+
+    async function confirmDeleteRecord() {
+      if (pendingDeleteId !== null) {
+        showToast('삭제 처리 중...');
+        await window.dbDeleteRecord(pendingDeleteId);
+        showToast('삭제 완료!');
+      }
+      closeDeleteModal();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2000);
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/[']/g, "&#039;");
+    }
+
+    function sanitizeHtml(htmlStr) {
+      if (!htmlStr) return '';
+      if (htmlStr === '특이사항 없음') return '특이사항 없음';
+      return htmlStr.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+    }
+  </script>
+</body>
+</html>
+
