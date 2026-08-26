@@ -17,7 +17,7 @@
     /* Font Size Rules */
     body.size-sm { font-size: 16px !important; }
     body.size-md { font-size: 18px !important; }
-    body.size-lg { font-size: 25px !important; }
+    body.size-lg { font-size: 24px !important; }
 
     /* Font Family Rules */
     body.font-noto { font-family: 'Noto Sans KR', sans-serif !important; }
@@ -281,9 +281,9 @@
             <i id="darkModeIcon" class="fa-solid fa-moon text-xs"></i>
           </button>
           
-          <!-- 폰트 버튼 텍스트 'F'로 변경 -->
+          <!-- 폰트 버튼 텍스트 -->
           <button onclick="toggleFontSettings()" class="glass-btn w-10 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-extrabold txt-caption transition-colors shadow-sm gap-1" title="글꼴 및 크기 설정">
-            <i class="fa-solid fa-font text-xs ​text-teal-700"></i>
+            <i class="fa-solid fa-font text-xs ​text-stone-700"></i>
             <span></span>
           </button>
         </div>
@@ -373,7 +373,7 @@
       <section class="glass-card p-5">
         <div class="flex justify-between items-center mb-3">
           <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
-            <i class="fa-solid fa-list-check text-teal-600"></i> 음향 장비 상태 점검
+            <i class="fa-solid fa-list-check text-teal-600"></i> 음향 장비 점검
           </label>
           <span id="progressBadge" class="txt-badge bg-white/70 text-stone-600 font-bold px-2.5 py-0.5 rounded-full border border-white">0 / 5</span>
         </div>
@@ -447,7 +447,7 @@
           <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
             <i class="fa-solid fa-user-check text-teal-600"></i> 점검자 선택
           </label>
-          <span class="txt-badge text-stone-400 font-medium">다수 선택 가능</span>
+          <span class="txt-badge text-stone-400 font-small">다수 선택 가능</span>
         </div>
         <div class="grid grid-cols-3 gap-2.5">
           <button type="button" onclick="toggleInspector('김광수')" id="inspector-김광수" class="glass-btn py-3 px-2 rounded-2xl font-bold txt-sub text-stone-600 flex flex-col items-center gap-1">
@@ -639,7 +639,7 @@
 
     <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-stone-800/90 backdrop-blur-md text-white txt-sub font-bold py-3 px-5 rounded-full shadow-2xl opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 z-50">
-      <i class="fa-solid fa-circle-check text-teal-400"></i> <span id="toastMsg">저장되었습니다!</span>
+      <i class="fa-solid fa-circle-check text-teal-400"></i> <span id="toastMsg">저장 완료!</span>
     </div>
 
   </div>
@@ -996,6 +996,7 @@
 
     function cancelEditMode() {
       resetForm();
+      switchTab('history');
       showToast('수정 취소.');
     }
 
