@@ -9,7 +9,7 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
   <!-- html2canvas for JPG export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -22,7 +22,7 @@
     /* Font Family Rules */
     body.font-noto { font-family: 'Noto Sans KR', sans-serif !important; }
     body.font-gowun { font-family: 'Gowun Dodum', sans-serif !important; }
-    body.font-myeongjo { font-family: 'Nanum Myeongjo', serif !important; }
+    body.font-myeongjo { font-family: 'Nanum Myeongjo', serif !important; font-weight: 700 !important; }
 
     /* 라이트모드 부드러운 다중 감성 그라데이션 바탕 */
     body {
@@ -281,9 +281,10 @@
             <i id="darkModeIcon" class="fa-solid fa-moon text-xs"></i>
           </button>
           
-          <button onclick="toggleFontSettings()" class="glass-btn px-3 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-bold txt-caption transition-colors shadow-sm gap-1" title="글꼴 및 크기 설정">
-            <i class="fa-solid fa-gear text-xs text-stone-400"></i>
-            <span>폰트</span>
+          <!-- 폰트 버튼 텍스트 'F'로 변경 -->
+          <button onclick="toggleFontSettings()" class="glass-btn px-3 h-10 rounded-2xl flex items-center justify-center text-stone-700 hover:text-teal-600 font-extrabold txt-caption transition-colors shadow-sm gap-1" title="글꼴 및 크기 설정">
+            <i class="fa-solid fa-font text-xs text-stone-400"></i>
+            <span>F</span>
           </button>
         </div>
       </div>
@@ -308,8 +309,10 @@
             <button onclick="setFontFamily('gowun')" id="font-gowun" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-700 font-gowun">
               둥근 고딕
             </button>
-            <button onclick="setFontFamily('myeongjo')" id="font-myeongjo" class="glass-btn py-1.5 txt-caption font-bold rounded-xl text-stone-700 font-myeongjo">
-              나눔 명조
+
+            <!-- 굵은 명조체 선택 옵션 -->
+            <button onclick="setFontFamily('myeongjo')" id="font-myeongjo" class="glass-btn py-1.5 txt-caption rounded-xl text-stone-700 font-myeongjo font-bold">
+              굵은 명조
             </button>
           </div>
         </div>
@@ -366,7 +369,7 @@
         <input type="date" id="checkDate" onchange="onCheckDateChange()" class="glass-input w-full p-3 rounded-2xl font-semibold text-stone-700 txt-body">
       </section>
 
-      <!-- 2. 음향 장비 점검 목록 (순서 변경: 1번) -->
+      <!-- 2. 음향 장비 점검 목록 -->
       <section class="glass-card p-5">
         <div class="flex justify-between items-center mb-3">
           <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
@@ -438,7 +441,7 @@
         </div>
       </section>
 
-      <!-- 3. 점검자 선택 (순서 변경: 2번) -->
+      <!-- 3. 점검자 선택 -->
       <section class="glass-card p-5">
         <div class="flex justify-between items-center mb-3">
           <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
@@ -462,7 +465,7 @@
         </div>
       </section>
 
-      <!-- 4. 영상 장비 점검 목록 (순서 변경: 3번) -->
+      <!-- 4. 영상 장비 점검 목록 -->
       <section class="glass-card p-5">
         <div class="flex justify-between items-center mb-3">
           <label class="txt-caption font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
@@ -498,10 +501,10 @@
         </div>
       </section>
 
-      <!-- 5. 메모 (WYSIWYG 실시간 서식 반영 처리) -->
+      <!-- 5. 메모 (단일 카드 통합 서식 툴바) -->
       <section class="glass-card p-5">
         <label class="block txt-caption font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-          <i class="fa-solid fa-note-sticky text-teal-600"></i> 📝 메모
+          <i class="fa-solid fa-note-sticky text-teal-600"></i> 메모
         </label>
         
         <div class="flex flex-col gap-4">
@@ -513,25 +516,39 @@
           <div>
             <div class="flex justify-between items-center mb-1.5">
               <span class="txt-sub font-bold text-stone-600 block">원인 & 해결</span>
-              <!-- execCommand 기반 즉시 적용 서식 툴바 -->
-              <div class="flex items-center gap-1">
-                <button type="button" onclick="applyFormat('bold')" class="glass-btn px-2.5 py-1 rounded-lg txt-caption font-bold text-stone-700" title="굵게">
+              
+              <!-- 통합 서식 카드 & '|' 구분선 -->
+              <div class="glass-pill px-2 py-1 flex items-center gap-1 bg-white/50 border border-white/80 shadow-xs">
+                <button type="button" onclick="applyFormat('bold')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-stone-700 transition-colors" title="굵게">
                   <i class="fa-solid fa-bold"></i>
                 </button>
-                <button type="button" onclick="applyFormat('italic')" class="glass-btn px-2.5 py-1 rounded-lg txt-caption font-bold text-stone-700" title="비스듬하게">
+
+                <span class="text-stone-300 text-xs font-light select-none px-0.5">|</span>
+
+                <button type="button" onclick="applyFormat('italic')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-stone-700 transition-colors" title="비스듬하게">
                   <i class="fa-solid fa-italic"></i>
                 </button>
-                <button type="button" onclick="applyFormat('foreColor', '#e11d48')" class="glass-btn px-2.5 py-1 rounded-lg txt-caption font-bold text-rose-600" title="빨간색">
-                  빨강
+
+                <span class="text-stone-300 text-xs font-light select-none px-0.5">|</span>
+
+                <button type="button" onclick="applyFormat('foreColor', '#e11d48')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-rose-600 transition-colors" title="빨간색">
+                  빨
                 </button>
-                <button type="button" onclick="applyFormat('foreColor', '#2563eb')" class="glass-btn px-2.5 py-1 rounded-lg txt-caption font-bold text-blue-600" title="파란색">
-                  파랑
+
+                <span class="text-stone-300 text-xs font-light select-none px-0.5">|</span>
+
+                <button type="button" onclick="applyFormat('foreColor', '#2563eb')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption font-bold text-blue-600 transition-colors" title="파란색">
+                  파
                 </button>
-                <button type="button" onclick="applyFormat('removeFormat')" class="glass-btn px-2 py-1 rounded-lg txt-caption text-stone-400" title="서식 초기화">
+
+                <span class="text-stone-300 text-xs font-light select-none px-0.5">|</span>
+
+                <button type="button" onclick="applyFormat('removeFormat')" class="px-2 py-0.5 hover:bg-white/60 rounded-md txt-caption text-stone-400 hover:text-stone-600 transition-colors" title="서식 초기화">
                   <i class="fa-solid fa-eraser"></i>
                 </button>
               </div>
             </div>
+
             <!-- contenteditable 입력창으로 실시간 폰트 서식 반영 -->
             <div id="issueSolution" contenteditable="true" data-placeholder="예: 케이블 재연결 완료&#10;페이더 수치 재조정으로 문제 해결..." class="glass-editor w-full p-3.5 rounded-2xl txt-body font-medium text-stone-700 min-h-[120px] max-h-[250px] overflow-y-auto leading-relaxed"></div>
           </div>
@@ -1156,8 +1173,8 @@
               </div>
               <div class="border-t border-stone-200/40 pt-2">
                 <span class="font-bold text-teal-600 block mb-0.5">🛠 원인 & 해결:</span>
-                <!-- 서식 있는 HTML 저장을 그대로 렌더링 -->
-                <div class="font-medium text-stone-700 leading-relaxed">${rec.solution}</div>
+                <!-- 서식 및 줄바꿈/띄어쓰기가 반영되는 영역 -->
+                <div class="font-medium text-stone-700 leading-relaxed whitespace-pre-wrap">${rec.solution}</div>
               </div>
             </div>
 
