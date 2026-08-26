@@ -676,49 +676,101 @@
 
   </div>
 
-  <!-- Firebase Firebase SDK Module Script -->
+  <!-- Firebase SDK Module Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // Global Environment Setup
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'church-sound-checklist-app';
-    const firebaseConfig = typeof __firebase_config !== 'undefined' 
-      ? JSON.parse(__firebase_config) 
-      : {
-          apiKey: "AIzaSyDemoKeyForSoundChecklist123456",
-          authDomain: "sound-checklist-demo.firebaseapp.com",
-          projectId: "sound-checklist-demo",
-          storageBucket: "sound-checklist-demo.appspot.com",
-          messagingSenderId: "123456789012",
-          appId: "1:123456789012:web:abcdef1234567890"
-        };
+    // 사용자 제공 실제 Firebase 프로젝트 키 적용 완료
+    const firebaseConfig = {
+      apiKey: "AIzaSyAWHXX5wtDxarZR57PSvqO7oHiSSDno2x0",
+      authDomain: "lapchurch-sound.firebaseapp.com",
+      databaseURL: "https://lapchurch-sound-default-rtdb.firebaseio.com",
+      projectId: "lapchurch-sound",
+      storageBucket: "lapchurch-sound.firebasestorage.app",
+      messagingSenderId: "573776602283",
+      appId: "1:573776602283:web:487d8bd1027b56e0c6c3ee",
+      measurementId: "G-9MSJN50T5W"
+    };
 
+    const appId = 'church-sound-checklist-app';
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
     let unsubscribeRecords = null;
+    window.isLocalStorageMode = false;
+
+    window.loadLocalStorageRecords = function() {
+      try {
+        const saved = localStorage.getItem('sound_records_local');
+        window.records = saved ? JSON.parse(saved) : [];
+      } catch(e) {
+        window.records = [];
+      }
+      if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
+      if (typeof window.updateFilterBadgeText === 'function') window.updateFilterBadgeText();
+      if (typeof window.renderHistory === 'function') window.renderHistory();
+    };
+
+    window.saveLocalStorageRecord = function(recordData, recordId = null) {
+      try {
+        let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
+        if (recordId) {
+          const idx = localRecords.findIndex(r => String(r.id) === String(recordId));
+          if (idx !== -1) {
+            localRecords[idx] = { ...localRecords[idx], ...recordData, id: recordId };
+          } else {
+            localRecords.push({ ...recordData, id: recordId });
+          }
+        } else {
+          const newId = 'local_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+          localRecords.push({ ...recordData, id: newId });
+        }
+        localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
+        window.loadLocalStorageRecords();
+        return true;
+      } catch(e) {
+        console.error("Local storage save error:", e);
+        return false;
+      }
+    };
+
+    window.deleteLocalStorageRecord = function(recordId) {
+      try {
+        let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
+        localRecords = localRecords.filter(r => String(r.id) !== String(recordId));
+        localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
+        window.loadLocalStorageRecords();
+        return true;
+      } catch(e) {
+        console.error("Local storage delete error:", e);
+        return false;
+      }
+    };
 
     async function initFirebase() {
       try {
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-          await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-          await signInAnonymously(auth);
-        }
-        
-        // Start listening to real-time records
+        await signInAnonymously(auth);
         listenToFirestoreRecords();
       } catch (err) {
         console.error("Firebase Auth Error:", err);
-        const syncBadge = document.getElementById('syncStatusBadge');
-        if (syncBadge) {
-          syncBadge.className = "txt-badge font-bold bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full border border-rose-200 shadow-xs flex items-center gap-1.5";
-          syncBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-600"></i> 오프라인/연동 오류';
-        }
+        enableLocalStorageMode(err.code === 'auth/configuration-not-found'
+          ? '익명 로그인 미활성화'
+          : '오프라인 모드');
       }
+    }
+
+    function enableLocalStorageMode(reasonMsg) {
+      window.isLocalStorageMode = true;
+      const syncBadge = document.getElementById('syncStatusBadge');
+      if (syncBadge) {
+        syncBadge.className = "txt-badge font-bold bg-amber-100/90 text-amber-900 px-2.5 py-0.5 rounded-full border border-amber-300 shadow-xs flex items-center gap-1.5 cursor-pointer";
+        syncBadge.title = "Firebase 익명 로그인이 켜지지 않았습니다. Firebase 콘솔 > Authentication > Sign-in method에서 '익명'을 활성화하세요.";
+        syncBadge.innerHTML = `<i class="fa-solid fa-hard-drive text-amber-600"></i> 로컬 저장 모드 (${reasonMsg})`;
+      }
+      window.loadLocalStorageRecords();
     }
 
     function listenToFirestoreRecords() {
@@ -748,21 +800,18 @@
         const syncBadge = document.getElementById('syncStatusBadge');
         if (syncBadge) {
           syncBadge.className = "txt-badge font-bold bg-emerald-100/90 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-200 shadow-xs flex items-center gap-1.5";
-          syncBadge.innerHTML = '<i class="fa-solid fa-wifi text-emerald-600"></i> 실시간 연동됨';
+          syncBadge.innerHTML = '<i class="fa-solid fa-wifi text-emerald-600"></i> 실시간 클라우드 연동됨';
         }
       }, (error) => {
         console.error("Firestore Subscription Error:", error);
-        if (typeof window.showToast === 'function') {
-          window.showToast('실시간 동기화 오류 발생');
-        }
+        enableLocalStorageMode('클라우드 연동 오류');
       });
     }
 
     // Expose Firestore operations globally
     window.dbSaveRecord = async function(recordData, recordId = null) {
-      if (!auth.currentUser) {
-        if (typeof window.showToast === 'function') window.showToast('인증 준비 중입니다. 잠시 후 다시 시도해 주세요.');
-        return false;
+      if (window.isLocalStorageMode || !auth.currentUser) {
+        return window.saveLocalStorageRecord(recordData, recordId);
       }
 
       const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
@@ -777,21 +826,22 @@
         return true;
       } catch (err) {
         console.error("Firestore Save Error:", err);
-        if (typeof window.showToast === 'function') window.showToast('저장 중 오류가 발생했습니다.');
-        return false;
+        return window.saveLocalStorageRecord(recordData, recordId);
       }
     };
 
     window.dbDeleteRecord = async function(recordId) {
-      if (!auth.currentUser) return false;
+      if (window.isLocalStorageMode || !auth.currentUser) {
+        return window.deleteLocalStorageRecord(recordId);
+      }
+
       try {
         const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'sound_records', String(recordId));
         await deleteDoc(docRef);
         return true;
       } catch (err) {
         console.error("Firestore Delete Error:", err);
-        if (typeof window.showToast === 'function') window.showToast('삭제 중 오류가 발생했습니다.');
-        return false;
+        return window.deleteLocalStorageRecord(recordId);
       }
     };
 
@@ -1083,7 +1133,6 @@
         recordPayload.createdAt = nowTime;
         recordPayload.firstInspector = inspectorsArr.join(', ');
       } else {
-        // preserve existing creation info if editing
         const existing = window.records.find(r => String(r.id) === String(editingRecordId));
         if (existing) {
           recordPayload.createdAt = existing.createdAt || nowTime;
@@ -1322,7 +1371,6 @@
               </div>
               <div class="border-t border-stone-200/40 pt-2">
                 <span class="font-bold text-teal-600 block mb-0.5">🛠 원인 & 해결:</span>
-                <!-- 서식 저장 데이터 Safe Render -->
                 <div class="font-medium text-stone-700 leading-relaxed">${rec.solution}</div>
               </div>
             </div>
@@ -1364,7 +1412,7 @@
           showToast('JPG 이미지 다운로드 완료!');
         }).catch(err => {
           console.error(err);
-          showToast('JPG 생성 실패 ㅠㅠ');
+          showToast('JPG 생성 실패');
         });
       }, 100);
     }
