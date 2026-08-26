@@ -349,13 +349,11 @@ border-radius: 10px;
 </div>
 
 <!-- 2. 사운드 체크리스트 (가운데 정렬) -->
-<h1 class="txt-title title-teal-fix font-extrabold mt-1 flex items-center justify-center text-center gap-2.5 tracking-tight w-full">
-<span class="relative flex h-2.5 w-2.5">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
-</span>
-사운드 체크리스트
+<div class="mt-1 w-full flex justify-center">
+<h1 class="txt-title title-teal-fix font-black tracking-tight px-5 py-2 rounded-2xl bg-teal-500/10 border border-teal-500/20 backdrop-blur-md flex items-center justify-center gap-2 text-center">
+🎧 사운드 체크리스트
 </h1>
+</div>
 
 
 
@@ -950,3 +948,6 @@ toolbar: [
 // 2. 원인 & 해결용 Quill 에디터 초기화
 solutionQuill = new Quill('#quillEditor', {
 theme: 'snow',
+placeholder: '예) 케이블 재연결 완료\n 페이더 수치 재조정으로 문제 해결...',
+modules: {
+too
