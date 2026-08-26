@@ -136,6 +136,13 @@
       color: #e5e5e5 !important;
     }
 
+    /* 다크모드 시 상단 음향실 배지 스타일 */
+    body.dark-mode header .txt-badge {
+      background: linear-gradient(135deg, rgba(60, 60, 60, 0.8), rgba(35, 35, 35, 0.8)) !important;
+      color: #5eead4 !important;
+      border-color: rgba(80, 80, 80, 0.6) !important;
+    }
+
     /* Relative text sizes inside scaling container */
     .txt-title { font-size: 1.5em; line-height: 1.2; }
     .txt-sub { font-size: 0.85em; }
@@ -263,8 +270,6 @@
 
   <div class="w-full max-w-md relative">
  
-   
-
 <!-- App Header & Navigation Tabs -->
     <header class="glass-card p-5 mb-5 flex flex-col gap-4 relative">
       <div class="flex justify-between items-start">
