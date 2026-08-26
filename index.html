@@ -335,9 +335,9 @@
     <!-- App Header & Navigation Tabs -->
     <header class="glass-card p-5 mb-5 flex flex-col gap-4 relative">
       <div class="flex justify-between items-start">
-        <div>
+        <div class="w-full">
           <div class="flex items-center gap-2 mb-1">
-            <span class="txt-badge font-bold tracking-widest text-teal-800 uppercase bg-gradient-to-r from-[#FFDFDF] to-[#DCF7EA] px-3 py-1 rounded-full border border-white shadow-sm">
+            <span class="txt-badge font-bold tracking-widest text-teal-800 uppercase bg-gradient-to-r from-[#FFDFDF] to-[#DCF7EA] px-3 py-1.5 rounded-xl border border-white shadow-sm w-full block text-center">
             사랑과 평안의 교회 🎚 음향실
           </span>
         </div>
@@ -1432,11 +1432,13 @@
           </div>
           
           <!-- 1. 음향 장비 그룹 -->
-          <div class="p-2.5 rounded-xl bg-white/30 dark:bg-stone-800/40 border border-white/50 dark:border-stone-700/50 shadow-md shadow-stone-900/10 dark:shadow-black/40">
-            <span class="txt-caption font-bold text-teal-800 dark:text-teal-300 block pb-1.5 mb-2 border-b border-stone-200/60 dark:border-stone-700/60">
-              <i class="fa-solid fa-music text-xs"></i> 음향 장비
-            </span>
-            <div class="grid grid-cols-2 gap-1.5">
+          <div class="overflow-hidden rounded-xl bg-white/40 dark:bg-stone-800/40 border border-white/70 dark:border-stone-700/60 shadow-sm">
+            <div class="bg-emerald-100/90 dark:bg-emerald-900/50 px-3 py-1.5 border-b border-emerald-200/60 dark:border-emerald-800/50">
+              <span class="txt-caption font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5">
+                <i class="fa-solid fa-music text-xs"></i> 음향 장비
+              </span>
+            </div>
+            <div class="p-3 grid grid-cols-2 gap-1.5">
               ${audioKeys.map(k => {
                 const isChecked = !!itemsObj[k];
                 return `
@@ -1450,11 +1452,13 @@
           </div>
 
           <!-- 2. 영상 장비 그룹 -->
-          <div class="p-2.5 rounded-xl bg-white/30 dark:bg-stone-800/40 border border-white/50 dark:border-stone-700/50 shadow-md shadow-stone-900/10 dark:shadow-black/40">
-            <span class="txt-caption font-bold text-teal-800 dark:text-teal-300 block pb-1.5 mb-2 border-b border-stone-200/60 dark:border-stone-700/60">
-              <i class="fa-solid fa-video text-xs"></i> 영상 장비
-            </span>
-            <div class="grid grid-cols-2 gap-1.5">
+          <div class="overflow-hidden rounded-xl bg-white/40 dark:bg-stone-800/40 border border-white/70 dark:border-stone-700/60 shadow-sm">
+            <div class="bg-emerald-100/90 dark:bg-emerald-900/50 px-3 py-1.5 border-b border-emerald-200/60 dark:border-emerald-800/50">
+              <span class="txt-caption font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5">
+                <i class="fa-solid fa-video text-xs"></i> 영상 장비
+              </span>
+            </div>
+            <div class="p-3 grid grid-cols-2 gap-1.5">
               ${videoKeys.map(k => {
                 const isChecked = !!itemsObj[k];
                 return `
