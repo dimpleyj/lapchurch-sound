@@ -89,10 +89,12 @@
   }
 
   .glass-pill {
-    background: rgba(255, 255, 255, 0.45) !important;
-    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    background: rgba(255, 255, 255, 0.55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
     border-bottom-color: rgba(255, 255, 255, 0.35) !important;
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08), inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
+    border-right-color: rgba(255, 255, 255, 0.35) !important;
+    /* 이슈, 원인해결 메모 카드 그림자 강화 설정 */
+    box-shadow: 0 14px 28px -6px rgba(90, 105, 120, 0.18), 0 6px 12px -4px rgba(0, 0, 0, 0.06), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     color: #333a42 !important;
   }
@@ -151,24 +153,6 @@
     overflow: auto;
     font-size: 0.9em;
     color: #333a42 !important;
-  }
-
-  /* 메모 입력칸 내 볼드/기울임이 적용된 줄의 배경색 변경 */
-  .ql-editor p:has(strong),
-  .ql-editor p:has(b),
-  .ql-editor p:has(em),
-  .ql-editor p:has(i) {
-    background-color: rgba(254, 226, 226, 0.6) !important; /* 옅은 빨강계열 */
-    border-radius: 6px;
-    padding: 2px 6px;
-    transition: background-color 0.2s ease;
-  }
-
-  body.dark-mode .ql-editor p:has(strong),
-  body.dark-mode .ql-editor p:has(b),
-  body.dark-mode .ql-editor p:has(em),
-  body.dark-mode .ql-editor p:has(i) {
-    background-color: rgba(153, 27, 27, 0.35) !important;
   }
 
   /* 메모 예시문구 (Placeholder) 및 본문 폰트 디자인 통일 & 정렬 보정 */
@@ -272,9 +256,9 @@
   }
 
   body.dark-mode .glass-pill {
-    background: rgba(40, 40, 40, 0.8) !important;
-    border: 1px solid rgba(70, 70, 70, 0.4) !important;
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.05) !important;
+    background: rgba(42, 42, 42, 0.88) !important;
+    border: 1px solid rgba(80, 80, 80, 0.5) !important;
+    box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.5), 0 6px 12px -4px rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08) !important;
     color: #f8fafc !important;
   }
 
