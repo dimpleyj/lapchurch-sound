@@ -14,256 +14,230 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
-    /* Font Size Rules */
-    body.size-sm { font-size: 16px !important; }
-    body.size-md { font-size: 18px !important; }
-    body.size-lg { font-size: 24px !important; }
+  /* 1. Base Reset & Font Rules */
+  body.size-sm { font-size: 16px !important; }
+  body.size-md { font-size: 18px !important; }
+  body.size-lg { font-size: 24px !important; }
 
-    /* Font Family Rules */
-    body.font-noto { font-family: 'Noto Sans KR', sans-serif !important; }
-    body.font-gowun { font-family: 'Gowun Dodum', sans-serif !important; }
-    body.font-myeongjo { font-family: 'Nanum Myeongjo', serif !important; font-weight: 700 !important; }
+  body.font-noto { font-family: 'Noto Sans KR', sans-serif !important; }
+  body.font-gowun { font-family: 'Gowun Dodum', sans-serif !important; }
+  body.font-myeongjo { font-family: 'Nanum Myeongjo', serif !important; font-weight: 700 !important; }
 
-    /* 라이트모드 부드러운 다중 감성 그라데이션 바탕 */
-    body {
-      background: #f4f0eb;
-      background-image: 
-        radial-gradient(circle at 10% 10%, rgba(140, 215, 198, 0.45) 0%, transparent 50%),
-        radial-gradient(circle at 90% 85%, rgba(245, 180, 195, 0.45) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, transparent 80%),
-        linear-gradient(135deg, #f7f4ee 0%, #efeae1 100%);
-      background-attachment: fixed;
-      color: #333a42;
-      -webkit-tap-highlight-color: transparent;
-      transition: background 0.3s ease, color 0.3s ease, font-size 0.2s ease;
-    }
+  /* 2. Global Light Theme */
+  body {
+    background: #f4f0eb;
+    background-image: 
+      radial-gradient(circle at 10% 10%, rgba(140, 215, 198, 0.45) 0%, transparent 50%),
+      radial-gradient(circle at 90% 85%, rgba(245, 180, 195, 0.45) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, transparent 80%),
+      linear-gradient(135deg, #f7f4ee 0%, #efeae1 100%);
+    background-attachment: fixed;
+    color: #333a42;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.3s ease, color 0.3s ease, font-size 0.2s ease;
+  }
 
-    /* 다크모드 깊이감 있는 흑백 그라데이션 바탕 */
-    body.dark-mode {
-      background: #0d0d0d !important;
-      background-image: 
-        radial-gradient(circle at 10% 10%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at 90% 85%, rgba(40, 40, 40, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.95) 0%, transparent 80%),
-        linear-gradient(135deg, #161616 0%, #0a0a0a 100%) !important;
-      color: #e5e5e5 !important;
-    }
+  /* 3. Text Utility Classes */
+  .txt-title { font-size: 1.5em; line-height: 1.2; }
+  .txt-sub   { font-size: 0.85em; }
+  .txt-body  { font-size: 0.9em; }
+  .txt-caption, .txt-badge { font-size: 0.75em; }
+  .txt-badge { font-size: 0.7em; }
 
-    body.dark-mode .glass-card {
-      background: rgba(30, 30, 30, 0.85) !important;
-      border: 1px solid rgba(70, 70, 70, 0.5) !important;
-      border-bottom: 1px solid rgba(45, 45, 45, 0.4) !important;
-      border-right: 1px solid rgba(45, 45, 45, 0.4) !important;
-      box-shadow: 
-        0 20px 40px -10px rgba(0, 0, 0, 0.6),
-        0 8px 16px -6px rgba(0, 0, 0, 0.4),
-        inset 0 1px 2px 0 rgba(255, 255, 255, 0.08) !important;
-      color: #f3f3f3 !important;
-    }
+  /* 4. Glassmorphic Base Components */
+  .glass-card, .glass-pill, .glass-input, .glass-editor {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 
-    body.dark-mode .glass-pill {
-      background: rgba(40, 40, 40, 0.75) !important;
-      border: 1px solid rgba(70, 70, 70, 0.4) !important;
-      box-shadow: 
-        0 10px 20px -5px rgba(0, 0, 0, 0.4),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.05) !important;
-    }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-bottom-color: rgba(255, 255, 255, 0.4);
+    border-right-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 40px -10px rgba(100, 115, 130, 0.22), 0 8px 16px -6px rgba(0, 0, 0, 0.08), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+  }
 
-    body.dark-mode .glass-input, body.dark-mode .glass-editor {
-      background: rgba(45, 45, 45, 0.85) !important;
-      border: 1px solid rgba(80, 80, 80, 0.6) !important;
-      color: #ffffff !important;
-    }
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08), inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+  }
 
-    body.dark-mode .glass-input:focus, body.dark-mode .glass-editor:focus {
-      background: rgba(60, 60, 60, 0.95) !important;
-      border-color: rgba(180, 180, 180, 0.8) !important;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.15) !important;
-    }
+  .glass-input, .glass-editor {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+    outline: none;
+    transition: all 0.2s ease;
+  }
 
-    body.dark-mode .glass-btn {
-      background: rgba(45, 45, 45, 0.75) !important;
-      border: 1px solid rgba(75, 75, 75, 0.7) !important;
-      color: #e5e5e5 !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    }
+  .glass-input:focus, .glass-editor:focus {
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(140, 203, 185, 0.8);
+    box-shadow: 0 0 12px rgba(140, 203, 185, 0.3);
+  }
 
-    body.dark-mode .glass-btn-active {
-      background: linear-gradient(135deg, rgba(85, 85, 85, 0.95), rgba(55, 55, 55, 0.95)) !important;
-      color: #ffffff !important;
-      border: 1px solid rgba(130, 130, 130, 0.9) !important;
-      box-shadow: 
-        0 6px 16px rgba(0, 0, 0, 0.5),
-        inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
-    }
+  .glass-editor[contenteditable="true"]:empty:before {
+    content: attr(data-placeholder);
+    color: #9ca3af;
+    pointer-events: none;
+    display: block;
+  }
 
-    body.dark-mode .glass-btn-active i {
-      color: #ffffff !important;
-    }
+  /* 5. Buttons & Interactive Elements */
+  .glass-btn {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(160, 170, 180, 0.12);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+  }
 
-    body.dark-mode .btn-save-deep {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-      color: #ffffff !important;
-      border: 1px solid rgba(100, 100, 100, 0.4) !important;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
-    }
+  .glass-btn-active {
+    background: linear-gradient(135deg, rgba(140, 200, 185, 0.85), rgba(115, 180, 165, 0.9));
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 6px 16px rgba(115, 180, 165, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  }
 
-    body.dark-mode .btn-save-deep:hover {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-    }
+  .glass-btn-active i { color: #ffffff !important; }
 
-    body.dark-mode .checkbox-pill.checked {
-      background: linear-gradient(135deg, rgba(30, 70, 60, 0.8), rgba(20, 50, 45, 0.8)) !important;
-      border-color: rgba(16, 185, 129, 0.6) !important;
-    }
+  .btn-save-deep {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    transition: all 0.15s ease-in-out;
+  }
 
-    body.dark-mode #checklistContainer span,
-    body.dark-mode #historyListContainer span,
-    body.dark-mode #historyListContainer div,
-    body.dark-mode #historyListContainer p,
-    body.dark-mode .text-stone-700,
-    body.dark-mode .text-stone-600,
-    body.dark-mode .text-stone-800 {
-      color: #f3f4f6 !important;
-    }
+  .btn-save-deep:hover {
+    background: linear-gradient(135deg, #059669 0%, #065f46 100%);
+    box-shadow: 0 8px 24px rgba(5, 150, 105, 0.45);
+  }
 
-    body.dark-mode .completed-item {
-      color: #9ca3af !important;
-    }
+  .btn-save-deep:active {
+    transform: scale(0.95);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
 
-    body.dark-mode select, body.dark-mode option {
-      background-color: #222222 !important;
-      color: #e5e5e5 !important;
-    }
+  .checkbox-pill.checked {
+    background: linear-gradient(135deg, rgba(225, 245, 240, 0.8), rgba(200, 235, 225, 0.8));
+    border-color: rgba(130, 200, 180, 0.6);
+  }
 
-    body.dark-mode header .txt-badge {
-      background: linear-gradient(135deg, rgba(60, 60, 60, 0.8), rgba(35, 35, 35, 0.8)) !important;
-      color: #5eead4 !important;
-      border-color: rgba(80, 80, 80, 0.6) !important;
-    }
+  .completed-item {
+    text-decoration: line-through;
+    color: #8c96a0;
+  }
 
-    /* Relative text sizes inside scaling container */
-    .txt-title { font-size: 1.5em; line-height: 1.2; }
-    .txt-sub { font-size: 0.85em; }
-    .txt-badge { font-size: 0.7em; }
-    .txt-body { font-size: 0.9em; }
-    .txt-caption { font-size: 0.75em; }
+  .view-section { transition: opacity 0.2s ease-in-out; }
 
-    /* Glassmorphic Cards & Panels */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-      border-right: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 
-        0 20px 40px -10px rgba(100, 115, 130, 0.22),
-        0 8px 16px -6px rgba(0, 0, 0, 0.08),
-        inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
-      border-radius: 28px;
-    }
+  /* 6. Dark Mode Styles (그룹화 최적화) */
+  body.dark-mode {
+    background: #0d0d0d !important;
+    background-image: 
+      radial-gradient(circle at 10% 10%, rgba(60, 60, 60, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 90% 85%, rgba(40, 40, 40, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.95) 0%, transparent 80%),
+      linear-gradient(135deg, #161616 0%, #0a0a0a 100%) !important;
+    color: #e5e5e5 !important;
+  }
 
-    .glass-pill {
-      background: rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 
-        0 10px 20px -5px rgba(0, 0, 0, 0.08),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
-      border-radius: 20px;
-    }
+  body.dark-mode .glass-card {
+    background: rgba(30, 30, 30, 0.85) !important;
+    border: 1px solid rgba(70, 70, 70, 0.5) !important;
+    border-bottom-color: rgba(45, 45, 45, 0.4) !important;
+    border-right-color: rgba(45, 45, 45, 0.4) !important;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.4), inset 0 1px 2px 0 rgba(255, 255, 255, 0.08) !important;
+    color: #f3f3f3 !important;
+  }
 
-    .glass-input, .glass-editor {
-      background: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
-      outline: none;
-      transition: all 0.2s ease;
-    }
+  body.dark-mode .glass-pill {
+    background: rgba(40, 40, 40, 0.75) !important;
+    border: 1px solid rgba(70, 70, 70, 0.4) !important;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.05) !important;
+  }
 
-    .glass-input:focus, .glass-editor:focus {
-      background: rgba(255, 255, 255, 0.75);
-      border-color: rgba(140, 203, 185, 0.8);
-      box-shadow: 0 0 12px rgba(140, 203, 185, 0.3);
-    }
+  body.dark-mode .glass-input, 
+  body.dark-mode .glass-editor {
+    background: rgba(45, 45, 45, 0.85) !important;
+    border: 1px solid rgba(80, 80, 80, 0.6) !important;
+    color: #ffffff !important;
+  }
 
-    /* ContentEditable Placeholder style */
-    .glass-editor[contenteditable="true"]:empty:before {
-      content: attr(data-placeholder);
-      color: #9ca3af;
-      pointer-events: none;
-      display: block;
-    }
+  body.dark-mode .glass-input:focus, 
+  body.dark-mode .glass-editor:focus {
+    background: rgba(60, 60, 60, 0.95) !important;
+    border-color: rgba(180, 180, 180, 0.8) !important;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15) !important;
+  }
 
-    /* Glass Buttons */
-    .glass-btn {
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 4px 12px rgba(160, 170, 180, 0.12);
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      z-index: 10;
-      cursor: pointer;
-    }
+  body.dark-mode .glass-btn {
+    background: rgba(45, 45, 45, 0.75) !important;
+    border: 1px solid rgba(75, 75, 75, 0.7) !important;
+    color: #e5e5e5 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  }
 
-    .glass-btn-active {
-      background: linear-gradient(135deg, rgba(140, 200, 185, 0.85), rgba(115, 180, 165, 0.9));
-      color: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 
-        0 6px 16px rgba(115, 180, 165, 0.35),
-        inset 0 1px 1px rgba(255, 255, 255, 0.6);
-    }
+  body.dark-mode .glass-btn-active {
+    background: linear-gradient(135deg, rgba(85, 85, 85, 0.95), rgba(55, 55, 55, 0.95)) !important;
+    border: 1px solid rgba(130, 130, 130, 0.9) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+  }
 
-    .glass-btn-active i {
-      color: #ffffff !important;
-    }
+  body.dark-mode .btn-save-deep {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    border: 1px solid rgba(100, 100, 100, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+  }
 
-    .btn-save-deep {
-      background: linear-gradient(135deg, #10b981 0%, #047857 100%);
-      color: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
-      transition: all 0.15s ease-in-out;
-    }
+  body.dark-mode .btn-save-deep:hover {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  }
 
-    .btn-save-deep:hover {
-      background: linear-gradient(135deg, #059669 0%, #065f46 100%);
-      box-shadow: 0 8px 24px rgba(5, 150, 105, 0.45);
-    }
+  body.dark-mode .checkbox-pill.checked {
+    background: linear-gradient(135deg, rgba(30, 70, 60, 0.8), rgba(20, 50, 45, 0.8)) !important;
+    border-color: rgba(16, 185, 129, 0.6) !important;
+  }
 
-    .btn-save-deep:active {
-      transform: scale(0.95);
-      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
-    }
+  /* 다크모드 텍스트 컬러 공통 그룹화 */
+  body.dark-mode #checklistContainer span,
+  body.dark-mode #historyListContainer span,
+  body.dark-mode #historyListContainer div,
+  body.dark-mode #historyListContainer p,
+  body.dark-mode .text-stone-700,
+  body.dark-mode .text-stone-600,
+  body.dark-mode .text-stone-800 {
+    color: #f3f4f6 !important;
+  }
 
-    .checkbox-pill.checked {
-      background: linear-gradient(135deg, rgba(225, 245, 240, 0.8), rgba(200, 235, 225, 0.8));
-      border-color: rgba(130, 200, 180, 0.6);
-    }
+  body.dark-mode .completed-item { color: #9ca3af !important; }
 
-    .completed-item {
-      text-decoration: line-through;
-      color: #8c96a0;
-    }
+  body.dark-mode select, 
+  body.dark-mode option {
+    background-color: #222222 !important;
+    color: #e5e5e5 !important;
+  }
 
-    .view-section {
-      transition: opacity 0.2s ease-in-out;
-    }
+  body.dark-mode header .txt-badge {
+    background: linear-gradient(135deg, rgba(60, 60, 60, 0.8), rgba(35, 35, 35, 0.8)) !important;
+    color: #5eead4 !important;
+    border-color: rgba(80, 80, 80, 0.6) !important;
+  }
 
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(180, 190, 200, 0.4);
-      border-radius: 10px;
-    }
-  </style>
+  /* Scrollbar Customization */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(180, 190, 200, 0.4);
+    border-radius: 10px;
+  }
+</style>
 </head>
 <body id="appBody" class="font-noto size-md min-h-screen pb-12 flex justify-center items-start pt-3 md:pt-8 px-3">
 
@@ -681,14 +655,14 @@
     import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAnAtbGnRpgDEaF8l0HGhsRQJPgbH0Y1I0",
-  authDomain: "lapsound-checklist.firebaseapp.com",
-  projectId: "lapsound-checklist",
-  storageBucket: "lapsound-checklist.firebasestorage.app",
-  messagingSenderId: "259798291978",
-  appId: "1:259798291978:web:0e4e4fcfe1b9fa1059f1f3"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyAnAtbGnRpgDEaF8l0HGhsRQJPgbH0Y1I0",
+      authDomain: "lapsound-checklist.firebaseapp.com",
+      projectId: "lapsound-checklist",
+      storageBucket: "lapsound-checklist.firebasestorage.app",
+      messagingSenderId: "259798291978",
+      appId: "1:259798291978:web:0e4e4fcfe1b9fa1059f1f3"
+    };
 
     const appId = 'church-sound-checklist-app';
     let app, auth, db;
@@ -724,7 +698,10 @@ const firebaseConfig = {
           localRecords.push({ ...recordData, id: newId });
         }
         localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
-        window.loadLocalStorageRecords();
+        
+        if (window.isLocalStorageMode) {
+          window.loadLocalStorageRecords();
+        }
         return true;
       } catch(e) {
         console.error("Local storage save error:", e);
@@ -738,7 +715,10 @@ const firebaseConfig = {
         let localRecords = JSON.parse(localStorage.getItem('sound_records_local') || '[]');
         localRecords = localRecords.filter(r => String(r.id) !== String(recordId));
         localStorage.setItem('sound_records_local', JSON.stringify(localRecords));
-        window.loadLocalStorageRecords();
+        
+        if (window.isLocalStorageMode) {
+          window.loadLocalStorageRecords();
+        }
         return true;
       } catch(e) {
         console.error("Local storage delete error:", e);
@@ -771,7 +751,7 @@ const firebaseConfig = {
     }
 
     function listenToFirestoreRecords() {
-      if (!auth.currentUser) return;
+      if (!auth || !auth.currentUser) return;
 
       const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
 
@@ -787,7 +767,6 @@ const firebaseConfig = {
         window.isLocalStorageMode = false;
         window.records = fetchedRecords;
 
-        // 클라우드 데이터를 로컬 백업에도 동기화
         localStorage.setItem('sound_records_local', JSON.stringify(fetchedRecords));
 
         if (typeof window.updateFilterOptions === 'function') window.updateFilterOptions();
@@ -805,8 +784,8 @@ const firebaseConfig = {
       });
     }
 
+    // 데이터베이스 저장 및 수정 함수
     window.dbSaveRecord = async function(recordData, recordId = null) {
-      // 로컬 스토리지에 우선 기록 보존
       window.saveLocalStorageRecord(recordData, recordId);
 
       if (window.isLocalStorageMode || !auth || !auth.currentUser) {
@@ -817,8 +796,8 @@ const firebaseConfig = {
 
       try {
         if (recordId && !String(recordId).startsWith('local_')) {
-          const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'sound_records', String(recordId));
-          await setDoc(docRef, recordData, { merge: true });
+          const targetDocRef = doc(colRef, String(recordId));
+          await setDoc(targetDocRef, recordData, { merge: true });
         } else {
           await addDoc(colRef, recordData);
         }
@@ -829,18 +808,20 @@ const firebaseConfig = {
       }
     };
 
+    // 데이터베이스 삭제 함수
     window.dbDeleteRecord = async function(recordId) {
-      // 로컬 스토리지에서 먼저 삭제
       window.deleteLocalStorageRecord(recordId);
 
       if (window.isLocalStorageMode || !auth || !auth.currentUser) {
         return true;
       }
 
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'sound_records');
+
       try {
         if (!String(recordId).startsWith('local_')) {
-          const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'sound_records', String(recordId));
-          await deleteDoc(docRef);
+          const targetDocRef = doc(colRef, String(recordId));
+          await deleteDoc(targetDocRef);
         }
         return true;
       } catch (err) {
@@ -850,7 +831,7 @@ const firebaseConfig = {
     };
 
     initFirebase();
-  </script>
+  </script>  
 
   <script>
     const itemKeys = ['vocal', 'pastor', 'piano', 'condenser', 'mainSpeaker', 'youtube', 'recording'];
@@ -879,7 +860,6 @@ const firebaseConfig = {
     let editingRecordId = null;
     let pendingDeleteId = null;
 
-    // 로컬 타임존 YYYY-MM-DD
     function getLocalDateString(d = new Date()) {
       const yyyy = d.getFullYear();
       const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -895,7 +875,6 @@ const firebaseConfig = {
       updateProgress();
       onCheckDateChange();
 
-      // 시작 시 로컬 저장소 기록 즉시 로드
       if (typeof window.loadLocalStorageRecords === 'function') {
         window.loadLocalStorageRecords();
       }
